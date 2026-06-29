@@ -5,6 +5,7 @@ import { signUpAction } from "@/lib/auth/actions";
 import { FormField } from "@/components/ui/FormField";
 import { Input } from "@/components/ui/Input";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { OAuthButtons } from "@/components/auth/OAuthButtons";
 import { fieldError } from "@/lib/forms";
 
 export function SignupForm({ refCode }: { refCode?: string }) {
@@ -27,6 +28,8 @@ export function SignupForm({ refCode }: { refCode?: string }) {
         <Input id="password" name="password" type="password" autoComplete="new-password" required />
       </FormField>
       <SubmitButton>Create Account</SubmitButton>
+      <div className="my-2 text-center text-xs text-muted">or</div>
+      <OAuthButtons />
       <p className="text-sm text-muted">Already have an account? <Link href="/login" className="hover:text-ink">Sign in</Link></p>
     </form>
   );
