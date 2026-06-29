@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=League+Spartan:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:#fcfcf7; color:#1a1a1a; font-family:'League Spartan',sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:-0.01em; }
+  h1,h2,h3,h4,h5,h6 { font-family:'Sora',sans-serif; }
+  ::selection { background:#1c3a13; color:#fcfcf7; }
+  .ds-mono { font-family:'Space Mono',monospace; }
+  input::placeholder { color:#9a9a90; font-family:'Space Mono',monospace; font-size:11px; opacity:1; }
+  [data-sw]:hover [data-copy]{ opacity:1; }
+  @media (max-width:760px){
+    [data-grid2]{ grid-template-columns:1fr !important; }
+    [data-rail]{ position:static !important; }
+    [data-shell]{ grid-template-columns:1fr !important; }
+  }
+</style>
+</helmet>
+
+<div ref="{{ root }}" style="background:#fcfcf7; min-height:100vh;">
+
+  <!-- ============ HEADER ============ -->
+  <header style="border-bottom:1px solid rgba(0,0,0,0.08);">
+    <div style="max-width:1180px; margin:0 auto; padding:34px 40px 30px; display:flex; align-items:flex-end; justify-content:space-between; gap:30px; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; gap:18px;">
+        <img src="organica-living-icon.svg" alt="Organica Living" style="width:46px; height:46px; flex:none; display:block;"/>
+        <div>
+          <div class="ds-mono" style="font-size:11px; letter-spacing:1.6px; text-transform:uppercase; color:#8a8a80;">Organica Living — Design System</div>
+          <h1 style="font-size:34px; font-weight:300; letter-spacing:-0.03em; line-height:1.05; margin-top:6px;">Tokens &amp; Components</h1>
+        </div>
+      </div>
+      <div class="ds-mono" style="font-size:11px; letter-spacing:1px; color:#8a8a80; text-align:right; line-height:1.8;">
+        <div>VERSION&nbsp;&nbsp;1.0</div>
+        <div>UPDATED&nbsp;&nbsp;JUN 2026</div>
+      </div>
+    </div>
+  </header>
+
+  <div data-shell style="max-width:1180px; margin:0 auto; padding:0 40px; display:grid; grid-template-columns:180px 1fr; gap:48px; align-items:start;">
+
+    <!-- ============ NAV RAIL ============ -->
+    <nav data-rail style="position:sticky; top:30px; padding-top:56px; display:flex; flex-direction:column; gap:2px;">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="7">
+        <a href="{{ n.href }}" data-railink style="font-size:13px; color:#5e5e5e; text-decoration:none; padding:7px 12px; border-radius:8px; transition:background .2s ease, color .2s ease;">{{ n.label }}</a>
+      </sc-for>
+      <div style="margin-top:22px; padding:14px; border:1px solid rgba(0,0,0,0.1); border-radius:14px;">
+        <div class="ds-mono" style="font-size:9.5px; letter-spacing:1.2px; text-transform:uppercase; color:#8a8a80;">Foundation</div>
+        <div style="font-size:13px; color:#1a1a1a; margin-top:6px; line-height:1.4;">Calm, clinical, rooted in nature.</div>
+      </div>
+    </nav>
+
+    <main style="padding:56px 0 120px; min-width:0;">
+
+      <!-- ============ COLOR ============ -->
+      <section id="color" style="scroll-margin-top:30px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+          <span class="ds-mono" style="font-size:11px; color:#62e104; font-weight:700;">01</span>
+          <h2 style="font-size:24px; font-weight:400; letter-spacing:-0.02em;">Color</h2>
+        </div>
+        <p style="font-size:14px; color:#5e5e5e; max-width:520px; margin-bottom:26px;">A grounded, earthy palette. Forest green carries authority; the electric lime is reserved for moments of emphasis. Click any swatch to copy its value.</p>
+
+        <div class="ds-mono" style="font-size:10px; letter-spacing:1.4px; text-transform:uppercase; color:#8a8a80; margin-bottom:14px;">Core</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin-bottom:38px;">
+          <sc-for list="{{ coreColors }}" as="c" hint-placeholder-count="4">
+            <div data-sw onclick="{{ copy }}" data-hex="{{ c.hex }}" style="cursor:pointer; border-radius:14px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); transition:transform .2s ease, box-shadow .2s ease;">
+              <div style="height:96px; background:{{ c.hex }}; position:relative;">
+                <span data-copy class="ds-mono" style="position:absolute; top:9px; right:10px; font-size:9px; letter-spacing:.5px; color:{{ c.onColor }}; opacity:0; transition:opacity .2s ease;">COPY</span>
+              </div>
+              <div style="padding:11px 12px 13px; background:#fff;">
+                <div style="font-size:13px; font-weight:500; color:#1a1a1a;">{{ c.name }}</div>
+                <div class="ds-mono" style="font-size:11px; color:#8a8a80; margin-top:3px;">{{ c.hex }}</div>
+                <div class="ds-mono" style="font-size:9.5px; color:#b3b3a8; margin-top:5px; letter-spacing:.3px;">{{ c.token }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div class="ds-mono" style="font-size:10px; letter-spacing:1.4px; text-transform:uppercase; color:#8a8a80; margin-bottom:14px;">Greens &amp; Neutrals</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:12px;">
+          <sc-for list="{{ scaleColors }}" as="c" hint-placeholder-count="10">
+            <div data-sw onclick="{{ copy }}" data-hex="{{ c.hex }}" style="cursor:pointer;">
+              <div style="height:62px; border-radius:11px; background:{{ c.hex }}; border:1px solid rgba(0,0,0,0.07);"></div>
+              <div style="margin-top:8px;">
+                <div style="font-size:12px; color:#1a1a1a;">{{ c.name }}</div>
+                <div class="ds-mono" style="font-size:10px; color:#8a8a80; margin-top:2px;">{{ c.hex }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <!-- ============ TYPOGRAPHY ============ -->
+      <section id="type" style="scroll-margin-top:30px; margin-top:72px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+          <span class="ds-mono" style="font-size:11px; color:#62e104; font-weight:700;">02</span>
+          <h2 style="font-size:24px; font-weight:400; letter-spacing:-0.02em;">Typography</h2>
+        </div>
+        <p style="font-size:14px; color:#5e5e5e; max-width:520px; margin-bottom:26px;">Three families with distinct jobs: <strong style="font-weight:600;">Sora</strong> for display, <strong style="font-weight:600;">League Spartan</strong> for reading, and <strong style="font-weight:600;">Space Mono</strong> for technical labels. Caveat appears only as a signature flourish.</p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; margin-bottom:34px;">
+          <div style="border:1px solid rgba(0,0,0,0.1); border-radius:14px; padding:20px;">
+            <div style="font-family:'Sora',sans-serif; font-size:40px; font-weight:300; line-height:1;">Aa</div>
+            <div style="font-size:14px; font-weight:600; margin-top:14px;">Sora</div>
+            <div class="ds-mono" style="font-size:10.5px; color:#8a8a80; margin-top:4px;">Display · 300–700</div>
+          </div>
+          <div style="border:1px solid rgba(0,0,0,0.1); border-radius:14px; padding:20px;">
+            <div style="font-family:'League Spartan',sans-serif; font-size:40px; font-weight:400; line-height:1;">Aa</div>
+            <div style="font-size:14px; font-weight:600; margin-top:14px;">League Spartan</div>
+            <div class="ds-mono" style="font-size:10.5px; color:#8a8a80; margin-top:4px;">Body · 300–700</div>
+          </div>
+          <div style="border:1px solid rgba(0,0,0,0.1); border-radius:14px; padding:20px;">
+            <div class="ds-mono" style="font-size:40px; font-weight:400; line-height:1;">Aa</div>
+            <div style="font-size:14px; font-weight:600; margin-top:14px;">Space Mono</div>
+            <div class="ds-mono" style="font-size:10.5px; color:#8a8a80; margin-top:4px;">Labels · 400/700</div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid rgba(0,0,0,0.08);">
+          <sc-for list="{{ typeScale }}" as="t" hint-placeholder-count="6">
+            <div style="display:flex; align-items:baseline; gap:24px; padding:18px 0; border-bottom:1px solid rgba(0,0,0,0.08);">
+              <div class="ds-mono" style="flex:0 0 130px; font-size:10px; letter-spacing:.5px; color:#8a8a80; line-height:1.7;">{{ t.spec }}</div>
+              <div style="flex:1; min-width:0; font-family:{{ t.family }}; font-size:{{ t.size }}; font-weight:{{ t.weight }}; line-height:1.15; letter-spacing:{{ t.tracking }}; color:#1a1a1a; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ t.sample }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <!-- ============ RADII & SPACING ============ -->
+      <section id="shape" style="scroll-margin-top:30px; margin-top:72px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+          <span class="ds-mono" style="font-size:11px; color:#62e104; font-weight:700;">03</span>
+          <h2 style="font-size:24px; font-weight:400; letter-spacing:-0.02em;">Radius &amp; Elevation</h2>
+        </div>
+        <p style="font-size:14px; color:#5e5e5e; max-width:520px; margin-bottom:26px;">Soft, generous corners throughout. Pills for actions, rounded rectangles for surfaces. Shadows stay low and warm-tinted.</p>
+
+        <div data-grid2 style="display:grid; grid-template-columns:1.3fr 1fr; gap:18px;">
+          <div style="border:1px solid rgba(0,0,0,0.1); border-radius:16px; padding:24px;">
+            <div class="ds-mono" style="font-size:10px; letter-spacing:1.4px; text-transform:uppercase; color:#8a8a80; margin-bottom:18px;">Corner Radius</div>
+            <div style="display:flex; align-items:flex-end; gap:18px; flex-wrap:wrap;">
+              <sc-for list="{{ radii }}" as="r" hint-placeholder-count="5">
+                <div style="text-align:center;">
+                  <div style="width:62px; height:62px; background:#e6e9dd; border:1.5px solid #1c3a13; border-bottom:none; border-right:none; border-top-left-radius:{{ r.val }};"></div>
+                  <div style="font-size:12px; color:#1a1a1a; margin-top:8px;">{{ r.name }}</div>
+                  <div class="ds-mono" style="font-size:10px; color:#8a8a80;">{{ r.val }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="border:1px solid rgba(0,0,0,0.1); border-radius:16px; padding:24px;">
+            <div class="ds-mono" style="font-size:10px; letter-spacing:1.4px; text-transform:uppercase; color:#8a8a80; margin-bottom:18px;">Elevation</div>
+            <div style="display:flex; gap:18px;">
+              <div style="text-align:center;">
+                <div style="width:74px; height:74px; border-radius:14px; background:#fff; box-shadow:0 18px 40px rgba(28,58,19,0.16);"></div>
+                <div class="ds-mono" style="font-size:10px; color:#8a8a80; margin-top:10px;">card</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="width:74px; height:74px; border-radius:14px; background:#fff; box-shadow:0 30px 70px rgba(0,0,0,0.22);"></div>
+                <div class="ds-mono" style="font-size:10px; color:#8a8a80; margin-top:10px;">overlay</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ BUTTONS ============ -->
+      <section id="buttons" style="scroll-margin-top:30px; margin-top:72px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+          <span class="ds-mono" style="font-size:11px; color:#62e104; font-weight:700;">04</span>
+          <h2 style="font-size:24px; font-weight:400; letter-spacing:-0.02em;">Buttons</h2>
+        </div>
+        <p style="font-size:14px; color:#5e5e5e; max-width:520px; margin-bottom:26px;">Fully-rounded pills. Solid and outline buttons lift and brighten on hover; any button or link carrying an arrow instead slides the arrow forward — no lift. Live components, identical to the real interactions across the site.</p>
+
+        <div data-grid2 style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+          <div style="border:1px solid rgba(0,0,0,0.1); border-radius:16px; padding:28px; display:flex; flex-wrap:wrap; gap:14px; align-items:center;">
+            <a href="#" style="flex:none; display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; white-space:nowrap; font-size:14px; font-weight:500; color:#fcfcf7; background:#1c3a13; padding:14px 28px; border-radius:40px; text-decoration:none;">Take the Quiz</a>
+            <a href="#" style="flex:none; display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; white-space:nowrap; font-size:14px; font-weight:500; color:#1a1a1a; background:#62e104; padding:14px 24px; border-radius:40px; text-decoration:none;">Get Started</a>
+            <a href="#" style="flex:none; display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; white-space:nowrap; font-size:14px; font-weight:500; color:#1a1a1a; background:transparent; border:1.5px solid rgba(27,42,31,.35); padding:14px 26px; border-radius:40px; text-decoration:none;">Shop Now&nbsp; <span data-arrow style="display:inline-block; vertical-align:baseline; transition:transform .25s cubic-bezier(0.75,0,0.25,1);">→</span></a>
+            <a href="#" style="flex:none; display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; white-space:nowrap; font-size:14px; font-weight:500; color:#fcfcf7; background:#1c3a13; padding:13px 26px; border-radius:40px; text-decoration:none;">Discover <span style="display:inline-block; vertical-align:middle; width:8px; height:8px; border-radius:50%; background:#62e104; margin-left:8px;"></span></a>
+          </div>
+          <div style="border:1px solid rgba(0,0,0,0.1); border-radius:16px; padding:28px; background:#1c3a13; display:flex; flex-wrap:wrap; gap:14px; align-items:center;">
+            <a href="#" style="flex:none; display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; white-space:nowrap; font-size:13px; font-weight:500; color:#1a1a1a; background:#fcfcf7; padding:12px 26px; border-radius:40px; text-decoration:none;">Read More</a>
+            <a href="#" style="flex:none; display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; white-space:nowrap; font-size:13px; font-weight:500; color:#fcfcf7; border:1.5px solid rgba(243,240,232,.5); padding:11px 24px; border-radius:40px; text-decoration:none;">Shop Now</a>
+            <a href="#" style="flex:none; display:inline-flex; align-items:center; white-space:nowrap; font-size:14px; font-weight:500; color:#fcfcf7; text-decoration:none; border-bottom:1px solid rgba(243,240,232,.4); padding-bottom:3px;">Shop All&nbsp; <span data-arrow style="display:inline-block; transition:transform .25s cubic-bezier(0.75,0,0.25,1);">→</span></a>
+            <button aria-label="Continue" style="flex:none; width:44px; height:44px; border-radius:50%; background:#1c3a13; border:1.5px solid rgba(243,240,232,.5); color:#fcfcf7; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span data-arrow style="display:flex; transition:transform .25s cubic-bezier(0.75,0,0.25,1);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
+            <button aria-label="Submit" style="flex:none; width:40px; height:40px; border-radius:50%; background:#62e104; border:none; color:#1a1a1a; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span data-arrow style="display:flex; transition:transform .25s cubic-bezier(0.75,0,0.25,1);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ BADGES ============ -->
+      <section id="badges" style="scroll-margin-top:30px; margin-top:72px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+          <span class="ds-mono" style="font-size:11px; color:#62e104; font-weight:700;">05</span>
+          <h2 style="font-size:24px; font-weight:400; letter-spacing:-0.02em;">Badges &amp; Labels</h2>
+        </div>
+        <p style="font-size:14px; color:#5e5e5e; max-width:520px; margin-bottom:26px;">Small pills for status and product codes. Uppercase mono for system labels.</p>
+
+        <div style="border:1px solid rgba(0,0,0,0.1); border-radius:16px; padding:28px; display:flex; flex-wrap:wrap; gap:14px; align-items:center;">
+          <span style="flex:none; display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; white-space:nowrap; font-size:10px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; color:#1a1a1a; background:#62e104; padding:6px 11px; border-radius:30px;">Bestseller</span>
+          <span style="flex:none; display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; white-space:nowrap; font-size:10px; font-weight:600; color:#1a1a1a; background:#62e104; padding:2px 9px; border-radius:30px;">Save 25%</span>
+          <span style="flex:none; display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; white-space:nowrap; font-size:11px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; color:#1c3a13; background:transparent; border:1px solid rgba(28,58,19,.4); padding:6px 12px; border-radius:30px;">New</span>
+          <span class="ds-mono" style="flex:none; display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; white-space:nowrap; font-size:10px; font-weight:500; color:#5e5e5e; border:1px solid rgba(0,0,0,.2); padding:6px 11px; border-radius:30px;">DS-01®</span>
+          <span style="flex:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap; gap:7px; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#2c4a35;"><span style="flex:none; width:7px; height:7px; border-radius:50%; background:#2c4a35;"></span>ViaCap® Technology</span>
+          <span class="ds-mono" style="flex:none; display:inline-flex; align-items:center; white-space:nowrap; font-size:10px; letter-spacing:1.4px; text-transform:uppercase; color:#8a8a80;">Featured Articles</span>
+        </div>
+      </section>
+
+      <!-- ============ FORMS ============ -->
+      <section id="forms" style="scroll-margin-top:30px; margin-top:72px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+          <span class="ds-mono" style="font-size:11px; color:#62e104; font-weight:700;">06</span>
+          <h2 style="font-size:24px; font-weight:400; letter-spacing:-0.02em;">Form Inputs</h2>
+        </div>
+        <p style="font-size:14px; color:#5e5e5e; max-width:520px; margin-bottom:26px;">Rounded fields with soft borders. Newsletter and login patterns embed a circular action button.</p>
+
+        <div data-grid2 style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+          <div style="border:1px solid rgba(0,0,0,0.1); border-radius:16px; padding:24px;">
+            <div class="ds-mono" style="font-size:10px; letter-spacing:1.4px; text-transform:uppercase; color:#8a8a80; margin-bottom:16px;">Text Field</div>
+            <input type="email" placeholder="Email" style="width:100%; border:1px solid rgba(0,0,0,0.15); border-radius:10px; padding:13px 14px; font-size:14px; font-family:inherit; outline:none; background:rgba(255,255,255,0.7); color:#1a1a1a; margin-bottom:12px;"/>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <input type="password" placeholder="Password" style="flex:1; min-width:0; border:1px solid rgba(0,0,0,0.15); border-radius:10px; padding:13px 14px; font-size:14px; font-family:inherit; outline:none; background:rgba(255,255,255,0.7); color:#1a1a1a;"/>
+              <button aria-label="Log in" style="flex:none; width:44px; height:44px; border-radius:50%; background:#1c3a13; color:#fcfcf7; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span data-arrow style="display:flex; transition:transform .25s cubic-bezier(0.75,0,0.25,1);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
+            </div>
+          </div>
+          <div style="border:1px solid rgba(0,0,0,0.1); border-radius:16px; padding:24px; background:#1c3a13; display:flex; flex-direction:column; justify-content:center;">
+            <div class="ds-mono" style="font-size:10px; letter-spacing:1.4px; text-transform:uppercase; color:#7d8c77; margin-bottom:16px;">Inline / Newsletter</div>
+            <form onsubmit="{{ onSubmit }}" style="display:flex; align-items:center; gap:10px; border:1px solid rgba(243,240,232,.3); border-radius:40px; padding:5px 6px 5px 20px;">
+              <input type="email" placeholder="Sign Up For Our Newsletter" required style="flex:1; min-width:0; background:transparent; border:none; color:#fcfcf7; font-size:14px; font-family:inherit; outline:none;"/>
+              <button type="submit" aria-label="Subscribe" style="flex:none; width:38px; height:38px; border-radius:50%; background:#62e104; border:none; color:#1a1a1a; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span data-arrow style="display:flex; transition:transform .25s cubic-bezier(0.75,0,0.25,1);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ COMPONENTS ============ -->
+      <section id="components" style="scroll-margin-top:30px; margin-top:72px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+          <span class="ds-mono" style="font-size:11px; color:#62e104; font-weight:700;">07</span>
+          <h2 style="font-size:24px; font-weight:400; letter-spacing:-0.02em;">Components</h2>
+        </div>
+        <p style="font-size:14px; color:#5e5e5e; max-width:520px; margin-bottom:26px;">Composed from the tokens above. Hover the product card and nav rows for live motion.</p>
+
+        <div data-grid2 style="display:grid; grid-template-columns:300px 1fr; gap:18px; align-items:start;">
+
+          <!-- product card -->
+          <div style="background:#1c3a13; border-radius:14px; padding:18px 18px 22px; display:flex; flex-direction:column; align-items:center; text-align:center;" data-prodcard>
+            <div style="width:100%; display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+              <span style="display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; font-size:10px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; color:#1a1a1a; background:#62e104; padding:5px 9px; border-radius:30px;">Bestseller</span>
+              <span style="display:inline-block; line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; font-size:10px; font-weight:500; color:#B9C7B5; border:1px solid rgba(185,199,181,.4); padding:5px 9px; border-radius:30px;">DS-01®</span>
+            </div>
+            <div data-jar style="width:78%; aspect-ratio:3/4; border-radius:8px; background:linear-gradient(160deg,#2f3f2a,#14201a); margin:6px 0 16px; display:flex; align-items:flex-end; justify-content:center; padding-bottom:10px; transition:transform .3s cubic-bezier(0.75,0,0.25,1);">
+              <span class="ds-mono" style="font-size:9px; color:rgba(243,240,232,.55);">multi-pro jar</span>
+            </div>
+            <div style="font-size:17px; font-weight:500; letter-spacing:-0.01em; color:#fcfcf7;">Multi Pro</div>
+            <a href="#" style="line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; display:block; width:100%; margin-top:16px; font-size:13px; font-weight:500; color:#fcfcf7; border:1.5px solid rgba(243,240,232,.5); padding:11px 0; border-radius:40px; text-decoration:none;">Shop Now</a>
+            <div style="font-size:12px; color:#92A48E; margin-top:12px;">Starting at $35.99 per month</div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <!-- nav rows / glass panel -->
+            <div style="background:rgba(236,236,233,1); border:1px solid rgba(0,0,0,0.08); box-shadow:0 30px 70px rgba(0,0,0,0.12); border-radius:22px; padding:12px;">
+              <div class="ds-mono" style="font-size:9.5px; letter-spacing:1.2px; text-transform:uppercase; color:#8a8a80; padding:6px 11px 8px;">Menu Panel</div>
+              <sc-for list="{{ navRows }}" as="r" hint-placeholder-count="3">
+                <a href="#" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;">
+                  <div style="width:52px; height:52px; border-radius:12px; flex:none; background:{{ r.swatch }};"></div>
+                  <div>
+                    <div style="font-size:11px; color:#8a8a80;">{{ r.code }}</div>
+                    <div style="font-size:15px; color:#1a1a1a; font-weight:500;">{{ r.name }}</div>
+                  </div>
+                </a>
+              </sc-for>
+            </div>
+
+            <!-- nav pills + announcement -->
+            <div style="display:flex; flex-direction:column; gap:14px;">
+              <a href="#" style="display:block; background:#62e104; color:#1a1a1a; text-align:center; font-size:13px; font-weight:500; padding:9px 16px; border-radius:10px; text-decoration:none; cursor:pointer;">Find the right products for you&nbsp; <span data-arrow style="display:inline-block; transition:transform .25s cubic-bezier(0.75,0,0.25,1);">→</span></a>
+              <div style="display:flex; gap:4px; background:rgba(243,240,232,.82); border:1px solid rgba(0,0,0,0.06); padding:8px; border-radius:30px; width:fit-content;">
+                <span style="font-size:14px; color:#1a1a1a; padding:6px 13px; border-radius:20px; background:rgba(0,0,0,0.06);">Shop</span>
+                <span style="font-size:14px; color:#1a1a1a; padding:6px 13px; border-radius:20px;">Science</span>
+                <span style="font-size:14px; color:#1a1a1a; padding:6px 13px; border-radius:20px;">Learn</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ VOICE ============ -->
+      <section id="voice" style="scroll-margin-top:30px; margin-top:72px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+          <span class="ds-mono" style="font-size:11px; color:#62e104; font-weight:700;">08</span>
+          <h2 style="font-size:24px; font-weight:400; letter-spacing:-0.02em;">Signature</h2>
+        </div>
+        <p style="font-size:14px; color:#5e5e5e; max-width:520px; margin-bottom:26px;">A full-width lowercase wordmark in League Spartan Bold, set as a low-opacity watermark with a slow light sweep — used sparingly to close key moments.</p>
+        <div style="position:relative; padding:28px 36px; border-radius:18px; overflow:hidden; background:radial-gradient(70% 120% at 50% 0%,#4a6b3a,#2e4a25 60%,#1f3219 100%); display:flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 1000 122" width="100%" preserveAspectRatio="xMidYMid meet" style="display:block;" aria-label="nature is our thing">
+            <defs><linearGradient id="natureShine" x1="0" y1="0" x2="0.35" y2="0"><stop offset="0" stop-color="#fcfcf7" stop-opacity="0.26"/><stop offset="0.5" stop-color="#fcfcf7" stop-opacity="0.62"/><stop offset="1" stop-color="#fcfcf7" stop-opacity="0.26"/><animateTransform attributeName="gradientTransform" type="translate" values="-0.6 0;1 0;-0.6 0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.45 0 0.2 1;0.45 0 0.2 1" dur="7s" repeatCount="indefinite"/></linearGradient></defs><text x="500" y="91" text-anchor="middle" textLength="980" lengthAdjust="spacingAndGlyphs" font-family="'League Spartan',sans-serif" font-weight="700" font-size="128" letter-spacing="-3" fill="url(#natureShine)">nature is our thing</text>
+          </svg>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer style="border-top:1px solid rgba(0,0,0,0.08);">
+    <div style="max-width:1180px; margin:0 auto; padding:24px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <div class="ds-mono" style="font-size:11px; color:#8a8a80; letter-spacing:.5px;">ORGANICA LIVING — DESIGN SYSTEM v1.0</div>
+      <div style="font-size:12px; color:#8a8a80;">© 2026 Organica Living, Inc.</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() { this.wire(); }
+  componentDidUpdate() { this.wire(); }
+  wire() {
+    const root = this.refs && this.refs.root; if (!root) return;
+
+    // rail links hover
+    root.querySelectorAll('[data-railink]').forEach(a => {
+      if (a.dataset.w) return; a.dataset.w = '1';
+      a.addEventListener('mouseenter', () => { a.style.background = 'rgba(0,0,0,0.05)'; a.style.color = '#1a1a1a'; });
+      a.addEventListener('mouseleave', () => { a.style.background = 'transparent'; a.style.color = '#5e5e5e'; });
+    });
+
+    // swatch hover lift
+    root.querySelectorAll('[data-sw]').forEach(s => {
+      if (s.dataset.w) return; s.dataset.w = '1';
+      if (s.querySelector('[data-copy]')) {
+        s.addEventListener('mouseenter', () => { s.style.transform = 'translateY(-3px)'; s.style.boxShadow = '0 14px 30px rgba(28,58,19,0.14)'; });
+        s.addEventListener('mouseleave', () => { s.style.transform = 'translateY(0)'; s.style.boxShadow = 'none'; });
+      }
+    });
+
+    // product card lift + jar scale
+    root.querySelectorAll('[data-prodcard]').forEach(card => {
+      if (card.dataset.w) return; card.dataset.w = '1';
+      const jar = card.querySelector('[data-jar]');
+      card.style.transition = 'transform .3s cubic-bezier(0.75,0,0.25,1), box-shadow .3s ease';
+      card.addEventListener('mouseenter', () => { card.style.transform = 'translateY(-6px)'; card.style.boxShadow = '0 22px 50px rgba(28,58,19,0.3)'; if (jar) jar.style.transform = 'scale(1.08)'; });
+      card.addEventListener('mouseleave', () => { card.style.transform = 'translateY(0)'; card.style.boxShadow = 'none'; if (jar) jar.style.transform = 'scale(1)'; });
+    });
+
+    // nav rows
+    root.querySelectorAll('[data-navrow]').forEach(r => {
+      if (r.dataset.w) return; r.dataset.w = '1';
+      r.addEventListener('mouseenter', () => { r.style.background = 'rgba(0,0,0,0.05)'; });
+      r.addEventListener('mouseleave', () => { r.style.background = 'transparent'; });
+    });
+
+    // pill buttons: lift / fill / arrow nudge
+    root.querySelectorAll('a,button').forEach(b => {
+      if (b.dataset.w) return;
+      const s = b.getAttribute('style') || '';
+      // match React-serialized styles too (it inserts a space: "border-radius: 50%")
+      if (!/border-radius:\s*(40px|50%)/.test(s)) return;
+      b.dataset.w = '1';
+      const cs = getComputedStyle(b);
+      const bg = cs.backgroundColor; const col = cs.color;
+      const transparent = (bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent');
+      const m = (col.match(/\d+/g) || ['255','255','255']).map(Number);
+      const lightText = (0.299*m[0] + 0.587*m[1] + 0.114*m[2]) > 140;
+      const arrow = b.querySelector('[data-arrow]');
+      b.style.transition = 'background .25s cubic-bezier(0.75,0,0.25,1), color .25s ease, transform .22s cubic-bezier(0.75,0,0.25,1), box-shadow .25s ease, filter .25s ease';
+      const enter = () => {
+        b.style.transform = arrow ? 'none' : 'translateY(-2px)';
+        if (transparent) {
+          if (lightText) { b.style.background = '#fcfcf7'; b.style.color = '#1c3a13'; }
+          else { b.style.background = '#1c3a13'; b.style.color = '#fcfcf7'; }
+          b.style.boxShadow = '0 10px 26px rgba(28,58,19,0.16)';
+        } else { b.style.filter = 'brightness(1.1)'; b.style.boxShadow = '0 12px 28px rgba(28,58,19,0.22)'; }
+      };
+      const leave = () => {
+        b.style.transform = arrow ? 'none' : 'translateY(0)'; b.style.filter = 'none'; b.style.boxShadow = 'none';
+        if (transparent) { b.style.background = 'transparent'; b.style.color = col; }
+      };
+      b.addEventListener('mouseenter', enter);
+      b.addEventListener('mouseleave', leave);
+      b.addEventListener('mousedown', () => { b.style.transform = 'translateY(0) scale(0.96)'; });
+      b.addEventListener('mouseup', enter);
+    });
+
+    // unified smooth arrow nudge for every button / link / arrow host
+    root.querySelectorAll('[data-arrow]').forEach(arrow => {
+      const host = arrow.closest('a,button,[data-arrow-host]') || arrow.parentElement;
+      if (!host || host.dataset.aw) return; host.dataset.aw = '1';
+      arrow.style.transition = 'transform .3s cubic-bezier(0.33,1,0.68,1)';
+      const fwd = () => { arrow.style.transform = 'translateX(5px)'; };
+      const back = () => { arrow.style.transform = 'translateX(0)'; };
+      host.addEventListener('mouseenter', fwd);
+      host.addEventListener('mouseleave', back);
+      host.addEventListener('focus', fwd);
+      host.addEventListener('blur', back);
+    });
+  }
+  renderVals() {
+    const coreColors = [
+      { name:'Cream', hex:'#fcfcf7', token:'--bg-base', onColor:'#8a8a80' },
+      { name:'Forest', hex:'#1c3a13', token:'--green-900', onColor:'rgba(252,252,247,.7)' },
+      { name:'Electric Lime', hex:'#62e104', token:'--accent', onColor:'rgba(26,26,26,.6)' },
+      { name:'Ink', hex:'#1a1a1a', token:'--text', onColor:'rgba(252,252,247,.6)' },
+    ];
+    const scaleColors = [
+      { name:'Panel', hex:'#ececE9' },
+      { name:'Header', hex:'#f3f0e8' },
+      { name:'Sage', hex:'#cdd6c2' },
+      { name:'Moss', hex:'#B9C7B5' },
+      { name:'Olive', hex:'#92A48E' },
+      { name:'Pine', hex:'#2c4a35' },
+      { name:'Text Mute', hex:'#5e5e5e' },
+      { name:'Text Soft', hex:'#8a8a80' },
+      { name:'Line', hex:'#e3e1d8' },
+      { name:'Sand', hex:'#E7E1D2' },
+    ];
+    const typeScale = [
+      { spec:'SORA 300 · 58/clamp', family:"'Sora',sans-serif", size:'46px', weight:'300', tracking:'-0.03em', sample:'A health routine for your microbiome' },
+      { spec:'SORA 300 · 40', family:"'Sora',sans-serif", size:'32px', weight:'300', tracking:'-0.02em', sample:'Whole body health starts in the gut' },
+      { spec:'SORA 500 · 22', family:"'Sora',sans-serif", size:'22px', weight:'500', tracking:'-0.01em', sample:'Multi Pro Multivitamin' },
+      { spec:'SPARTAN 400 · 16', family:"'League Spartan',sans-serif", size:'16px', weight:'400', tracking:'-0.01em', sample:'Transform your gut health, energy, and sleep with real results.' },
+      { spec:'SPARTAN 400 · 14', family:"'League Spartan',sans-serif", size:'14px', weight:'400', tracking:'-0.01em', sample:'Formulations with clinically studied ingredients.' },
+      { spec:'MONO 400 · 11', family:"'Space Mono',monospace", size:'12px', weight:'400', tracking:'0.12em', sample:'VIACAP® TECHNOLOGY' },
+    ];
+    const radii = [
+      { name:'sm', val:'8px' },
+      { name:'md', val:'14px' },
+      { name:'lg', val:'22px' },
+      { name:'pill', val:'40px' },
+      { name:'full', val:'50%' },
+    ];
+    const navRows = [
+      { code:'Multivitamin', name:'Multi Pro', swatch:'url(images/multi-pro.webp) center/contain no-repeat, linear-gradient(160deg,#7d8a52,#3f4f22)' },
+      { code:'Vitamin D3', name:'Optimus D3', swatch:'url(images/optimus-d3.webp) center/contain no-repeat, linear-gradient(160deg,#d8c08a,#9c7d3e)' },
+      { code:'Omega-3', name:'Omega 1000', swatch:'url(images/omega-1000.webp) center/contain no-repeat, linear-gradient(160deg,#7d9fa0,#3f5f62)' },
+    ];
+    const navItems = [
+      { label:'Color', href:'#color' },
+      { label:'Typography', href:'#type' },
+      { label:'Radius', href:'#shape' },
+      { label:'Buttons', href:'#buttons' },
+      { label:'Badges', href:'#badges' },
+      { label:'Forms', href:'#forms' },
+      { label:'Components', href:'#components' },
+      { label:'Signature', href:'#voice' },
+    ];
+    return {
+      coreColors, scaleColors, typeScale, radii, navRows, navItems,
+      root: (el) => { this.refs = this.refs || {}; this.refs.root = el; },
+      copy: (e) => {
+        const el = e.currentTarget; const hex = el.dataset.hex;
+        if (navigator.clipboard) navigator.clipboard.writeText(hex).catch(()=>{});
+        const tag = el.querySelector('[data-copy]');
+        if (tag) { tag.textContent = 'COPIED'; tag.style.opacity = '1'; setTimeout(() => { tag.textContent = 'COPY'; tag.style.opacity = '0'; }, 1000); }
+      },
+      onSubmit: (e) => { e.preventDefault(); const i = e.target.querySelector('input'); i.value=''; i.placeholder='Thanks for signing up!'; },
+    };
+  }
+}
+</script>
+</body>
+</html>

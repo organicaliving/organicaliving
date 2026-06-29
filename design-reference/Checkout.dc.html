@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=League+Spartan:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:#fcfcf7; color:#1a1a1a; font-family:'League Spartan',sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:-0.01em; }
+  h1,h2,h3,h4,h5,h6 { font-family:'Sora',sans-serif; }
+  ::selection { background:#1c3a13; color:#fcfcf7; }
+  @keyframes seedMarquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  .seed-mono { font-family:'Space Mono',monospace; }
+  input::placeholder { color:rgba(243,240,232,.5); }
+  @media (max-width:768px){
+    [style*="grid-template-columns:"]{ grid-template-columns:1fr !important; }
+    [data-co-grid]{ display:flex !important; flex-direction:column-reverse !important; }
+    [data-co-form]{ padding:32px 20px 48px !important; }
+    [data-co-summary]{ padding:28px 20px 36px !important; border-left:none !important; border-bottom:1px solid #ece9de; }
+  }
+</style>
+</helmet>
+
+<div ref="{{ root }}" style="background:#fcfcf7;">
+
+
+  <!-- checkout header -->
+  <header style="border-bottom:1px solid #ece9de; padding:20px 0; background:#fcfcf7;">
+    <div style="text-align:center;"><a href="Organica%20Home.dc.html" style="display:inline-flex; align-items:center; gap:6px; font-size:22px; font-weight:500; color:#1a1a1a; text-decoration:none; font-family:'Sora',sans-serif;"><img src="organica-living-logo.png" alt="Organica Living" style="height:40px; width:auto; display:block;"/></a></div>
+  </header>
+
+  <!-- checkout body -->
+  <section style="background:#fff;">
+    <div data-co-grid style="max-width:1120px; margin:0 auto; display:grid; grid-template-columns:1fr 0.82fr; gap:0;">
+      <div data-reveal data-co-form style="padding:40px 56px 60px 40px;">
+        <div style="text-align:center; font-size:13px; color:#6d6d6d; margin-bottom:12px;">Express checkout</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <button style="height:48px; border:none; border-radius:8px; background:#5a31f4; color:#fff; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit;">shop</button>
+          <button style="height:48px; border:none; border-radius:8px; background:#000; color:#fff; font-size:15px; font-weight:500; cursor:pointer; font-family:inherit;">G&nbsp;Pay</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px; margin:24px 0; color:#6d6d6d; font-size:12px;"><div style="flex:1; height:1px; background:#e4e1d6;"></div>OR<div style="flex:1; height:1px; background:#e4e1d6;"></div></div>
+        <div style="display:flex; align-items:center; justify-content:space-between;"><h2 style="font-size:18px; font-weight:600;">Contact</h2><a href="#" style="font-size:13px; color:#1a1a1a; text-decoration:underline;">Sign In</a></div>
+        <div style="margin-top:14px;"><input type="text" placeholder="Email" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/></div>
+        <h2 style="font-size:18px; font-weight:600; margin-top:32px;">Delivery</h2>
+        <div style="margin-top:14px; display:flex; flex-direction:column; gap:12px;">
+          <input type="text" placeholder="Country/Region — United States" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;"><input type="text" placeholder="First name" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/><input type="text" placeholder="Last name" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/></div>
+          <input type="text" placeholder="Address" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/>
+          <input type="text" placeholder="Apartment, suite, etc. (optional)" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;"><input type="text" placeholder="City" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/><input type="text" placeholder="State — New York" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/><input type="text" placeholder="ZIP code" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/></div>
+          <input type="text" placeholder="Phone" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/>
+          <label style="display:flex; align-items:center; gap:10px; font-size:14px; color:#1a1a1a; cursor:pointer;"><input type="checkbox" style="width:16px; height:16px; accent-color:#1c3a13;"/>Text me with news and offers</label>
+        </div>
+        <h2 style="font-size:18px; font-weight:600; margin-top:32px;">Shipping method</h2>
+        <div style="margin-top:14px; background:#f4f3ec; border-radius:10px; padding:18px 20px; font-size:14px; color:#6d6d6d;">Enter your shipping address to view available shipping methods.</div>
+        <h2 style="font-size:18px; font-weight:600; margin-top:32px;">Payment</h2>
+        <div style="font-size:13px; color:#6d6d6d; margin-top:4px;">All transactions are secure and encrypted.</div>
+        <div style="margin-top:14px; border:1px solid #c9c5b8; border-radius:10px; overflow:hidden;">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid #e4e1d6; background:#f4f3ec;"><span style="display:flex; align-items:center; gap:10px; font-size:14px; font-weight:500;"><span style="width:16px; height:16px; border-radius:50%; border:5px solid #1c3a13; box-sizing:border-box;"></span>Credit card</span><span style="display:flex; gap:5px; align-items:center;"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 6px; border-radius:4px; background:#1a1f71; color:#fff; font-size:9px; font-weight:700; letter-spacing:.5px;">VISA</span><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 6px; border-radius:4px; background:#eb001b; color:#fff; font-size:9px; font-weight:700; letter-spacing:.5px;">MC</span><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 6px; border-radius:4px; background:#2e77bc; color:#fff; font-size:9px; font-weight:700; letter-spacing:.5px;">AMEX</span><span style="font-size:11px; color:#6d6d6d;">+5</span></span></div>
+          <div style="padding:18px; display:flex; flex-direction:column; gap:12px; background:#fff;">
+            <input type="text" placeholder="Card number" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;"><input type="text" placeholder="Expiration date (MM / YY)" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/><input type="text" placeholder="Security code" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/></div>
+            <input type="text" placeholder="Name on card" style="width:100%; border:1px solid #c9c5b8; border-radius:8px; padding:14px 16px; font-size:14px; font-family:inherit; outline:none; background:#fff; color:#1a1a1a; "/>
+            <label style="display:flex; align-items:center; gap:10px; font-size:14px; color:#1a1a1a; cursor:pointer;"><input type="checkbox" checked style="width:16px; height:16px; accent-color:#1c3a13;"/>Use shipping address as billing address</label>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-top:1px solid #e4e1d6; background:#fff;"><span style="display:flex; align-items:center; gap:10px; font-size:14px;"><span style="width:16px; height:16px; border-radius:50%; border:1px solid #c9c5b8; box-sizing:border-box;"></span>PayPal</span><span style="color:#003087; font-weight:700; font-style:italic; font-size:14px;">PayPal</span></div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:10px; margin-top:30px;"><input type="checkbox" style="width:16px; height:16px; margin-top:2px; accent-color:#1c3a13;"/><span style="font-size:13px; line-height:1.5; color:#1a1a1a;">I agree to the <a href="#" style="color:#1c3a13;">Subscription Terms and Conditions</a> (including Section 6, the Cancellation Policy) and the <a href="#" style="color:#1c3a13;">Privacy Policy</a>. My subscription renews automatically at the price and frequency shown in my order summary until I cancel.</span></div>
+        <a href="#" style="line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; display:inline-block; text-align:center; width:100%; padding:21px 0; margin-top:24px; font-size:15px; font-weight:500; color:#fcfcf7; background:#1c3a13; border-radius:40px; text-decoration:none;">Pay now</a>
+        <p style="font-size:11px; line-height:1.6; color:#6d6d6d; margin-top:18px;">By completing this purchase, your payment method will be charged at the price and frequency listed above until you cancel. Cancel anytime by logging into your account or emailing care@organicaliving.com.</p>
+      </div>
+      <div data-reveal data-co-summary style="background:#f6f6f1; padding:40px 40px 60px 48px; border-left:1px solid #ece9de;">
+        <div style="display:flex; gap:16px; align-items:flex-start; padding:14px 0;">
+          <div style="position:relative; width:56px; height:56px; flex:none;"><div style="width:56px; height:56px; border-radius:10px; background:linear-gradient(160deg,#2f3f2a,#14201a); border:1px solid #e4e1d6;"></div><span style="position:absolute; top:-7px; right:-7px; width:20px; height:20px; border-radius:50%; background:#3a3a36; color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center;">1</span></div>
+          <div style="flex:1;"><div style="font-size:14px; font-weight:600; color:#1a1a1a;">Multi Pro</div><div style="font-size:12px; color:#6d6d6d; margin-top:2px;">Monthly subscription · 25% OFF FIRST ORDER (-$12.49)</div></div>
+          <div style="text-align:right; white-space:nowrap;"><div style="font-size:12px; color:#9a9a8e; text-decoration:line-through;">$49.99</div><div style="font-size:14px; font-weight:500;">$37.50</div></div>
+        </div>
+        <div style="display:flex; gap:16px; align-items:flex-start; padding:14px 0;">
+          <div style="position:relative; width:56px; height:56px; flex:none;"><div style="width:56px; height:56px; border-radius:10px; background:linear-gradient(160deg,#3a4733,#1d2618); border:1px solid #e4e1d6;"></div><span style="position:absolute; top:-7px; right:-7px; width:20px; height:20px; border-radius:50%; background:#3a3a36; color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center;">1</span></div>
+          <div style="flex:1;"><div style="font-size:14px; font-weight:600; color:#1a1a1a;">Glass Travel Vial</div></div>
+          <div style="text-align:right; white-space:nowrap;"><span style="font-size:13px; color:#1a1a1a;">FREE</span></div>
+        </div>
+        <div style="display:flex; gap:16px; align-items:flex-start; padding:14px 0;">
+          <div style="position:relative; width:56px; height:56px; flex:none;"><div style="width:56px; height:56px; border-radius:10px; background:linear-gradient(160deg,#cdb78c,#8a7550); border:1px solid #e4e1d6;"></div><span style="position:absolute; top:-7px; right:-7px; width:20px; height:20px; border-radius:50%; background:#3a3a36; color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center;">1</span></div>
+          <div style="flex:1;"><div style="font-size:14px; font-weight:600; color:#1a1a1a;">Optimus D3</div><div style="font-size:12px; color:#6d6d6d; margin-top:2px;">Monthly subscription · 25% OFF FIRST ORDER (-$8.74)</div></div>
+          <div style="text-align:right; white-space:nowrap;"><div style="font-size:12px; color:#9a9a8e; text-decoration:line-through;">$34.99</div><div style="font-size:14px; font-weight:500;">$26.25</div></div>
+        </div>
+        <div style="display:flex; gap:10px; margin-top:20px;"><input type="text" placeholder="Discount code or gift card" style="flex:1; border:1px solid #c9c5b8; border-radius:8px; padding:12px 14px; font-size:14px; font-family:inherit; outline:none; background:#fff;"/><button style="border:none; background:#e4e2da; color:#6d6d6d; border-radius:8px; padding:0 22px; font-size:14px; font-weight:500; cursor:pointer; font-family:inherit;">Apply</button></div>
+        <div style="margin-top:24px; display:flex; flex-direction:column; gap:10px; padding-bottom:18px; border-bottom:1px solid #e4e1d6;">
+          <div style="display:flex; justify-content:space-between; font-size:14px; color:#1a1a1a;"><span>Subtotal · 3 items</span><span>$63.75</span></div>
+          <div style="display:flex; justify-content:space-between; font-size:14px; color:#1a1a1a;"><span>Shipping</span><span style="color:#6d6d6d;">Enter shipping address</span></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:18px;"><span style="font-size:18px; font-weight:600;">Total</span><span style="font-size:18px; font-weight:600;"><span style="font-size:12px; color:#6d6d6d; font-weight:400; margin-right:6px;">USD</span>$63.75</span></div>
+        <div style="display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-size:12px; color:#1c3a13; background:#e7f0c8; padding:5px 12px; border-radius:30px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l7-9 11 4-4 11-9-7-5 1z"/></svg>TOTAL SAVINGS $21.23</div>
+        <p style="font-size:12px; color:#6d6d6d; margin-top:18px;">This order has a recurring charge for multiple items.</p>
+        <div style="margin-top:18px; padding-top:18px; border-top:1px solid #e4e1d6;"><div style="display:flex; align-items:center; gap:12px; margin-top:14px;"><span style="width:30px; height:30px; border-radius:50%; border:1px solid #d7d3c6; display:flex; align-items:center; justify-content:center; color:#1c3a13;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/></svg></span><span style="font-size:13px; color:#1a1a1a;">30-day money-back guarantee</span></div><div style="display:flex; align-items:center; gap:12px; margin-top:14px;"><span style="width:30px; height:30px; border-radius:50%; border:1px solid #d7d3c6; display:flex; align-items:center; justify-content:center; color:#1c3a13;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/></svg></span><span style="font-size:13px; color:#1a1a1a;">Cancel anytime, no strings attached</span></div><div style="display:flex; align-items:center; gap:12px; margin-top:14px;"><span style="width:30px; height:30px; border-radius:50%; border:1px solid #d7d3c6; display:flex; align-items:center; justify-content:center; color:#1c3a13;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/></svg></span><span style="font-size:13px; color:#1a1a1a;">Free US shipping included on every order</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- checkout footer -->
+  <footer style="border-top:1px solid #ece9de; padding:26px 0; background:#fcfcf7;">
+    <div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap; font-size:13px;">
+      <a href="#" style="color:#1c3a13; text-decoration:underline;">Refund policy</a><a href="#" style="color:#1c3a13; text-decoration:underline;">Shipping</a><a href="#" style="color:#1c3a13; text-decoration:underline;">Privacy policy</a><a href="#" style="color:#1c3a13; text-decoration:underline;">Terms of service</a><a href="#" style="color:#1c3a13; text-decoration:underline;">Cancellations</a>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const reveal = (el) => {
+      if (el.dataset.shown) return;
+      el.dataset.shown = '1';
+      el.style.transition = 'none';
+      const dur = 720, startY = 24, start = performance.now();
+      const ease = (t) => 1 - Math.pow(1 - t, 3);
+      const step = (now) => {
+        const t = Math.min(1, (now - start) / dur);
+        const e = ease(t);
+        el.style.opacity = String(e);
+        el.style.transform = 'translateY(' + (startY * (1 - e)).toFixed(2) + 'px)';
+        if (t < 1) requestAnimationFrame(step);
+        else { el.style.opacity = '1'; el.style.transform = 'none'; }
+      };
+      requestAnimationFrame(step);
+    };
+    const checkReveals = () => {
+      const vh = window.innerHeight;
+      this.refs.root.querySelectorAll('[data-reveal]').forEach((el) => {
+        if (el.dataset.shown) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.9 && r.bottom > 0) reveal(el);
+      });
+    };
+    this.refs.root.querySelectorAll('[data-reveal]').forEach((el) => {
+      if (el.dataset.armed) return;
+      el.dataset.armed = '1';
+      el.style.transition = 'none';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+    });
+    checkReveals();
+    window.addEventListener('scroll', checkReveals, { passive: true });
+    window.addEventListener('resize', checkReveals, { passive: true });
+    this._checkReveals = checkReveals;
+    this._safety = setTimeout(() => {
+      this.refs.root.querySelectorAll('[data-reveal]').forEach(el => {
+        if (el.dataset.shown) return;
+        el.dataset.shown = '1';
+        el.style.transition = 'none';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+    }, 1800);
+
+    // ViaCap scroll count-up + capsule
+    const onViaCap = () => {
+      const sec = this.refs && this.refs.viacap;
+      if (!sec) return;
+      const rect = sec.getBoundingClientRect();
+      const vh = window.innerHeight;
+      let p = 1 - Math.max(0, Math.min(1, (rect.top + rect.height * 0.2) / vh));
+      p = Math.max(0, Math.min(1, p));
+      if (this.refs.counter) this.refs.counter.textContent = Math.max(1, Math.round(p * 11));
+      if (this.refs.capsule) this.refs.capsule.style.transform = 'rotate(' + (p * 12 - 6).toFixed(1) + 'deg)';
+    };
+    window.addEventListener('scroll', onViaCap, { passive: true });
+    onViaCap();
+    this._onViaCap = onViaCap;
+    this.wireInteractions();
+    this.wireNavMenus();
+  }
+  componentDidUpdate() { this.wireInteractions(); this.wireNavMenus(); if (this._checkReveals) this._checkReveals(); }
+  wireNavMenus() {
+    const root = this.refs && this.refs.root; if (!root || root._navwired) return;
+    const tabs = root.querySelectorAll('[data-menu]');
+    const panels = {};
+    root.querySelectorAll('[data-panel]').forEach(p => { panels[p.dataset.panel] = p; });
+    if (!tabs.length || !Object.keys(panels).length) return;
+    root._navwired = true;
+    let hideTimer = null;
+    const tabByName = {};
+    tabs.forEach(t => { tabByName[t.dataset.menu] = t; });
+    const show = (name) => {
+      clearTimeout(hideTimer);
+      Object.entries(panels).forEach(([k, p]) => {
+        const on = (k === name);
+        p.style.opacity = on ? '1' : '0';
+        p.style.transform = on ? 'translateY(0)' : 'translateY(-8px)';
+        p.style.pointerEvents = on ? 'auto' : 'none';
+      });
+      Object.entries(tabByName).forEach(([k, t]) => { t.style.background = (k === name) ? 'rgba(0,0,0,0.06)' : 'transparent'; });
+    };
+    const hideNow = () => {
+      Object.values(panels).forEach(p => { p.style.opacity = '0'; p.style.transform = 'translateY(-8px)'; p.style.pointerEvents = 'none'; });
+      tabs.forEach(t => { t.style.background = 'transparent'; });
+    };
+    const hide = () => { clearTimeout(hideTimer); hideTimer = setTimeout(hideNow, 130); };
+    tabs.forEach(t => {
+      t.addEventListener('mouseenter', () => show(t.dataset.menu));
+      t.addEventListener('mouseleave', hide);
+    });
+    Object.values(panels).forEach(p => {
+      p.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+      p.addEventListener('mouseleave', hide);
+    });
+    // row hover highlight
+    root.querySelectorAll('[data-navrow]').forEach(r => {
+      r.addEventListener('mouseenter', () => { r.style.background = 'rgba(0,0,0,0.05)'; });
+      r.addEventListener('mouseleave', () => { r.style.background = 'transparent'; });
+    });
+  }
+  wireInteractions() {
+    const root = this.refs && this.refs.root; if (!root) return;
+    // product cards: lift + media scale (signature in-view/hover motion)
+    root.querySelectorAll('[data-jar]').forEach(jar => {
+      const card = jar.parentElement; if (!card || card.dataset.hovwired) return; card.dataset.hovwired = '1';
+      card.style.transition = 'transform 0.3s cubic-bezier(0.75,0,0.25,1), background 0.3s ease, box-shadow 0.3s ease';
+      const cEnter = () => { card.style.transform = 'translateY(-6px)'; card.style.background = 'rgba(255,255,255,0.09)'; card.style.boxShadow = '0 18px 40px rgba(0,0,0,0.22)'; jar.style.transform = 'scale(1.08)'; };
+      card.addEventListener('mouseenter', cEnter);
+      card.addEventListener('mouseleave', () => { card.style.transform = 'translateY(0)'; card.style.background = 'rgba(255,255,255,0.05)'; card.style.boxShadow = 'none'; jar.style.transform = 'scale(1)'; });
+      card.addEventListener('mousedown', () => { card.style.transform = 'translateY(-2px) scale(0.985)'; });
+      card.addEventListener('mouseup', cEnter);
+    });
+    // story tiles: scale on hover
+    root.querySelectorAll('[data-story]').forEach(t => {
+      if (t.dataset.hovwired) return; t.dataset.hovwired = '1';
+      t.addEventListener('mouseenter', () => { t.style.transform = 'scale(1.04)'; });
+      t.addEventListener('mouseleave', () => { t.style.transform = 'scale(1)'; });
+    });
+    // pill buttons: premium lift + soft shadow + brighten + arrow nudge + tactile press (legible, no harsh invert)
+    root.querySelectorAll('a,button').forEach(b => {
+      if (b.dataset.hovwired) return;
+      const s = b.getAttribute('style') || '';
+      if (!/border-radius:\s*(30px|40px|50%|99px)/.test(s)) return;
+      b.dataset.hovwired = '1';
+      const cs = getComputedStyle(b);
+      const bg = cs.backgroundColor; const col = cs.color;
+      const transparent = (bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent');
+      const m = (col.match(/\d+/g) || ['255','255','255']).map(Number);
+      const lightText = (0.299*m[0] + 0.587*m[1] + 0.114*m[2]) > 140;
+      const arrow = b.querySelector('[data-arrow]');
+      b.style.transition = 'background 0.25s cubic-bezier(0.75,0,0.25,1), color 0.25s ease, transform 0.22s cubic-bezier(0.75,0,0.25,1), box-shadow 0.25s ease, filter 0.25s ease';
+      const enter = () => {
+        b.style.transform = arrow ? 'none' : 'translateY(-2px)';
+        if (transparent) {
+          // outline -> legible solid fill matched to its surroundings
+          if (lightText) { b.style.background = '#fcfcf7'; b.style.color = '#1c3a13'; }
+          else { b.style.background = '#1c3a13'; b.style.color = '#fcfcf7'; }
+          b.style.boxShadow = '0 10px 26px rgba(28,58,19,0.16)';
+        } else {
+          // filled -> keep text, gently brighten + float
+          b.style.filter = 'brightness(1.1)';
+          b.style.boxShadow = '0 12px 28px rgba(28,58,19,0.22)';
+        }
+        if (arrow) arrow.style.transform = 'translateX(5px)';
+      };
+      const leave = () => {
+        b.style.transform = arrow ? 'none' : 'translateY(0)'; b.style.filter = 'none'; b.style.boxShadow = 'none';
+        if (transparent) { b.style.background = 'transparent'; b.style.color = col; }
+        if (arrow) arrow.style.transform = 'translateX(0)';
+      };
+      b.addEventListener('mouseenter', enter);
+      b.addEventListener('mouseleave', leave);
+      b.addEventListener('mousedown', () => { b.style.transform = 'translateY(0) scale(0.96)'; });
+      b.addEventListener('mouseup', enter);
+      b.addEventListener('blur', leave);
+    });
+    // text-link arrow nudge (e.g. Shop All)
+    root.querySelectorAll('[data-arrow]').forEach(arrow => {
+      const a = arrow.closest('a'); if (!a || a.dataset.arrwired) return; a.dataset.arrwired = '1';
+      a.addEventListener('mouseenter', () => { arrow.style.transform = 'translateX(5px)'; });
+      a.addEventListener('mouseleave', () => { arrow.style.transform = 'translateX(0)'; });
+    });
+    // product grid cards: lift + image zoom
+    root.querySelectorAll('[data-prodcard]').forEach(c => {
+      if (c.dataset.pcw) return; c.dataset.pcw = '1';
+      const img = c.querySelector('[data-prodimg]');
+      c.addEventListener('mouseenter', () => { c.style.transform = 'translateY(-4px)'; c.style.boxShadow = '0 16px 38px rgba(0,0,0,0.10)'; if (img) img.style.transform = 'scale(1.04)'; });
+      c.addEventListener('mouseleave', () => { c.style.transform = 'translateY(0)'; c.style.boxShadow = 'none'; if (img) img.style.transform = 'scale(1)'; });
+    });
+  }
+  componentWillUnmount() {
+    if (this._checkReveals) { window.removeEventListener('scroll', this._checkReveals); window.removeEventListener('resize', this._checkReveals); }
+    if (this._onViaCap) window.removeEventListener('scroll', this._onViaCap);
+    if (this._safety) clearTimeout(this._safety);
+  }
+  renderVals() {
+    const products = [
+      { badge:'Bestseller', badgeBg:'#62e104', badgeColor:'#1a1a1a', code:'Multivitamin', name:'Multi Pro', price:'$39.99', jar:'url(images/multi-pro.webp) center/contain no-repeat, linear-gradient(160deg,#7d8a52,#3f4f22)', url:'Product.dc.html?p=multi-pro' },
+      { badge:'New', badgeBg:'transparent', badgeColor:'#62e104', code:'Vitamin D3', name:'Optimus D3', price:'$24.99', jar:'url(images/optimus-d3.webp) center/contain no-repeat, linear-gradient(160deg,#d8c08a,#9c7d3e)', url:'Product.dc.html?p=optimus-d3' },
+      { badge:'New', badgeBg:'transparent', badgeColor:'#62e104', code:'Omega-3', name:'Omega 1000', price:'$29.99', jar:'url(images/omega-1000.webp) center/contain no-repeat, linear-gradient(160deg,#7d9fa0,#3f5f62)', url:'Product.dc.html?p=omega-1000' },
+      { badge:'New', badgeBg:'transparent', badgeColor:'#62e104', code:'Sleep Support', name:'Sleep Pro+', price:'$27.99', jar:'url(images/sleep-pro.webp) center/contain no-repeat, linear-gradient(160deg,#6f6a92,#322c4c)', url:'Product.dc.html?p=sleep-pro' },
+    ];
+    const base = [
+      { w:'200px', h:'200px', radius:'50%', bg:'linear-gradient(160deg,#cdc3b0,#b0a48b)' },
+      { w:'260px', h:'320px', radius:'14px', bg:'linear-gradient(160deg,#3a4733,#222b1f)', isVideo:true },
+      { w:'240px', h:'300px', radius:'14px', bg:'linear-gradient(160deg,#d5ccb6,#bcb094)' },
+      { w:'300px', h:'300px', radius:'14px', bg:'#E8ECE0', isQuote:true, fg:'#1a1a1a', quote:'“Pushing the boundaries of what microbial metabolism and pathways are explained to move their interests and their passions to.”', source:'Fast Company' },
+      { w:'220px', h:'300px', radius:'14px', bg:'linear-gradient(160deg,#5a6b4e,#3a4733)' },
+      { w:'260px', h:'300px', radius:'14px', bg:'linear-gradient(160deg,#2a3326,#161f14)', isVideo:true },
+      { w:'300px', h:'300px', radius:'14px', bg:'#1c3a13', isQuote:true, fg:'#fcfcf7', quote:'“Organica Living is pioneering new applications of probiotics to improve human and planetary health.”', source:'Forbes' },
+      { w:'200px', h:'200px', radius:'50%', bg:'linear-gradient(160deg,#7fa169,#4d6b3e)' },
+    ];
+    const stories = base.concat(base.map((s, i) => ({ ...s, _k: 'd' + i })));
+    const footerCols = [
+      { title:'Products', links:[{label:'Shop All',url:'#'}] },
+      { title:'About', links:[{label:'Science',url:'#'},{label:'Sustainability',url:'#'},{label:'Organica Living Labs',url:'#'}] },
+      { title:'Inquire', links:[{label:'Partner',url:'#'},{label:'Practitioners',url:'#'},{label:'Press',url:'#'},{label:'Join',url:'#'}] },
+      { title:'Help', links:[{label:'Help',url:'#'},{label:'Contact',url:'#'},{label:'My Account',url:'#'},{label:'International',url:'#'}] },
+      { title:'Social', links:[{label:'Instagram',url:'#'},{label:'Twitter',url:'#'},{label:'Linkedin',url:'#'},{label:'Refer',url:'#'}] },
+      { title:'Legal', links:[{label:'Terms + Conditions',url:'#'},{label:'Privacy Policy',url:'#'},{label:'Accessibility',url:'#'},{label:'Consent Preferences',url:'#'}] },
+    ];
+    return {
+      products, stories, footerCols,
+      root: (el) => { this.refs = this.refs || {}; this.refs.root = el; },
+      viacap: (el) => { this.refs = this.refs || {}; this.refs.viacap = el; },
+      capsule: (el) => { this.refs = this.refs || {}; this.refs.capsule = el; },
+      counter: (el) => { this.refs = this.refs || {}; this.refs.counter = el; },
+      onSubmit: (e) => { e.preventDefault(); const i = e.target.querySelector('input'); i.value=''; i.placeholder='Thanks for signing up!'; },
+    };
+  }
+}
+</script>
+</body>
+</html>

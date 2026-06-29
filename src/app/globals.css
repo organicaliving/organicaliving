@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/*
+  Organica Living design tokens.
+  Source of truth: design-reference/Design System.dc.html
+  In Tailwind v4 these @theme values generate utilities, e.g.
+  --color-forest -> bg-forest / text-forest / border-forest.
+*/
+@theme {
+  /* ---- core palette ---- */
+  --color-cream: #fcfcf7; /* page background */
+  --color-ink: #1a1a1a; /* primary text */
+  --color-forest: #1c3a13; /* brand authority green */
+  --color-forest-deep: #16290f; /* darkest footer green */
+  --color-lime: #62e104; /* electric accent — emphasis only */
+  --color-muted: #5e5e5e; /* secondary text */
+
+  /* ---- surfaces / neutrals ---- */
+  --color-header: #f3f0e8;
+  --color-panel: #ececec;
+  --color-sand: #e7e1d2;
+  --color-line: rgba(0, 0, 0, 0.08); /* hairline borders */
+
+  /* ---- supporting greens ---- */
+  --color-leaf: #22401a;
+  --color-sage: #9ab87f;
+
+  /* ---- semantic ---- */
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-ink);
+
+  /* ---- type families (bound to next/font CSS vars in layout.tsx) ---- */
+  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-league-spartan), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+  --font-script: var(--font-caveat), cursive;
+
+  /* ---- radii ---- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 40px;
+}
+
+::selection {
+  background: var(--color-forest);
+  color: var(--color-cream);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+}

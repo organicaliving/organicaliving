@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=League+Spartan:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:#fcfcf7; color:#1a1a1a; font-family:'League Spartan',sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:-0.01em; }
+  h1,h2,h3,h4,h5,h6 { font-family:'Sora',sans-serif; }
+  ::selection { background:#1c3a13; color:#fcfcf7; }
+  @keyframes seedMarquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  .seed-mono { font-family:'Space Mono',monospace; }
+  [data-signin-panel] input::placeholder { color:#4a4a44; font-family:'Space Mono',monospace; font-size:10.5px; opacity:1; }
+  input::placeholder { color:rgba(243,240,232,.5); }
+  /* ---------- responsive ---------- */
+  [data-burger]{ display:none; }
+  [data-mobile-menu] summary::-webkit-details-marker{ display:none; }
+  [data-mobile-menu]{ display:none; }
+  [data-mobile-menu] details[open] [data-chev]{ transform:rotate(180deg); }
+  @media (max-width:900px){
+    [data-desktop-nav]{ display:none !important; }
+    [data-desktop-actions]{ display:none !important; }
+    [data-burger]{ display:flex !important; }
+    [data-mobile-menu]{ display:flex !important; }
+    [data-panel],[data-signin-panel]{ display:none !important; }
+    [style*="padding: 15px 40px"]{ padding-left:20px !important; padding-right:20px !important; }
+  }
+  @media (max-width:768px){
+    [style*="grid-template-columns:"]{ grid-template-columns:1fr !important; }
+    [data-rgrid4]{ grid-template-columns:repeat(2,1fr) !important; }
+    [data-rgrid6]{ grid-template-columns:repeat(3,1fr) !important; }
+    [data-rcol2]{ grid-template-columns:1fr !important; gap:30px !important; }
+    [style*="padding: 0px 40px"]{ padding-left:20px !important; padding-right:20px !important; }
+    [style*="padding: 64px 40px"]{ padding-left:22px !important; padding-right:22px !important; }
+    [style*="padding: 96px 0px"]{ padding-top:60px !important; padding-bottom:60px !important; }
+    [style*="padding: 0px 0px 100px"]{ padding-bottom:64px !important; }
+  }
+  @media (max-width:480px){
+    [data-rgrid6]{ grid-template-columns:repeat(2,1fr) !important; }
+  }
+</style>
+</helmet>
+
+<div ref="{{ root }}" style="background:#fcfcf7;">
+
+  <!-- announcement bar -->
+  <div style="background:#62e104; color:#1a1a1a; text-align:center; font-size:13px; font-weight:500; padding:9px 16px; letter-spacing:0;">Members Only • 25% Off New Products</div>
+
+  <!-- header -->
+  <header style="position:sticky; top:0; z-index:100; background:rgba(243,240,232,.82); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);">
+    <div style="max-width:1440px; margin:0 auto; padding:15px 40px; display:flex; align-items:center; justify-content:space-between; position:relative;">
+    <div style="display:flex; align-items:center; gap:40px;">
+      <a href="#" style="display:flex; align-items:center; gap:6px; font-size:22px; font-weight:500; letter-spacing:-0.5px; color:#1a1a1a; text-decoration:none;"><img src="organica-living-logo.png" alt="Organica Living" style="height:42px; width:auto; display:block;"/></a>
+      <nav data-desktop-nav style="display:flex; gap:4px;">
+        <span data-menu="shop" style="font-size:14px; color:#1a1a1a; font-weight:400; cursor:pointer; padding:6px 13px; border-radius:20px; transition:background .2s ease;">Shop</span>
+        <span data-menu="science" style="font-size:14px; color:#1a1a1a; font-weight:400; cursor:pointer; padding:6px 13px; border-radius:20px; transition:background .2s ease;">Science</span>
+        <span data-menu="learn" style="font-size:14px; color:#1a1a1a; font-weight:400; cursor:pointer; padding:6px 13px; border-radius:20px; transition:background .2s ease;">Learn</span>
+      </nav>
+    </div>
+    <div data-desktop-actions style="display:flex; align-items:center; gap:20px;">
+      <span data-signin style="font-size:14px; color:#1a1a1a; font-weight:400; cursor:pointer;">Account</span>
+      <a href="Refer.dc.html" style="font-size:14px; color:#1a1a1a; font-weight:400; text-decoration:none;">Refer</a>
+      <a href="Cart.dc.html" style="line-height:1; text-box-trim:trim-both; text-box-edge:cap alphabetic; display:inline-block; font-size:14px; font-weight:500; color:#fcfcf7; background:#1c3a13; padding:10px 22px; border-radius:40px; text-decoration:none;">Cart<sup style="font-size:10px;">2</sup></a>
+    </div>
+
+    <button data-burger aria-label="Open menu" style="align-items:center; justify-content:center; flex-direction:column; gap:6px; width:42px; height:42px; border:none; background:transparent; cursor:pointer;">
+      <span style="display:block; width:22px; height:2px; background:#1a1a1a;"></span>
+      <span style="display:block; width:22px; height:2px; background:#1a1a1a;"></span>
+    </button>
+
+    <!-- SHOP dropdown -->
+    <div data-panel="shop" style="position:absolute; top:calc(100% + 2px); left:40px; width:368px; padding:12px; border-radius:22px; background:rgba(236,236,233,1); backdrop-filter:blur(54px) saturate(150%); -webkit-backdrop-filter:blur(54px) saturate(150%); border:1px solid rgba(0,0,0,0.08); box-shadow:0 30px 70px rgba(0,0,0,0.22); opacity:0; transform:translateY(-8px); pointer-events:none; transition:opacity .28s cubic-bezier(0.75,0,0.25,1), transform .28s cubic-bezier(0.75,0,0.25,1); z-index:200; overflow:hidden;">
+      <div style="position:relative;">
+        <a href="Product.dc.html?p=multi-pro" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:url(images/multi-pro.webp) center/74% no-repeat, rgba(128,128,128,0.5);"></div><div><div style="font-size:11px; color:#8a8a80;">Multivitamin</div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Multi Pro</div></div></a>
+        <a href="Product.dc.html?p=optimus-d3" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:url(images/optimus-d3.webp) center/74% no-repeat, rgba(128,128,128,0.5);"></div><div><div style="font-size:11px; color:#8a8a80;">Vitamin D3</div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Optimus D3</div></div></a>
+        <a href="Product.dc.html?p=omega-1000" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:url(images/omega-1000.webp) center/74% no-repeat, rgba(128,128,128,0.5);"></div><div><div style="font-size:11px; color:#8a8a80;">Omega-3</div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Omega 1000</div></div></a>
+        <a href="Product.dc.html?p=vision-pro" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:url(images/vision-pro.webp) center/74% no-repeat, rgba(128,128,128,0.5);"></div><div><div style="font-size:11px; color:#8a8a80;">Eye Health</div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Vision Pro</div></div></a>
+        <a href="Product.dc.html?p=sleep-pro" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:url(images/sleep-pro.webp) center/74% no-repeat, rgba(128,128,128,0.5);"></div><div><div style="font-size:11px; color:#8a8a80;">Sleep Support</div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Sleep Pro+</div></div></a>
+        <a href="Product.dc.html?p=glow-pro" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:url(images/glow-pro.webp) center/74% no-repeat, rgba(128,128,128,0.5);"></div><div><div style="font-size:11px; color:#8a8a80;">Hair, Skin &amp; Nails</div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Glow Pro</div></div></a>
+        <a href="Products.dc.html" style="display:flex; align-items:center; gap:7px; padding:14px 12px 6px; font-size:13px; font-weight:500; color:#1a1a1a; text-decoration:none;">Shop All Products <span style="display:inline-block;">&rarr;</span></a>
+      </div>
+    </div>
+
+    <!-- SCIENCE dropdown -->
+    <div data-panel="science" style="position:absolute; top:calc(100% + 2px); left:40px; width:364px; padding:12px; border-radius:22px; background:rgba(236,236,233,1); backdrop-filter:blur(54px) saturate(150%); -webkit-backdrop-filter:blur(54px) saturate(150%); border:1px solid rgba(0,0,0,0.08); box-shadow:0 30px 70px rgba(0,0,0,0.22); opacity:0; transform:translateY(-8px); pointer-events:none; transition:opacity .28s cubic-bezier(0.75,0,0.25,1), transform .28s cubic-bezier(0.75,0,0.25,1); z-index:200; overflow:hidden;">
+      <div style="position:relative;">
+        <a href="#" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:linear-gradient(135deg,#9ab87f,#4d6b3e);"></div><div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Approach</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Microbiome science for human health.</div></div></a>
+        <a href="#" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:linear-gradient(135deg,#7a6a55,#3f352d);"></div><div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Organica Living [ Labs ]</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Frontier microbial science.</div></div></a>
+        <a href="#" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:linear-gradient(135deg,#c8b89e,#9a8568);"></div><div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Scientists</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Leading microbiome experts.</div></div></a>
+        <a href="#" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:linear-gradient(135deg,#6f9a6a,#3a5a35);"></div><div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Sustainability</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Human impact on planetary health.</div></div></a>
+        <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:#8a8a80; padding:12px 12px 4px;">Reference</div>
+        <a href="Product.dc.html?p=multi-pro" data-navrow style="display:block; font-size:13px; color:#3a3a36; padding:6px 12px; border-radius:10px; text-decoration:none; transition:background .2s ease;">Multi Pro &middot; Multivitamin + Minerals</a>
+        <a href="Product.dc.html?p=optimus-d3" data-navrow style="display:block; font-size:13px; color:#3a3a36; padding:6px 12px; border-radius:10px; text-decoration:none; transition:background .2s ease;">Optimus D3 &middot; Vitamin D3 5000 IU</a>
+        <a href="Product.dc.html?p=omega-1000" data-navrow style="display:block; font-size:13px; color:#3a3a36; padding:6px 12px; border-radius:10px; text-decoration:none; transition:background .2s ease;">Omega 1000 &middot; Omega-3</a>
+        <a href="Product.dc.html?p=vision-pro" data-navrow style="display:block; font-size:13px; color:#3a3a36; padding:6px 12px; border-radius:10px; text-decoration:none; transition:background .2s ease;">Vision Pro &middot; Eye Health</a>
+        <a href="Product.dc.html?p=meno-pro" data-navrow style="display:block; font-size:13px; color:#3a3a36; padding:6px 12px; border-radius:10px; text-decoration:none; transition:background .2s ease;">Meno Pro &middot; Menopause Support</a>
+        <a href="Product.dc.html?p=bloom" data-navrow style="display:block; font-size:13px; color:#3a3a36; padding:6px 12px; border-radius:10px; text-decoration:none; transition:background .2s ease;">Bloom &middot; Pregnancy Support</a>
+      </div>
+    </div>
+
+    <!-- LEARN dropdown -->
+    <div data-panel="learn" style="position:absolute; top:calc(100% + 2px); left:40px; width:364px; padding:12px; border-radius:22px; background:rgba(236,236,233,1); backdrop-filter:blur(54px) saturate(150%); -webkit-backdrop-filter:blur(54px) saturate(150%); border:1px solid rgba(0,0,0,0.08); box-shadow:0 30px 70px rgba(0,0,0,0.22); opacity:0; transform:translateY(-8px); pointer-events:none; transition:opacity .28s cubic-bezier(0.75,0,0.25,1), transform .28s cubic-bezier(0.75,0,0.25,1); z-index:200; overflow:hidden;">
+      <div style="position:relative;">
+        <a href="#" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:linear-gradient(135deg,#a9d6c0,#4d8a72);"></div><div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Microbiome 101</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">The hidden ecosystem powering your health.</div></div></a>
+        <a href="#" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:linear-gradient(135deg,#7fa56a,#3f5a30);"></div><div><div style="font-size:15px; color:#1a1a1a; font-weight:500;">Probiotics 101</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">How these mighty bacteria shape your health.</div></div></a>
+        <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:#8a8a80; padding:14px 12px 6px;">Featured Articles</div>
+        <a href="Blog Article.dc.html" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:linear-gradient(135deg,#3a4733,#1d2618);"></div><div><div style="font-size:13px; color:#1a1a1a; font-weight:500; line-height:1.25;">How Organica Living Is Setting A New Standard For Probiotic Health</div><div style="font-size:11px; color:#8a8a80; margin-top:2px;">7 min read</div></div></a>
+        <a href="Blog Article.dc.html" data-navrow style="display:flex; align-items:center; gap:13px; padding:9px 11px; border-radius:14px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:12px; flex:none; background:linear-gradient(135deg,#5a6b7a,#2f3f47);"></div><div><div style="font-size:13px; color:#1a1a1a; font-weight:500; line-height:1.25;">Seeking Carbon-Capturing Bacteria off a Remote Japanese Island</div><div style="font-size:11px; color:#8a8a80; margin-top:2px;">8 min read</div></div></a>
+        <a href="Blogs.dc.html" style="display:flex; align-items:center; gap:7px; padding:14px 12px 6px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#1a1a1a; text-decoration:none;">All Cultured Articles <span style="display:inline-block;">&rarr;</span></a>
+      </div>
+    </div>
+    <div data-signin-panel style="position:absolute; top:calc(100% + 2px); right:40px; width:300px; padding:20px; border-radius:22px; background:rgba(236,236,233,1); backdrop-filter:blur(54px) saturate(150%); -webkit-backdrop-filter:blur(54px) saturate(150%); border:1px solid rgba(0,0,0,0.08); box-shadow:0 30px 70px rgba(0,0,0,0.22); opacity:0; transform:translateY(-8px); pointer-events:none; transition:opacity .28s cubic-bezier(0.75,0,0.25,1), transform .28s cubic-bezier(0.75,0,0.25,1); z-index:200;">
+      <a href="Account.dc.html" data-navrow style="display:flex; gap:12px; align-items:flex-start; padding:8px; border-radius:12px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:10px; flex:none; background:linear-gradient(160deg,#9ab87f,#4d6b3e);"></div><div><div style="font-size:14px; font-weight:600; color:#1a1a1a;">Home</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Manage your membership and earn rewards.</div></div></a>
+      <a href="Refer.dc.html" data-navrow style="display:flex; gap:12px; align-items:flex-start; padding:8px; border-radius:12px; text-decoration:none; transition:background .2s ease;"><div style="width:52px; height:52px; border-radius:10px; flex:none; background:linear-gradient(160deg,#7a6a55,#3f352d);"></div><div><div style="font-size:14px; font-weight:600; color:#1a1a1a;">Refer</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Give $25 and get $25 for every referral.</div></div></a>
+      <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#8a8a80; padding:12px 8px 6px;">Account</div>
+      <a href="Subscriptions.dc.html" data-navrow style="display:block; font-size:14px; color:#1a1a1a; padding:7px 8px; border-radius:8px; text-decoration:none; transition:background .2s ease;">Subscriptions</a>
+      <a href="Order%20History.dc.html" data-navrow style="display:block; font-size:14px; color:#1a1a1a; padding:7px 8px; border-radius:8px; text-decoration:none; transition:background .2s ease;">Order History</a>
+      <a href="Account.dc.html" data-navrow style="display:block; font-size:14px; color:#1a1a1a; padding:7px 8px; border-radius:8px; text-decoration:none; transition:background .2s ease;">Settings</a>
+      <a href="Login.dc.html" style="display:flex; justify-content:flex-end; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#1c3a13; padding:14px 8px 4px; text-decoration:none;">Sign Out →</a>
+    </div>
+    </div>
+    <div data-mobile-menu style="position:absolute; top:0; left:0; right:0; max-height:calc(100vh - 36px); display:flex; flex-direction:column; background:rgba(236,236,233,0.92); backdrop-filter:blur(54px) saturate(150%); -webkit-backdrop-filter:blur(54px) saturate(150%); box-shadow:0 30px 60px rgba(0,0,0,0.18); opacity:0; transform:translateY(-10px); pointer-events:none; transition:opacity .3s cubic-bezier(0.75,0,0.25,1), transform .3s cubic-bezier(0.75,0,0.25,1); z-index:150;">
+      <div style="flex:none; display:flex; align-items:center; gap:8px; padding:11px 14px; border-bottom:1px solid rgba(0,0,0,0.06);">
+        <img src="organica-living-icon.svg" alt="Organica Living" style="width:30px; height:30px; flex:none; display:block;"/>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center; gap:2px;">
+          <div data-mtab="shop" style="font-size:14px; color:#1a1a1a; cursor:pointer; padding:6px 15px; border-radius:20px; background:rgba(0,0,0,0.06); font-weight:500; white-space:nowrap;">Shop</div>
+          <div data-mtab="science" style="font-size:14px; color:#1a1a1a; cursor:pointer; padding:6px 15px; border-radius:20px; background:transparent; font-weight:400; white-space:nowrap;">Science</div>
+          <div data-mtab="learn" style="font-size:14px; color:#1a1a1a; cursor:pointer; padding:6px 15px; border-radius:20px; background:transparent; font-weight:400; white-space:nowrap;">Learn</div>
+          <div data-mtab="account" style="font-size:14px; color:#1a1a1a; cursor:pointer; padding:6px 15px; border-radius:20px; background:transparent; font-weight:400; white-space:nowrap;">Account</div>
+        </div>
+        <button data-burger-close aria-label="Close menu" style="flex:none; border:none; background:transparent; font-size:24px; line-height:1; cursor:pointer; color:#1a1a1a; width:40px; height:40px;">&times;</button>
+      </div>
+      <div style="overflow-y:auto; padding:8px 24px 24px;">
+        <div data-mpane="shop">
+          <a href="Product.dc.html?p=multi-pro" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:url(images/multi-pro.webp) center/contain no-repeat, linear-gradient(160deg,#7d8a52,#3f4f22);"></div><div><div style="font-size:11px; color:#8a8a80;">Multivitamin</div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Multi Pro</div></div></a>
+          <a href="Product.dc.html?p=optimus-d3" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:url(images/optimus-d3.webp) center/contain no-repeat, linear-gradient(160deg,#d8c08a,#9c7d3e);"></div><div><div style="font-size:11px; color:#8a8a80;">Vitamin D3</div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Optimus D3</div></div></a>
+          <a href="Product.dc.html?p=omega-1000" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:url(images/omega-1000.webp) center/contain no-repeat, linear-gradient(160deg,#7d9fa0,#3f5f62);"></div><div><div style="font-size:11px; color:#8a8a80;">Omega-3</div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Omega 1000</div></div></a>
+          <a href="Product.dc.html?p=vision-pro" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:url(images/vision-pro.webp) center/contain no-repeat, linear-gradient(160deg,#8a93b6,#3f4a72);"></div><div><div style="font-size:11px; color:#8a8a80;">Eye Health</div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Vision Pro</div></div></a>
+          <a href="Product.dc.html?p=sleep-pro" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:url(images/sleep-pro.webp) center/contain no-repeat, linear-gradient(160deg,#6f6a92,#322c4c);"></div><div><div style="font-size:11px; color:#8a8a80;">Sleep Support</div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Sleep Pro+</div></div></a>
+          <a href="Product.dc.html?p=glow-pro" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:url(images/glow-pro.webp) center/contain no-repeat, linear-gradient(160deg,#c4929f,#7a4f5e);"></div><div><div style="font-size:11px; color:#8a8a80;">Hair, Skin &amp; Nails</div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Glow Pro</div></div></a>
+          <a href="Product.dc.html?p=bloom" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:url(images/bloom.webp) center/contain no-repeat, linear-gradient(160deg,#d2a3a6,#9c636b);"></div><div><div style="font-size:11px; color:#8a8a80;">Prenatal</div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Bloom</div></div></a>
+          <a href="Product.dc.html?p=meno-pro" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:url(images/meno-pro.webp) center/contain no-repeat, linear-gradient(160deg,#bf8d80,#754940);"></div><div><div style="font-size:11px; color:#8a8a80;">Menopause Support</div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Meno Pro</div></div></a>
+          <a href="Product.dc.html?p=optimus-d3-mini" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:url(images/optimus-d3-mini.webp) center/contain no-repeat, linear-gradient(160deg,#e0a868,#b06e30);"></div><div><div style="font-size:11px; color:#8a8a80;">Kids Vitamin D3</div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Optimus D3 Mini</div></div></a>
+        </div>
+        <div data-mpane="science" style="display:none;"><a href="#" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(135deg,#9ab87f,#4d6b3e);"></div><div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Approach</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Microbiome science for human health.</div></div></a><a href="#" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(135deg,#7a6a55,#3f352d);"></div><div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Organica Living [ Labs ]</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Frontier microbial science.</div></div></a><a href="#" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(135deg,#c8b89e,#9a8568);"></div><div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Scientists</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Leading microbiome experts.</div></div></a><a href="#" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(135deg,#6f9a6a,#3a5a35);"></div><div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Sustainability</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Human impact on planetary health.</div></div></a><div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:#8a8a80; padding:12px 6px 6px;">Reference</div><a href="#" data-mrow style="display:block; font-size:13px; color:#3a3a36; padding:8px 6px; text-decoration:none;">DS-01® Daily Synbiotic</a><a href="#" data-mrow style="display:block; font-size:13px; color:#3a3a36; padding:8px 6px; text-decoration:none;">DM-02™ Daily Multivitamin</a><a href="#" data-mrow style="display:block; font-size:13px; color:#3a3a36; padding:8px 6px; text-decoration:none;">AM-02™ Energy + Focus</a><a href="#" data-mrow style="display:block; font-size:13px; color:#3a3a36; padding:8px 6px; text-decoration:none;">PM-02™ Sleep + Restore</a><a href="#" data-mrow style="display:block; font-size:13px; color:#3a3a36; padding:8px 6px; text-decoration:none;">PDS-08® Pediatric Synbiotic</a><a href="#" data-mrow style="display:block; font-size:13px; color:#3a3a36; padding:8px 6px; text-decoration:none;">VS-01™ Vaginal Synbiotic</a></div>
+        <div data-mpane="learn" style="display:none;"><a href="#" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(135deg,#a9d6c0,#4d8a72);"></div><div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Microbiome 101</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">The hidden ecosystem powering your health.</div></div></a><a href="#" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(135deg,#7fa56a,#3f5a30);"></div><div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Probiotics 101</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">How these mighty bacteria shape your health.</div></div></a><div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:#8a8a80; padding:12px 6px 6px;">Featured Articles</div><a href="#" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(135deg,#3a4733,#1d2618);"></div><div><div style="font-size:13px; color:#1a1a1a; font-weight:500; line-height:1.25;">How Organica Living Is Setting A New Standard For Probiotic Health</div><div style="font-size:11px; color:#8a8a80; margin-top:2px;">7 min read</div></div></a><a href="#" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(135deg,#5a6b7a,#2f3f47);"></div><div><div style="font-size:13px; color:#1a1a1a; font-weight:500; line-height:1.25;">Seeking Carbon-Capturing Bacteria off a Remote Japanese Island</div><div style="font-size:11px; color:#8a8a80; margin-top:2px;">8 min read</div></div></a><a href="#" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(135deg,#8a7a5a,#4a3f2d);"></div><div><div style="font-size:13px; color:#1a1a1a; font-weight:500; line-height:1.25;">Exploring the Microbiomes of Your Body</div><div style="font-size:11px; color:#8a8a80; margin-top:2px;">12 min read</div></div></a><a href="Blogs.dc.html" data-mrow style="display:flex; align-items:center; gap:7px; padding:14px 6px 6px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#1a1a1a; text-decoration:none;">All Cultured Articles →</a></div>
+        <div data-mpane="account" style="display:none;"><a href="Account.dc.html" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(160deg,#9ab87f,#4d6b3e);"></div><div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Home</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Manage your membership and earn rewards.</div></div></a><a href="Refer.dc.html" data-mrow style="display:flex; align-items:center; gap:14px; padding:10px 6px; border-radius:14px; text-decoration:none;"><div style="width:54px; height:54px; border-radius:12px; flex:none; background:linear-gradient(160deg,#7a6a55,#3f352d);"></div><div><div style="font-size:16px; color:#1a1a1a; font-weight:500;">Refer</div><div style="font-size:12px; color:#5e5e5e; line-height:1.3;">Give $25 and get $25 for every referral.</div></div></a><div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:#8a8a80; padding:12px 6px 6px;">Account</div><a href="Subscriptions.dc.html" data-mrow style="display:block; font-size:14px; color:#1a1a1a; padding:9px 6px; text-decoration:none;">Subscriptions</a><a href="Order%20History.dc.html" data-mrow style="display:block; font-size:14px; color:#1a1a1a; padding:9px 6px; text-decoration:none;">Order History</a><a href="Account.dc.html" data-mrow style="display:block; font-size:14px; color:#1a1a1a; padding:9px 6px; text-decoration:none;">Settings</a><a href="Login.dc.html" data-mrow style="display:flex; justify-content:flex-start; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#1c3a13; padding:14px 6px 4px; text-decoration:none;">Sign Out →</a></div>
+      </div>
+    </div>
+  </header>
+
+
+
+  <!-- subscriptions -->
+  <section style="background:#fcfcf7; padding:40px 0 40px;">
+    <div style="max-width:1440px; margin:0 auto; padding:0 40px;">
+      <h1 style="font-size:clamp(28px,3vw,40px); font-weight:300; letter-spacing:-0.02em; color:#1c3a13;">Subscriptions</h1>
+      <p style="margin-top:20px; font-size:15px; color:#3a3a36;">You don't have any active subscriptions.</p>
+      <div style="margin-top:40px;"><div style="font-size:18px; font-weight:300; color:#1a1a1a; margin-bottom:20px;">You Might Also Like:</div><div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:760px;"><div style="background:#f4f1e6; border-radius:16px; padding:20px; text-align:center;"><div style="aspect-ratio:1/1; border-radius:12px; background:linear-gradient(160deg,#3a4733,#1d2618); margin-bottom:16px;"></div><div style="font-family:'Space Mono',monospace; font-size:12px; color:#6d6d6d;">Multivitamin</div><div style="font-size:15px; color:#1a1a1a; margin-top:4px;">Multi Pro</div><div style="display:flex; align-items:baseline; justify-content:center; gap:6px; margin-top:10px;"><span style="font-size:14px; font-weight:500;">$27.99</span><span style="font-size:12px; color:#9a9a8e; text-decoration:line-through;">$39.99</span></div><a href="#" style="display:inline-block; margin-top:14px; font-size:13px; font-weight:500; color:#1a1a1a; border:1.5px solid #1a1a1a; border-radius:30px; padding:8px 26px; text-decoration:none;">Add</a></div><div style="background:#f4f1e6; border-radius:16px; padding:20px; text-align:center;"><div style="aspect-ratio:1/1; border-radius:12px; background:linear-gradient(160deg,#3a4733,#1d2618); margin-bottom:16px;"></div><div style="font-family:'Space Mono',monospace; font-size:12px; color:#6d6d6d;">Sleep Support</div><div style="font-size:15px; color:#1a1a1a; margin-top:4px;">Sleep Pro+</div><div style="display:flex; align-items:baseline; justify-content:center; gap:6px; margin-top:10px;"><span style="font-size:14px; font-weight:500;">$24.49</span><span style="font-size:12px; color:#9a9a8e; text-decoration:line-through;">$34.99</span></div><a href="#" style="display:inline-block; margin-top:14px; font-size:13px; font-weight:500; color:#1a1a1a; border:1.5px solid #1a1a1a; border-radius:30px; padding:8px 26px; text-decoration:none;">Add</a></div><div style="background:#f4f1e6; border-radius:16px; padding:20px; text-align:center;"><div style="aspect-ratio:1/1; border-radius:12px; background:linear-gradient(160deg,#3a4733,#1d2618); margin-bottom:16px;"></div><div style="font-family:'Space Mono',monospace; font-size:12px; color:#6d6d6d;">Kids Vitamin D3</div><div style="font-size:15px; color:#1a1a1a; margin-top:4px;">Optimus D3 Mini</div><div style="display:flex; align-items:baseline; justify-content:center; gap:6px; margin-top:10px;"><span style="font-size:14px; font-weight:500;">$39.99</span></div><a href="#" style="display:inline-block; margin-top:14px; font-size:13px; font-weight:500; color:#1a1a1a; border:1.5px solid #1a1a1a; border-radius:30px; padding:8px 26px; text-decoration:none;">Add</a></div></div></div>
+    </div>
+  </section>
+
+  <section style="background:#fcfcf7; padding:50px 0 90px;">
+    <div style="max-width:1440px; margin:0 auto; padding:0 40px; display:grid; grid-template-columns:0.85fr 1.15fr; gap:48px; align-items:start;">
+      <div><h2 style="font-size:clamp(28px,3.2vw,40px); font-weight:300; letter-spacing:-0.02em;">Need Help?</h2><p style="margin-top:14px; font-size:14px; color:#3a3a36;">Have more questions? Visit our <a href="#" style="color:#1c3a13; text-decoration:underline;">FAQ</a>.</p></div>
+      <div><details style="border-bottom:1px solid #e4e1d6;"><summary style="list-style:none; cursor:pointer; display:flex; justify-content:space-between; gap:16px; align-items:center; padding:20px 0; font-size:15px; color:#1a1a1a;">How do I edit my next shipment date?<span style="color:#6d6d6d; font-size:18px;">+</span></summary><div style="padding:0 0 20px; font-size:13px; line-height:1.6; color:#3a3a36;">Visit our help center for detailed steps, or contact care@organicaliving.com.</div></details><details style="border-bottom:1px solid #e4e1d6;"><summary style="list-style:none; cursor:pointer; display:flex; justify-content:space-between; gap:16px; align-items:center; padding:20px 0; font-size:15px; color:#1a1a1a;">How do I update my shipping and billing information?<span style="color:#6d6d6d; font-size:18px;">+</span></summary><div style="padding:0 0 20px; font-size:13px; line-height:1.6; color:#3a3a36;">Visit our help center for detailed steps, or contact care@organicaliving.com.</div></details><details style="border-bottom:1px solid #e4e1d6;"><summary style="list-style:none; cursor:pointer; display:flex; justify-content:space-between; gap:16px; align-items:center; padding:20px 0; font-size:15px; color:#1a1a1a;">How do I switch between different refill plans?<span style="color:#6d6d6d; font-size:18px;">+</span></summary><div style="padding:0 0 20px; font-size:13px; line-height:1.6; color:#3a3a36;">Visit our help center for detailed steps, or contact care@organicaliving.com.</div></details></div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer style="background:#1c3a13; color:#fcfcf7; padding:64px 0 40px;">
+    <div style="max-width:1440px; margin:0 auto; padding:0 40px;">
+      <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(243,240,232,.15); align-items:start;">
+        <div>
+          <a href="#" style="display:flex; align-items:center; gap:6px; font-size:24px; font-weight:500; color:#fcfcf7; text-decoration:none; width:fit-content;"><img src="organica-living-logo.png" alt="Organica Living" style="height:48px; width:auto; display:block; filter:brightness(0) invert(1);"/></a>
+          <p style="margin-top:20px; font-size:clamp(18px,1.9vw,26px); font-weight:400; line-height:1.3; max-width:480px; color:#cdd6c2; letter-spacing:-0.01em;">Pioneering microbiome science <span style="color:#62e104;">[R+D]</span> for human and planetary health since 2016.</p>
+        </div>
+        <div>
+          <div style="font-size:14px; font-weight:500; margin-bottom:14px;">Science with Organica Living—nerdy reads for your inbox.</div>
+          <form onsubmit="{{ onSubmit }}" style="display:flex; align-items:center; gap:10px; max-width:400px; border:1px solid rgba(243,240,232,.3); border-radius:40px; padding:5px 6px 5px 20px;">
+            <input type="email" placeholder="Sign Up For Our Newsletter" required style="flex:1; background:transparent; border:none; color:#fcfcf7; font-size:14px; font-family:inherit; outline:none;" />
+            <button type="submit" aria-label="Subscribe" style="flex:0 0 auto; width:38px; height:38px; border-radius:50%; background:#62e104; border:none; color:#1a1a1a; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span data-arrow style="display:flex; transition:transform .25s cubic-bezier(0.75,0,0.25,1);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button>
+          </form>
+          <p style="margin-top:12px; font-size:12px; color:#7d8c77;">By signing up you consent to receive Organica Living emails.</p>
+        </div>
+      </div>
+      <div data-rgrid6 style="display:grid; grid-template-columns:repeat(6,1fr); gap:24px; padding:44px 0; font-size:13px;">
+        <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="6">
+          <div>
+            <div style="font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#7d8c77; margin-bottom:14px;">{{ col.title }}</div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <sc-for list="{{ col.links }}" as="link" hint-placeholder-count="4">
+                <a href="{{ link.url }}" style="color:#cdd6c2; text-decoration:none; transition:color .2s ease;" onmouseover="this.style.color='#fcfcf7'" onmouseout="this.style.color='#cdd6c2'">{{ link.label }}</a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <p style="font-size:11px; line-height:1.6; color:#5d7059; max-width:860px; padding-top:20px;">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
+      <div style="margin-top:20px; font-size:12px; color:#7d8c77;">© 2026 Organica Living (Organica Living, Inc.)</div>
+    </div>
+  </footer>
+
+  <!-- awaken within -->
+  <div style="position:relative; overflow:hidden; background:radial-gradient(70% 120% at 50% 0%,#4a6b3a,#2e4a25 60%,#1f3219 100%); display:flex; align-items:center; justify-content:center; padding:30px 20px;">
+    <div style="position:absolute; inset:0; background:radial-gradient(40% 60% at 20% 80%, rgba(150,180,110,.4), transparent 60%), radial-gradient(40% 60% at 80% 30%, rgba(120,160,90,.35), transparent 60%);"></div>
+    <svg viewBox="0 0 1000 122" width="100%" preserveAspectRatio="xMidYMid meet" style="position:relative; display:block;" aria-label="nature is our thing"><defs><linearGradient id="natureShine" x1="0" y1="0" x2="0.35" y2="0"><stop offset="0" stop-color="#fcfcf7" stop-opacity="0.26"/><stop offset="0.5" stop-color="#fcfcf7" stop-opacity="0.62"/><stop offset="1" stop-color="#fcfcf7" stop-opacity="0.26"/><animateTransform attributeName="gradientTransform" type="translate" values="-0.6 0;1 0;-0.6 0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.45 0 0.2 1;0.45 0 0.2 1" dur="7s" repeatCount="indefinite"/></linearGradient></defs><text x="500" y="91" text-anchor="middle" textLength="980" lengthAdjust="spacingAndGlyphs" font-family="'League Spartan',sans-serif" font-weight="700" font-size="128" letter-spacing="-3" fill="url(#natureShine)">nature is our thing</text></svg>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const reveal = (el) => {
+      if (el.dataset.shown) return;
+      el.dataset.shown = '1';
+      el.style.transition = 'none';
+      const dur = 720, startY = 24, start = performance.now();
+      const ease = (t) => 1 - Math.pow(1 - t, 3);
+      const step = (now) => {
+        const t = Math.min(1, (now - start) / dur);
+        const e = ease(t);
+        el.style.opacity = String(e);
+        el.style.transform = 'translateY(' + (startY * (1 - e)).toFixed(2) + 'px)';
+        if (t < 1) requestAnimationFrame(step);
+        else { el.style.opacity = '1'; el.style.transform = 'none'; }
+      };
+      requestAnimationFrame(step);
+    };
+    const checkReveals = () => {
+      const vh = window.innerHeight;
+      this.refs.root.querySelectorAll('[data-reveal]').forEach((el) => {
+        if (el.dataset.shown) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.9 && r.bottom > 0) reveal(el);
+      });
+    };
+    this.refs.root.querySelectorAll('[data-reveal]').forEach((el) => {
+      if (el.dataset.armed) return;
+      el.dataset.armed = '1';
+      el.style.transition = 'none';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+    });
+    checkReveals();
+    window.addEventListener('scroll', checkReveals, { passive: true });
+    window.addEventListener('resize', checkReveals, { passive: true });
+    this._checkReveals = checkReveals;
+    this._safety = setTimeout(() => {
+      this.refs.root.querySelectorAll('[data-reveal]').forEach(el => {
+        if (el.dataset.shown) return;
+        el.dataset.shown = '1';
+        el.style.transition = 'none';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+    }, 1800);
+
+    // ViaCap scroll count-up + capsule
+    const onViaCap = () => {
+      const sec = this.refs && this.refs.viacap;
+      if (!sec) return;
+      const rect = sec.getBoundingClientRect();
+      const vh = window.innerHeight;
+      let p = 1 - Math.max(0, Math.min(1, (rect.top + rect.height * 0.2) / vh));
+      p = Math.max(0, Math.min(1, p));
+      if (this.refs.counter) this.refs.counter.textContent = Math.max(1, Math.round(p * 11));
+      if (this.refs.capsule) this.refs.capsule.style.transform = 'rotate(' + (p * 12 - 6).toFixed(1) + 'deg)';
+    };
+    window.addEventListener('scroll', onViaCap, { passive: true });
+    onViaCap();
+    this._onViaCap = onViaCap;
+    this.wireInteractions();
+    this.wireNavMenus();
+    this.wireMobileNav();
+  }
+  componentDidUpdate() { this.wireInteractions(); this.wireNavMenus(); this.wireMobileNav(); if (this._checkReveals) this._checkReveals(); }
+  wireNavMenus() {
+    const root = this.refs && this.refs.root; if (!root || root._navwired) return;
+    const tabs = root.querySelectorAll('[data-menu]');
+    const panels = {};
+    root.querySelectorAll('[data-panel]').forEach(p => { panels[p.dataset.panel] = p; });
+    if (!tabs.length || !Object.keys(panels).length) return;
+    root._navwired = true;
+    let hideTimer = null;
+    const tabByName = {};
+    tabs.forEach(t => { tabByName[t.dataset.menu] = t; });
+    const show = (name) => {
+      clearTimeout(hideTimer);
+      Object.entries(panels).forEach(([k, p]) => {
+        const on = (k === name);
+        p.style.opacity = on ? '1' : '0';
+        p.style.transform = on ? 'translateY(0)' : 'translateY(-8px)';
+        p.style.pointerEvents = on ? 'auto' : 'none';
+      });
+      Object.entries(tabByName).forEach(([k, t]) => { t.style.background = (k === name) ? 'rgba(0,0,0,0.06)' : 'transparent'; });
+    };
+    const hideNow = () => {
+      Object.values(panels).forEach(p => { p.style.opacity = '0'; p.style.transform = 'translateY(-8px)'; p.style.pointerEvents = 'none'; });
+      tabs.forEach(t => { t.style.background = 'transparent'; });
+    };
+    const hide = () => { clearTimeout(hideTimer); hideTimer = setTimeout(hideNow, 130); };
+    tabs.forEach(t => {
+      t.addEventListener('mouseenter', () => show(t.dataset.menu));
+      t.addEventListener('mouseleave', hide);
+    });
+    Object.values(panels).forEach(p => {
+      p.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+      p.addEventListener('mouseleave', hide);
+    });
+    // row hover highlight
+    root.querySelectorAll('[data-navrow]').forEach(r => {
+      r.addEventListener('mouseenter', () => { r.style.background = 'rgba(0,0,0,0.05)'; });
+      r.addEventListener('mouseleave', () => { r.style.background = 'transparent'; });
+    });
+    const siTab = root.querySelector('[data-signin]');
+    const siPanel = root.querySelector('[data-signin-panel]');
+    if (siTab && siPanel && !siTab.dataset.sw) {
+      siTab.dataset.sw = '1';
+      let st = null;
+      const sShow = () => { clearTimeout(st); siPanel.style.opacity = '1'; siPanel.style.transform = 'translateY(0)'; siPanel.style.pointerEvents = 'auto'; };
+      const sHide = () => { clearTimeout(st); st = setTimeout(() => { siPanel.style.opacity = '0'; siPanel.style.transform = 'translateY(-8px)'; siPanel.style.pointerEvents = 'none'; }, 150); };
+      siTab.addEventListener('mouseenter', sShow);
+      siTab.addEventListener('mouseleave', sHide);
+      siPanel.addEventListener('mouseenter', sShow);
+      siPanel.addEventListener('mouseleave', sHide);
+    }
+  }
+  wireInteractions() {
+    const root = this.refs && this.refs.root; if (!root) return;
+    // product cards: lift + media scale (signature in-view/hover motion)
+    root.querySelectorAll('[data-jar]').forEach(jar => {
+      const card = jar.parentElement; if (!card || card.dataset.hovwired) return; card.dataset.hovwired = '1';
+      card.style.transition = 'transform 0.3s cubic-bezier(0.75,0,0.25,1), background 0.3s ease, box-shadow 0.3s ease';
+      const cEnter = () => { card.style.transform = 'translateY(-6px)'; card.style.background = 'rgba(255,255,255,0.09)'; card.style.boxShadow = '0 18px 40px rgba(0,0,0,0.22)'; jar.style.transform = 'scale(1.08)'; };
+      card.addEventListener('mouseenter', cEnter);
+      card.addEventListener('mouseleave', () => { card.style.transform = 'translateY(0)'; card.style.background = 'rgba(255,255,255,0.05)'; card.style.boxShadow = 'none'; jar.style.transform = 'scale(1)'; });
+      card.addEventListener('mousedown', () => { card.style.transform = 'translateY(-2px) scale(0.985)'; });
+      card.addEventListener('mouseup', cEnter);
+    });
+    // story tiles: scale on hover
+    root.querySelectorAll('[data-story]').forEach(t => {
+      if (t.dataset.hovwired) return; t.dataset.hovwired = '1';
+      t.addEventListener('mouseenter', () => { t.style.transform = 'scale(1.04)'; });
+      t.addEventListener('mouseleave', () => { t.style.transform = 'scale(1)'; });
+    });
+    // pill buttons: premium lift + soft shadow + brighten + arrow nudge + tactile press (legible, no harsh invert)
+    root.querySelectorAll('a,button').forEach(b => {
+      if (b.dataset.hovwired) return;
+      const s = b.getAttribute('style') || '';
+      if (!/border-radius:\s*(30px|40px|50%|99px)/.test(s)) return;
+      b.dataset.hovwired = '1';
+      const cs = getComputedStyle(b);
+      const bg = cs.backgroundColor; const col = cs.color;
+      const transparent = (bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent');
+      const m = (col.match(/\d+/g) || ['255','255','255']).map(Number);
+      const lightText = (0.299*m[0] + 0.587*m[1] + 0.114*m[2]) > 140;
+      const arrow = b.querySelector('[data-arrow]');
+      b.style.transition = 'background 0.25s cubic-bezier(0.75,0,0.25,1), color 0.25s ease, transform 0.22s cubic-bezier(0.75,0,0.25,1), box-shadow 0.25s ease, filter 0.25s ease';
+      const enter = () => {
+        b.style.transform = arrow ? 'none' : 'translateY(-2px)';
+        if (transparent) {
+          // outline -> legible solid fill matched to its surroundings
+          if (lightText) { b.style.background = '#fcfcf7'; b.style.color = '#1c3a13'; }
+          else { b.style.background = '#1c3a13'; b.style.color = '#fcfcf7'; }
+          b.style.boxShadow = '0 10px 26px rgba(28,58,19,0.16)';
+        } else {
+          // filled -> keep text, gently brighten + float
+          b.style.filter = 'brightness(1.1)';
+          b.style.boxShadow = '0 12px 28px rgba(28,58,19,0.22)';
+        }
+        if (arrow) arrow.style.transform = 'translateX(5px)';
+      };
+      const leave = () => {
+        b.style.transform = arrow ? 'none' : 'translateY(0)'; b.style.filter = 'none'; b.style.boxShadow = 'none';
+        if (transparent) { b.style.background = 'transparent'; b.style.color = col; }
+        if (arrow) arrow.style.transform = 'translateX(0)';
+      };
+      b.addEventListener('mouseenter', enter);
+      b.addEventListener('mouseleave', leave);
+      b.addEventListener('mousedown', () => { b.style.transform = 'translateY(0) scale(0.96)'; });
+      b.addEventListener('mouseup', enter);
+      b.addEventListener('blur', leave);
+    });
+    // text-link arrow nudge (e.g. Shop All)
+    root.querySelectorAll('[data-arrow]').forEach(arrow => {
+      const a = arrow.closest('a'); if (!a || a.dataset.arrwired) return; a.dataset.arrwired = '1';
+      a.addEventListener('mouseenter', () => { arrow.style.transform = 'translateX(5px)'; });
+      a.addEventListener('mouseleave', () => { arrow.style.transform = 'translateX(0)'; });
+    });
+    // product grid cards: lift + image zoom
+    root.querySelectorAll('[data-prodcard]').forEach(c => {
+      if (c.dataset.pcw) return; c.dataset.pcw = '1';
+      const img = c.querySelector('[data-prodimg]');
+      c.addEventListener('mouseenter', () => { c.style.transform = 'translateY(-4px)'; c.style.boxShadow = '0 16px 38px rgba(0,0,0,0.10)'; if (img) img.style.transform = 'scale(1.04)'; });
+      c.addEventListener('mouseleave', () => { c.style.transform = 'translateY(0)'; c.style.boxShadow = 'none'; if (img) img.style.transform = 'scale(1)'; });
+    });
+  }
+  componentWillUnmount() {
+    if (this._checkReveals) { window.removeEventListener('scroll', this._checkReveals); window.removeEventListener('resize', this._checkReveals); }
+    if (this._onViaCap) window.removeEventListener('scroll', this._onViaCap);
+    if (this._safety) clearTimeout(this._safety);
+  }
+  wireMobileNav() {
+    const root = this.refs && this.refs.root; if (!root || root._mnav) return;
+    const menu = root.querySelector('[data-mobile-menu]');
+    if (!menu) return;
+    root._mnav = true;
+    let open = false;
+    const tabs = menu.querySelectorAll('[data-mtab]');
+    const panes = menu.querySelectorAll('[data-mpane]');
+    const activate = (name) => {
+      panes.forEach(p => { p.style.display = (p.dataset.mpane === name) ? '' : 'none'; });
+      tabs.forEach(t => {
+        const on = t.dataset.mtab === name;
+        t.style.background = on ? 'rgba(0,0,0,0.06)' : 'transparent';
+        t.style.fontWeight = on ? '500' : '400';
+      });
+    };
+    const setOpen = (v) => {
+      open = v;
+      menu.style.opacity = v ? '1' : '0';
+      menu.style.transform = v ? 'translateY(0)' : 'translateY(-10px)';
+      menu.style.pointerEvents = v ? 'auto' : 'none';
+      if (v) activate('shop');
+    };
+    root.querySelectorAll('[data-burger]').forEach(b => b.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!open); }));
+    const closeBtn = menu.querySelector('[data-burger-close]');
+    if (closeBtn) closeBtn.addEventListener('click', () => setOpen(false));
+    tabs.forEach(t => t.addEventListener('click', () => activate(t.dataset.mtab)));
+    menu.querySelectorAll('[data-mrow]').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('click', (e) => { if (open && !menu.contains(e.target) && !e.target.closest('[data-burger]')) setOpen(false); });
+    activate('shop');
+  }
+  renderVals() {
+    const products = [
+      { badge:'Bestseller', badgeBg:'#62e104', badgeColor:'#1a1a1a', code:'Multivitamin', name:'Multi Pro', price:'$39.99', jar:'url(images/multi-pro.webp) center/contain no-repeat, linear-gradient(160deg,#7d8a52,#3f4f22)', url:'Product.dc.html?p=multi-pro' },
+      { badge:'New', badgeBg:'transparent', badgeColor:'#62e104', code:'Vitamin D3', name:'Optimus D3', price:'$24.99', jar:'url(images/optimus-d3.webp) center/contain no-repeat, linear-gradient(160deg,#d8c08a,#9c7d3e)', url:'Product.dc.html?p=optimus-d3' },
+      { badge:'New', badgeBg:'transparent', badgeColor:'#62e104', code:'Omega-3', name:'Omega 1000', price:'$29.99', jar:'url(images/omega-1000.webp) center/contain no-repeat, linear-gradient(160deg,#7d9fa0,#3f5f62)', url:'Product.dc.html?p=omega-1000' },
+      { badge:'New', badgeBg:'transparent', badgeColor:'#62e104', code:'Sleep Support', name:'Sleep Pro+', price:'$27.99', jar:'url(images/sleep-pro.webp) center/contain no-repeat, linear-gradient(160deg,#6f6a92,#322c4c)', url:'Product.dc.html?p=sleep-pro' },
+    ];
+    const base = [
+      { w:'200px', h:'200px', radius:'50%', bg:'linear-gradient(160deg,#cdc3b0,#b0a48b)' },
+      { w:'260px', h:'320px', radius:'14px', bg:'linear-gradient(160deg,#3a4733,#222b1f)', isVideo:true },
+      { w:'240px', h:'300px', radius:'14px', bg:'linear-gradient(160deg,#d5ccb6,#bcb094)' },
+      { w:'300px', h:'300px', radius:'14px', bg:'#E8ECE0', isQuote:true, fg:'#1a1a1a', quote:'“Pushing the boundaries of what microbial metabolism and pathways are explained to move their interests and their passions to.”', source:'Fast Company' },
+      { w:'220px', h:'300px', radius:'14px', bg:'linear-gradient(160deg,#5a6b4e,#3a4733)' },
+      { w:'260px', h:'300px', radius:'14px', bg:'linear-gradient(160deg,#2a3326,#161f14)', isVideo:true },
+      { w:'300px', h:'300px', radius:'14px', bg:'#1c3a13', isQuote:true, fg:'#fcfcf7', quote:'“Organica Living is pioneering new applications of probiotics to improve human and planetary health.”', source:'Forbes' },
+      { w:'200px', h:'200px', radius:'50%', bg:'linear-gradient(160deg,#7fa169,#4d6b3e)' },
+    ];
+    const stories = base.concat(base.map((s, i) => ({ ...s, _k: 'd' + i })));
+    const footerCols = [
+      { title:'Products', links:[{label:'Shop All',url:'#'}] },
+      { title:'About', links:[{label:'Science',url:'#'},{label:'Sustainability',url:'#'},{label:'Organica Living Labs',url:'#'}] },
+      { title:'Inquire', links:[{label:'Partner',url:'#'},{label:'Practitioners',url:'#'},{label:'Press',url:'#'},{label:'Join',url:'#'}] },
+      { title:'Help', links:[{label:'Help',url:'#'},{label:'Contact',url:'#'},{label:'My Account',url:'#'},{label:'International',url:'#'}] },
+      { title:'Social', links:[{label:'Instagram',url:'#'},{label:'Twitter',url:'#'},{label:'Linkedin',url:'#'},{label:'Refer',url:'#'}] },
+      { title:'Legal', links:[{label:'Terms + Conditions',url:'#'},{label:'Privacy Policy',url:'#'},{label:'Accessibility',url:'#'},{label:'Consent Preferences',url:'#'}] },
+    ];
+    return {
+      products, stories, footerCols,
+      root: (el) => { this.refs = this.refs || {}; this.refs.root = el; },
+      viacap: (el) => { this.refs = this.refs || {}; this.refs.viacap = el; },
+      capsule: (el) => { this.refs = this.refs || {}; this.refs.capsule = el; },
+      counter: (el) => { this.refs = this.refs || {}; this.refs.counter = el; },
+      onSubmit: (e) => { e.preventDefault(); const i = e.target.querySelector('input'); i.value=''; i.placeholder='Thanks for signing up!'; },
+    };
+  }
+}
+</script>
+</body>
+</html>
