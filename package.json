@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:push": "node scripts/db-push.mjs"
   },
   "dependencies": {
     "@react-email/components": "^1.0.12",
@@ -27,6 +28,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "pg": "^8.22.0",
     "react-email": "^6.6.5",
     "tailwindcss": "^4",
     "typescript": "^5"
