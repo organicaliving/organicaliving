@@ -32,5 +32,5 @@ export async function getProductSlugs(): Promise<string[]> {
     .select("slug")
     .eq("is_active", true);
   if (error) throw error;
-  return (data ?? []).map((r) => r.slug);
+  return (data ?? []).map((r: { slug: string }) => r.slug);
 }
