@@ -25,5 +25,5 @@ export function Button({ children, href, variant = "lime", className = "" }: Pro
       </Link>
     );
   }
-  return <button className={classes}>{children}</button>;
+  return <button type="button" className={classes}>{children}</button>;
 }

@@ -12,4 +12,8 @@ describe("Button", () => {
     render(<Button>Add</Button>);
     expect(screen.getByRole("button", { name: "Add" })).toBeInTheDocument();
   });
+  it("renders a button with type=button (not submit)", () => {
+    render(<Button>Add</Button>);
+    expect(screen.getByRole("button", { name: "Add" })).toHaveAttribute("type", "button");
+  });
 });
