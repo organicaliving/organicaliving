@@ -14,6 +14,7 @@ function builder(result: { data: unknown; error: unknown }) {
 const fromMock = vi.fn();
 vi.mock("@/lib/supabase/server", () => ({
   createClient: vi.fn(async () => ({ from: fromMock })),
+  createStaticClient: vi.fn(() => ({ from: fromMock })),
 }));
 
 import { getActiveProducts, getProductBySlug, getProductSlugs } from "@/lib/catalog";
