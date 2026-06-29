@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { publicEnv } from "@/lib/env";
+import type { Database } from "@/lib/supabase/database.types";
 
 /**
  * Refreshes the Supabase auth session on every request and keeps the auth
@@ -9,7 +10,7 @@ import { publicEnv } from "@/lib/env";
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
-  const supabase = createServerClient(
+  const supabase = createServerClient<Database>(
     publicEnv.supabaseUrl,
     publicEnv.supabaseAnonKey,
     {
