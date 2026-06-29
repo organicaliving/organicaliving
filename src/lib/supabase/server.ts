@@ -1,7 +1,19 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { publicEnv } from "@/lib/env";
 import type { Database } from "@/lib/supabase/database.types";
+
+/**
+ * Cookie-free anon client safe for use at build time (e.g. generateStaticParams).
+ * Does not read or write cookies, so it works outside a request context.
+ */
+export function createStaticClient() {
+  return createSupabaseClient<Database>(
+    publicEnv.supabaseUrl,
+    publicEnv.supabaseAnonKey,
+  );
+}
 
 /**
  * Supabase client for Server Components, Route Handlers and Server Actions.

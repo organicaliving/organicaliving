@@ -1,5 +1,5 @@
 import "server-only";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, createStaticClient } from "@/lib/supabase/server";
 import type { ProductWithVariants, ProductDetail } from "@/lib/products";
 
 export async function getActiveProducts(): Promise<ProductWithVariants[]> {
@@ -26,7 +26,9 @@ export async function getProductBySlug(slug: string): Promise<ProductDetail | nu
 }
 
 export async function getProductSlugs(): Promise<string[]> {
-  const supabase = await createClient();
+  // Uses the cookie-free anon client so this function is safe to call from
+  // generateStaticParams (build time, no request context).
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("products")
     .select("slug")
