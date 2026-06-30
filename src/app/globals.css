@@ -75,6 +75,11 @@
 @media (max-width: 480px) {
   [data-rgrid6] { grid-template-columns: repeat(2, 1fr) !important; }
 }
+/* ---- product detail page responsive (matches Product mockup) ---- */
+@media (max-width: 860px) {
+  [data-pdp-hero] { grid-template-columns: 1fr !important; }
+  [data-rgrid3] { grid-template-columns: 1fr !important; }
+}
 
 /* NOTE: [data-arrow] hover nudge is now handled by SiteInteractions (JS wiring).
    The CSS block was removed to prevent double-transform conflicts.
