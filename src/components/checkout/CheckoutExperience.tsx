@@ -72,13 +72,21 @@ export function CheckoutExperience({ summary }: { summary: CheckoutSummary }) {
     mode: "payment",
     amount: Math.max(1, summary.amountCents),
     currency: summary.currency,
+    // Load our brand font (League Spartan) INTO the Stripe iframe — "inherit"
+    // can't cross the iframe boundary, so the font must be declared here.
+    fonts: [
+      {
+        cssSrc:
+          "https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap",
+      },
+    ],
     appearance: {
       theme: "stripe",
       variables: {
         colorPrimary: "#1c3a13",
         colorText: "#1a1a1a",
         colorBackground: "#ffffff",
-        fontFamily: "inherit",
+        fontFamily: "'League Spartan', sans-serif",
         borderRadius: "8px",
         fontSizeBase: "14px",
       },
@@ -266,19 +274,9 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
 
           <h2 style={h2Style}>Payment</h2>
           <div style={{ fontSize: 13, color: "#6d6d6d", marginTop: 4 }}>All transactions are secure and encrypted.</div>
+          {/* The Stripe Payment Element renders the real, licensed card-brand
+              icons and accepted methods — no fabricated badges. */}
           <div style={{ marginTop: 14, border: "1px solid #c9c5b8", borderRadius: 10, overflow: "hidden" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 18px", borderBottom: "1px solid #e4e1d6", background: "#f4f3ec" }}>
-              <span style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, fontWeight: 500 }}>
-                <span style={{ width: 16, height: 16, borderRadius: "50%", border: "5px solid #1c3a13", boxSizing: "border-box" }} />
-                Credit card
-              </span>
-              <span style={{ display: "flex", gap: 5, alignItems: "center" }}>
-                <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: 22, padding: "0 6px", borderRadius: 4, background: "#1a1f71", color: "#fff", fontSize: 9, fontWeight: 700, letterSpacing: ".5px" }}>VISA</span>
-                <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: 22, padding: "0 6px", borderRadius: 4, background: "#eb001b", color: "#fff", fontSize: 9, fontWeight: 700, letterSpacing: ".5px" }}>MC</span>
-                <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: 22, padding: "0 6px", borderRadius: 4, background: "#2e77bc", color: "#fff", fontSize: 9, fontWeight: 700, letterSpacing: ".5px" }}>AMEX</span>
-                <span style={{ fontSize: 11, color: "#6d6d6d" }}>+5</span>
-              </span>
-            </div>
             <div style={{ padding: 18, background: "#fff" }}>
               <PaymentElement options={{ layout: "tabs" }} />
             </div>
