@@ -10,15 +10,15 @@
 
 insert into public.products (slug, name, subtitle, category, badge, image_path, description, sort_order)
 values
-  ('multi-pro',       'Multi Pro',       'Multivitamin + Minerals',  'Multivitamin',        null,  'images/multi-pro.webp',       'A complete daily multivitamin with chelated minerals.',            1),
-  ('optimus-d3',      'Optimus D3',      'Vitamin D3 5000 IU',       'Vitamin D3',          null,  'images/optimus-d3.webp',      'High-potency vitamin D3 for immune and bone support.',             2),
-  ('omega-1000',      'Omega 1000',      'Omega-3 Fish Oil',         'Omega-3',             null,  'images/omega-1000.webp',      'Concentrated EPA & DHA omega-3 fatty acids.',                      3),
-  ('vision-pro',      'Vision Pro',      'Eye Health',               'Eye Health',          'New', 'images/vision-pro.webp',      'Lutein, zeaxanthin and omega-3 for eye health.',                   4),
-  ('sleep-pro',       'Sleep Pro+',      'Melatonin Sleep Support',  'Sleep Support',       null,  'images/sleep-pro.webp',       'Melatonin sleep-support gummies.',                                 5),
-  ('glow-pro',        'Glow Pro',        'Hair, Skin & Nails',       'Hair, Skin & Nails',  'New', 'images/glow-pro.webp',        'Biotin-led support for hair, skin and nails.',                     6),
-  ('bloom',           'Bloom',           'Pregnancy Support',        'Prenatal',            'New', 'images/bloom.webp',           'Prenatal support gummies with folate and iron.',                   7),
-  ('meno-pro',        'Meno Pro',        'Menopause Support',        'Menopause Support',   'New', 'images/meno-pro.webp',        'Targeted support for menopause symptoms.',                         8),
-  ('optimus-d3-mini', 'Optimus D3 Mini', 'Kids Vitamin D3',          'Kids D3',             'New', 'images/optimus-d3-mini.webp', 'Kid-friendly vitamin D3 gummies.',                                 9)
+  ('multi-pro',       'Multi Pro',       'Multivitamin + Minerals',  'Multivitamin',        null,  'images/multi-pro.webp',       'A complete 31-nutrient multivitamin & minerals blend — enhanced with Omega-3, CoQ10 and Lutein to bridge your daily nutrient gap and support immunity, energy and bone health.*',  1),
+  ('optimus-d3',      'Optimus D3',      'Vitamin D3 5000 IU',       'Vitamin D3',          null,  'images/optimus-d3.webp',      'Clinical-strength 5000 IU Vitamin D3 in an enteric-coated softgel for heart, bone and immune support with optimal calcium absorption.*',  2),
+  ('omega-1000',      'Omega 1000',      'Omega-3 Fish Oil',         'Omega-3',             null,  'images/omega-1000.webp',      '1000mg full-spectrum Omega-3 (520mg EPA / 330mg DHA) with Vitamin E, lemon-infused to support heart, brain and eye health.*',  3),
+  ('vision-pro',      'Vision Pro',      'Eye Health',               'Eye Health',          'New', 'images/vision-pro.webp',      'A 29-in-1 optical defense softgel with 20mg Lutein and 4mg Zeaxanthin to filter blue light, guard the retina and ease dry eyes.*',  4),
+  ('sleep-pro',       'Sleep Pro+',      'Melatonin Sleep Support',  'Sleep Support',       null,  'images/sleep-pro.webp',       'A mixed-berry gummy pairing 5mg Melatonin with GABA, L-Theanine and 5-HTP for deep, restorative, non-habit-forming sleep.*',  5),
+  ('glow-pro',        'Glow Pro',        'Hair, Skin & Nails',       'Hair, Skin & Nails',  'New', 'images/glow-pro.webp',        'A 25-in-1 beauty gummy combining 10,000mcg Biotin with Collagen and Hyaluronic Acid for radiant hair, skin and nails.*',  6),
+  ('bloom',           'Bloom',           'Pregnancy Support',        'Prenatal',            'New', 'images/bloom.webp',           'A complete prenatal strawberry gummy with bioactive folate, 260mg DHA, Choline and Iron — nurturing mother and baby in one a day.*',  7),
+  ('meno-pro',        'Meno Pro',        'Menopause Support',        'Menopause Support',   'New', 'images/meno-pro.webp',        'A 31-ingredient hormonal-balance capsule with phyto-estrogens, Melatonin and Ashwagandha to ease hot flashes, night sweats and sleep.*',  8),
+  ('optimus-d3-mini', 'Optimus D3 Mini', 'Kids Vitamin D3',          'Kids D3',             'New', 'images/optimus-d3-mini.webp', 'A tasty orange bear-shaped 9-in-1 gummy with D3, Calcium, K2 and Omega-3 to support kids'' bones, immunity and growth.*',  9)
 on conflict (slug) do update set
   name = excluded.name,
   subtitle = excluded.subtitle,

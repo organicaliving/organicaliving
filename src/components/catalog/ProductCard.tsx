@@ -64,9 +64,9 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
           {product.name}
         </h3>
 
-        {product.subtitle && (
+        {product.description && (
           <p className="mt-2.5 text-[13px] leading-[1.5] text-[#3a3a36]">
-            {product.subtitle}
+            {product.description}
           </p>
         )}
 
