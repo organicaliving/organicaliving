@@ -5,6 +5,9 @@ import { QuantityStepper } from "@/components/cart/QuantityStepper";
 import { removeItemAction } from "@/lib/cart/actions";
 import type { CartLine } from "@/lib/cart/types";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const boundRemoveItemAction = removeItemAction.bind(null, null) as any;
+
 export function CartLineItem({ line }: { line: CartLine }) {
   const img = imageUrl(line.imagePath);
   return (
@@ -19,7 +22,7 @@ export function CartLineItem({ line }: { line: CartLine }) {
       </div>
       <div className="flex flex-col items-end gap-2">
         <span className="text-sm text-ink">{formatPrice(line.lineCents)}</span>
-        <form action={removeItemAction.bind(null, null) as (formData: FormData) => Promise<void>}>
+        <form action={boundRemoveItemAction}>
           <input type="hidden" name="variantId" value={line.variantId} />
           <input type="hidden" name="purchaseType" value={line.purchaseType} />
           <button type="submit" className="text-xs text-muted underline">Remove</button>

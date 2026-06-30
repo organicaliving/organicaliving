@@ -2,10 +2,13 @@
 import { updateQtyAction } from "@/lib/cart/actions";
 import type { PurchaseType } from "@/lib/cart/types";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const boundUpdateQtyAction = updateQtyAction.bind(null, null) as any;
+
 export function QuantityStepper({ variantId, purchaseType, quantity }: { variantId: string; purchaseType: PurchaseType; quantity: number }) {
   function form(next: number, label: string) {
     return (
-      <form action={updateQtyAction.bind(null, null) as (formData: FormData) => Promise<void>}>
+      <form action={boundUpdateQtyAction}>
         <input type="hidden" name="variantId" value={variantId} />
         <input type="hidden" name="purchaseType" value={purchaseType} />
         <input type="hidden" name="quantity" value={next} />
