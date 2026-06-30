@@ -1,7 +1,24 @@
+import Link from "next/link";
+
 export function AnnouncementBar() {
   return (
-    <div className="bg-lime px-4 py-2 text-center text-sm font-medium text-ink">
-      Find the right products for you →
-    </div>
+    <Link
+      href="/products"
+      style={{
+        display: "block",
+        background: "#62e104",
+        color: "#1a1a1a",
+        textAlign: "center",
+        fontSize: "13px",
+        fontWeight: 500,
+        padding: "9px 16px",
+        letterSpacing: 0,
+        textDecoration: "none",
+        cursor: "pointer",
+      }}
+    >
+      Find the right products for you&nbsp;{" "}
+      <span style={{ display: "inline-block" }}>→</span>
+    </Link>
   );
 }
