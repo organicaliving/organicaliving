@@ -5,6 +5,7 @@ import { CartCountBadge } from "@/components/cart/CartCountBadge";
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { NavMenus } from "@/components/site/nav/NavMenus";
 import { MobileMenu } from "@/components/site/nav/MobileMenu";
+import { SignInMenu } from "@/components/site/nav/SignInMenu";
 
 export async function Header() {
   const supabase = await createClient();
@@ -98,12 +99,7 @@ export async function Header() {
             ) : (
               <>
                 <CartCountBadge />
-                <Link
-                  href="/login"
-                  style={{ fontSize: "14px", color: "#1a1a1a", fontWeight: 400, textDecoration: "none" }}
-                >
-                  Sign In
-                </Link>
+                <SignInMenu />
                 <Link
                   href="/signup"
                   style={{
