@@ -5,6 +5,7 @@ import { publicEnv } from "@/lib/env";
 import { signInSchema, signUpSchema, emailSchema, updatePasswordSchema } from "@/lib/auth/schemas";
 import type { ActionResult } from "@/lib/forms";
 import { safeNextPath } from "@/lib/forms";
+import { mergeGuestCartIntoUser } from "@/lib/cart/merge";
 
 export async function signInAction(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
   const parsed = signInSchema.safeParse({
@@ -17,6 +18,7 @@ export async function signInAction(_prev: ActionResult | null, formData: FormDat
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword(parsed.data);
   if (error) return { ok: false, error: error.message };
+  await mergeGuestCartIntoUser();
   const next = formData.get("next") as string | null;
   redirect(safeNextPath(next));
 }
