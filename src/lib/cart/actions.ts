@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { readGuestCart, writeGuestCart, clearGuestCart, MAX_ITEMS, MAX_QTY_PER_LINE } from "@/lib/cart/guest";
 import { validatePromoCode } from "@/lib/cart/queries";
 import type { ActionResult } from "@/lib/forms";
-import type { CartCookieItem, PurchaseType } from "@/lib/cart/types";
+import type { PurchaseType } from "@/lib/cart/types";
 
 const addSchema = z.object({
   variantId: z.string().uuid(),
