@@ -12,23 +12,23 @@
   --color-forest -> bg-forest / text-forest / border-forest.
 */
 @theme {
-  /* ---- core palette ---- */
-  --color-cream: #fcfcf7; /* page background */
-  --color-ink: #1a1a1a; /* primary text */
-  --color-forest: #1c3a13; /* brand authority green */
-  --color-forest-deep: #16290f; /* darkest footer green */
-  --color-lime: #62e104; /* electric accent — emphasis only */
-  --color-muted: #5e5e5e; /* secondary text */
+  /* ---- core palette (exact — Design System.dc.html) ---- */
+  --color-cream: #fcfcf7; /* --bg-base : page background */
+  --color-forest: #1c3a13; /* --green-900 : brand authority green */
+  --color-lime: #62e104; /* --accent : electric lime, emphasis only */
+  --color-ink: #1a1a1a; /* --text : primary text */
 
-  /* ---- surfaces / neutrals ---- */
+  /* ---- greens & neutrals scale (exact) ---- */
+  --color-panel: #ecece9;
   --color-header: #f3f0e8;
-  --color-panel: #ececec;
+  --color-sage: #cdd6c2;
+  --color-moss: #b9c7b5;
+  --color-olive: #92a48e;
+  --color-pine: #2c4a35;
+  --color-muted: #5e5e5e; /* Text Mute */
+  --color-soft: #8a8a80; /* Text Soft */
+  --color-line: #e3e1d8; /* hairline borders */
   --color-sand: #e7e1d2;
-  --color-line: rgba(0, 0, 0, 0.08); /* hairline borders */
-
-  /* ---- supporting greens ---- */
-  --color-leaf: #22401a;
-  --color-sage: #9ab87f;
 
   /* ---- semantic ---- */
   --color-background: var(--color-cream);
@@ -40,11 +40,15 @@
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
   --font-script: var(--font-caveat), cursive;
 
-  /* ---- radii ---- */
+  /* ---- radii (exact) ---- */
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
   --radius-pill: 40px;
+
+  /* ---- elevation (warm-tinted, exact) ---- */
+  --shadow-card: 0 18px 40px rgba(28, 58, 19, 0.16);
+  --shadow-overlay: 0 30px 70px rgba(0, 0, 0, 0.22);
 }
 
 ::selection {
@@ -60,6 +64,22 @@
   [data-desktop-actions] { display: none !important; }
   [data-burger] { display: flex !important; }
   [data-mobile-menu] { display: flex !important; }
+}
+
+/* ---- global arrow nudge (Design System motion) ----
+   Any link/button carrying a [data-arrow] slides the arrow forward on hover/focus,
+   exactly like the mockup's support.js. Solid/outline lift + fill is handled per
+   Button variant; arrow-bearing controls intentionally do NOT lift. */
+[data-arrow] {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+a:hover [data-arrow],
+button:hover [data-arrow],
+a:focus-visible [data-arrow],
+button:focus-visible [data-arrow],
+[data-arrow-host]:hover [data-arrow] {
+  transform: translateX(5px);
 }
 
 html {
