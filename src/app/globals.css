@@ -80,6 +80,12 @@
   [data-pdp-hero] { grid-template-columns: 1fr !important; }
   [data-rgrid3] { grid-template-columns: 1fr !important; }
 }
+/* ---- checkout responsive (matches Checkout mockup) ---- */
+@media (max-width: 768px) {
+  [data-co-grid] { display: flex !important; flex-direction: column-reverse !important; }
+  [data-co-form] { padding: 32px 20px 48px !important; }
+  [data-co-summary] { padding: 28px 20px 36px !important; border-left: none !important; border-bottom: 1px solid #ece9de; }
+}
 
 /* NOTE: [data-arrow] hover nudge is now handled by SiteInteractions (JS wiring).
    The CSS block was removed to prevent double-transform conflicts.
