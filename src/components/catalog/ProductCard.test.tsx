@@ -20,16 +20,29 @@ const product: ProductWithVariants = {
 describe("ProductCard", () => {
   it("links to the product detail page", () => {
     render(<ProductCard product={product} />);
-    expect(screen.getByRole("link")).toHaveAttribute("href", "/products/multi-pro");
+    // All links in the card point to /products/[slug]
+    const links = screen.getAllByRole("link");
+    expect(links.length).toBeGreaterThan(0);
+    links.forEach((link) => {
+      expect(link).toHaveAttribute("href", "/products/multi-pro");
+    });
   });
+
   it("shows name, category and price", () => {
     render(<ProductCard product={product} />);
     expect(screen.getByText("Multi Pro")).toBeInTheDocument();
     expect(screen.getByText("Multivitamin")).toBeInTheDocument();
     expect(screen.getByText("$39.99")).toBeInTheDocument();
   });
+
   it("shows the badge when present", () => {
     render(<ProductCard product={product} />);
     expect(screen.getByText("New")).toBeInTheDocument();
+  });
+
+  it("shows Learn More and Add To Cart actions", () => {
+    render(<ProductCard product={product} />);
+    expect(screen.getByText("Learn More")).toBeInTheDocument();
+    expect(screen.getByText("Add To Cart")).toBeInTheDocument();
   });
 });
