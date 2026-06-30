@@ -7,6 +7,10 @@
 - **Checkout:** Custom on-site **Stripe Elements** (matches `Checkout.dc.html`), not hosted Stripe Checkout.
 - **Guest checkout:** Allowed — anonymous cart + email-only purchase, optional post-purchase account.
 - **Content:** **MDX-in-repo** for blog/articles/science pages.
+- **Visual fidelity (locked 2026-06-30):** every rendered page MUST be a pixel-faithful replica of its `design-reference/*.dc.html` mockup — exact layout, components, spacing, imagery, and interactions (glass dropdown menus, lightbox, marquee, ViaCap count-up, etc.) — with **corrected copy/data** (fix the dosage errors, remove DS-01®/Seed competitor copy, resolve the byline/citation contradictions, wire dead links). The `.dc.html` files are the visual+content SPEC; each is re-implemented as a React/Tailwind page wired to live data (they can't be dropped in — they use the proprietary `<x-dc>` runtime).
+
+## Design fidelity standard (applies to ALL page phases)
+Every phase that renders a page carries this acceptance criterion: **the page visually matches its `design-reference/<Name>.dc.html` mockup** (port the exact markup/inline styles → React/Tailwind; match fonts, colors, spacing, components, and interactions). Verification = build + lint + side-by-side visual QA against the mockup (and, once Phase 11 lands, Playwright visual snapshots). Earlier phases (storefront, auth, cart, checkout) were built functional-but-simplified and are re-skinned in **Phase V** below.
 
 **Baseline (already done):**
 - Next.js 16 + React 19 + TS + Tailwind v4; Supabase (schema + RLS + 9-product seed); Stripe/Resend SDKs installed.
@@ -17,6 +21,7 @@
 ## Phase map & dependencies
 
 ```
+Phase V  Visual fidelity re-skin (NOW) ── re-skin shipped pages to match mockups
 Phase 0  Shared foundations (form UI, validation, email infra)  ── no deps
 Phase 1  Auth & sessions ───────────────┐ depends 0
 Phase 2  Cart (guest + auth) ───────────┤ depends 0 (auth-aware, not auth-blocked)
@@ -36,6 +41,14 @@ Phase 12 Production deploy & launch       ── depends ALL
 **Parallelizable anytime:** 7 (data) and 8 (content) are independent of the commerce path.
 
 ---
+
+## Phase V — Visual fidelity re-skin (running NOW)
+**Goal:** Rebuild the already-shipped pages as pixel-faithful replicas of their mockups, and establish the exact shared chrome (header with glass dropdown menus + mobile menu, announcement bar, footer) that every other page reuses.
+**Depends on:** the functional pages already merged (storefront, auth, cart, checkout) — re-skins them in place, keeps their data wiring/actions.
+**Detailed plan:** `docs/superpowers/plans/2026-06-30-phase-V-visual-fidelity.md`.
+**Pages re-skinned (against `design-reference/`):** shared Header/AnnouncementBar/Footer (used everywhere) → `Organica Home` → `Products` → `Product` (claim pills, benefit cards, Supplement Facts, lightbox) → `Cart` → `Checkout` → `Login` + `Signup`.
+**Acceptance:** each re-skinned page matches its mockup (layout/components/interactions), keeps its existing data/actions, build+lint+suite green, copy corrected per the fidelity standard.
+**Note:** the mockup-only pages (Account, Order History, Subscriptions, Refer, Blogs, Blog Article, Design System) are built as replicas when their functional phase lands (4/5/6/8) — the fidelity standard above binds them.
 
 ## Phase 0 — Shared foundations
 **Goal:** Reusable form/UI primitives, validation, and email infrastructure that later phases depend on, so they aren't re-invented per phase.
