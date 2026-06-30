@@ -46,6 +46,7 @@ function lineFrom(v: VariantRow, quantity: number, purchaseType: PurchaseType): 
     variantTitle: v.title,
     imagePath: v.product?.image_path ?? null,
     unitCents,
+    regularUnitCents: v.price_cents,
     quantity,
     purchaseType,
     lineCents: unitCents * quantity,

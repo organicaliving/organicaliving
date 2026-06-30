@@ -19,6 +19,8 @@ export type CartLine = {
   variantTitle: string;
   imagePath: string | null;
   unitCents: number;
+  /** Regular (one-time) unit price — used to show subscription savings / struck price. */
+  regularUnitCents: number;
   quantity: number;
   purchaseType: PurchaseType;
   lineCents: number;

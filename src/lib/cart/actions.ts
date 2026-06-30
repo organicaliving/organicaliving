@@ -129,6 +129,14 @@ export async function applyPromoAction(_prev: ActionResult | null, formData: For
   return { ok: true };
 }
 
+export async function removePromoAction(): Promise<ActionResult> {
+  const cart = await readGuestCart();
+  delete cart.code;
+  await writeGuestCart(cart);
+  revalidatePath("/cart");
+  return { ok: true };
+}
+
 export async function clearCartAction(): Promise<ActionResult> {
   const userId = await currentUserId();
   if (!userId) { await clearGuestCart(); revalidatePath("/cart"); return { ok: true }; }
