@@ -21,7 +21,7 @@ const SHOP_PRODUCTS = [
 const PANEL_BASE: React.CSSProperties = {
   position: "absolute",
   top: "calc(100% + 2px)",
-  left: 0,
+  left: "40px",
   padding: "12px",
   borderRadius: "22px",
   background: "rgba(236,236,233,1)",

@@ -47,6 +47,16 @@
   color: var(--color-cream);
 }
 
+/* ---- responsive nav breakpoints (matches mockup embedded style) ---- */
+[data-burger] { display: none; }
+[data-mobile-menu] { display: none; }
+@media (max-width: 900px) {
+  [data-desktop-nav] { display: none !important; }
+  [data-desktop-actions] { display: none !important; }
+  [data-burger] { display: flex !important; }
+  [data-mobile-menu] { display: flex !important; }
+}
+
 html {
   scroll-behavior: smooth;
 }

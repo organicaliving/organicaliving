@@ -57,7 +57,6 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
     left: 0,
     right: 0,
     maxHeight: "calc(100vh - 36px)",
-    display: "flex",
     flexDirection: "column",
     background: "rgba(236,236,233,0.92)",
     backdropFilter: "blur(54px) saturate(150%)",
@@ -90,7 +89,6 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
           border: "none",
           background: "transparent",
           cursor: "pointer",
-          display: "flex",
         }}
       >
         <span style={{ display: "block", width: "22px", height: "2px", background: "#1a1a1a" }} />
@@ -111,7 +109,7 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
           }}
         >
           <Image
-            src="/organica-living-logo.png"
+            src="/organica-living-icon.svg"
             alt="Organica Living"
             width={30}
             height={30}
