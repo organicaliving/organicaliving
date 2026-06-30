@@ -67,6 +67,59 @@ const h2Style: React.CSSProperties = { fontSize: 18, fontWeight: 600, marginTop:
 const boundApply = applyPromoAction.bind(null, null) as unknown as (fd: FormData) => Promise<void>;
 const boundRemove = removePromoAction as unknown as () => Promise<void>;
 
+/* Lucide icons (lucide.dev, ISC) rendered inline to avoid a new dependency. */
+function LucideIcon({ size = 16, children }: { size?: number; children: React.ReactNode }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {children}
+    </svg>
+  );
+}
+const TagIcon = ({ size = 13 }: { size?: number }) => (
+  <LucideIcon size={size}>
+    <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+    <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+  </LucideIcon>
+);
+const TagsIcon = ({ size = 13 }: { size?: number }) => (
+  <LucideIcon size={size}>
+    <path d="m15 5 6.3 6.3a2.4 2.4 0 0 1 0 3.4L17 19" />
+    <path d="M9.586 5.586A2 2 0 0 0 8.172 5H3a1 1 0 0 0-1 1v5.172a2 2 0 0 0 .586 1.414L8.29 18.29a2.426 2.426 0 0 0 3.42 0l3.58-3.58a2.426 2.426 0 0 0 0-3.42z" />
+    <circle cx="6.5" cy="9.5" r=".5" fill="currentColor" />
+  </LucideIcon>
+);
+const ShieldCheckIcon = ({ size = 16 }: { size?: number }) => (
+  <LucideIcon size={size}>
+    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+    <path d="m9 12 2 2 4-4" />
+  </LucideIcon>
+);
+const RotateCcwIcon = ({ size = 16 }: { size?: number }) => (
+  <LucideIcon size={size}>
+    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+    <path d="M3 3v5h5" />
+  </LucideIcon>
+);
+const TruckIcon = ({ size = 16 }: { size?: number }) => (
+  <LucideIcon size={size}>
+    <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+    <path d="M15 18H9" />
+    <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
+    <circle cx="17" cy="18" r="2" />
+    <circle cx="7" cy="18" r="2" />
+  </LucideIcon>
+);
+
 export function CheckoutExperience({ summary }: { summary: CheckoutSummary }) {
   const options: StripeElementsOptions = {
     mode: "payment",
@@ -343,10 +396,13 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 14, fontWeight: 600, color: "#1a1a1a" }}>{l.name}</div>
               {l.intervalLabel ? (
-                <div style={{ fontSize: 12, color: "#6d6d6d", marginTop: 2 }}>
-                  {l.intervalLabel}
-                  {l.savingsCents > 0 ? ` · Save ${formatPrice(l.savingsCents, summary.currency)}` : ""}
-                </div>
+                <div style={{ fontSize: 12, color: "#6d6d6d", marginTop: 2 }}>{l.intervalLabel}</div>
+              ) : null}
+              {l.savingsCents > 0 ? (
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, color: "#1c3a13", background: "#e7f0c8", padding: "4px 10px", borderRadius: 30, marginTop: 8 }}>
+                  <TagIcon />
+                  Save {formatPrice(l.savingsCents, summary.currency)}
+                </span>
               ) : null}
             </div>
             <div style={{ textAlign: "right", whiteSpace: "nowrap" }}>
@@ -402,7 +458,7 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
         </div>
         {summary.totalSavingsCents > 0 ? (
           <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginTop: 12, fontSize: 12, color: "#1c3a13", background: "#e7f0c8", padding: "5px 12px", borderRadius: 30 }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 12l7-9 11 4-4 11-9-7-5 1z" /></svg>
+            <TagsIcon />
             TOTAL SAVINGS {formatPrice(summary.totalSavingsCents, summary.currency)}
           </div>
         ) : null}
@@ -412,13 +468,13 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
 
         <div style={{ marginTop: 18, paddingTop: 18, borderTop: "1px solid #e4e1d6" }}>
           {[
-            { t: "30-day money-back guarantee", d: "M9 12l2 2 4-4" },
-            { t: "Cancel anytime, no strings attached", d: "M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5 M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5" },
-            { t: "Free US shipping included on every order", d: "M3 7h11v8H3z M14 10h4l3 3v2h-7z M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M18 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" },
+            { t: "30-day money-back guarantee", icon: <ShieldCheckIcon /> },
+            { t: "Cancel anytime, no strings attached", icon: <RotateCcwIcon /> },
+            { t: "Free US shipping included on every order", icon: <TruckIcon /> },
           ].map((m) => (
             <div key={m.t} style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 14 }}>
-              <span style={{ width: 30, height: 30, borderRadius: "50%", border: "1px solid #d7d3c6", display: "flex", alignItems: "center", justifyContent: "center", color: "#1c3a13", flex: "none" }}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d={m.d} /></svg>
+              <span style={{ width: 32, height: 32, borderRadius: "50%", border: "1px solid #d7d3c6", display: "flex", alignItems: "center", justifyContent: "center", color: "#1c3a13", flex: "none" }}>
+                {m.icon}
               </span>
               <span style={{ fontSize: 13, color: "#1a1a1a" }}>{m.t}</span>
             </div>
