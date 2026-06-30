@@ -21,7 +21,8 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
 
   return (
     <div
-      className="group relative cursor-pointer rounded-[18px] bg-[#f4f1e6] p-6 transition-[transform,box-shadow] duration-300 [transition-timing-function:cubic-bezier(0.75,0,0.25,1)] hover:-translate-y-1 hover:shadow-[0_16px_38px_rgba(0,0,0,0.10)]"
+      data-prodcard
+      className="relative cursor-pointer rounded-[18px] bg-[#f4f1e6] p-6"
       style={{ display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: "20px", alignItems: "center" }}
     >
       {/* overlay link — full card clickable */}
@@ -39,7 +40,7 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
       )}
 
       {/* product image */}
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl transition-transform duration-300 [transition-timing-function:cubic-bezier(0.75,0,0.25,1)] group-hover:scale-[1.04]">
+      <div data-prodimg className="relative aspect-[4/5] w-full overflow-hidden rounded-xl">
         {img ? (
           <Image
             src={img}
@@ -86,7 +87,7 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
         <div className="relative z-[2] mt-[18px] flex items-center gap-[18px]">
           <Link
             href={href}
-            className="inline-block rounded-[40px] bg-forest px-[26px] py-[11px] text-[13px] font-medium leading-none text-cream transition-[filter,box-shadow] duration-[250ms] [transition-timing-function:cubic-bezier(0.75,0,0.25,1)] hover:brightness-110 hover:shadow-card"
+            className="inline-block rounded-[40px] bg-forest px-[26px] py-[11px] text-[13px] font-medium leading-none text-cream"
           >
             Learn More
           </Link>

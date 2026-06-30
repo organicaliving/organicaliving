@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { ActionInput } from "@/components/ui/ActionInput";
+import { SiteInteractions } from "@/components/site/SiteInteractions";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -166,6 +167,7 @@ function SectionHeader({
 export default function DesignSystemPage() {
   return (
     <div className="bg-cream min-h-screen">
+      <SiteInteractions />
       {/* ── HEADER ── */}
       <header style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
         <div

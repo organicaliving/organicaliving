@@ -18,7 +18,7 @@ export function AnnouncementBar() {
       }}
     >
       Find the right products for you&nbsp;{" "}
-      <span style={{ display: "inline-block" }}>→</span>
+      <span data-arrow style={{ display: "inline-block" }}>→</span>
     </Link>
   );
 }

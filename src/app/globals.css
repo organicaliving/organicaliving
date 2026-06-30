@@ -66,21 +66,9 @@
   [data-mobile-menu] { display: flex !important; }
 }
 
-/* ---- global arrow nudge (Design System motion) ----
-   Any link/button carrying a [data-arrow] slides the arrow forward on hover/focus,
-   exactly like the mockup's support.js. Solid/outline lift + fill is handled per
-   Button variant; arrow-bearing controls intentionally do NOT lift. */
-[data-arrow] {
-  display: inline-block;
-  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
-}
-a:hover [data-arrow],
-button:hover [data-arrow],
-a:focus-visible [data-arrow],
-button:focus-visible [data-arrow],
-[data-arrow-host]:hover [data-arrow] {
-  transform: translateX(5px);
-}
+/* NOTE: [data-arrow] hover nudge is now handled by SiteInteractions (JS wiring).
+   The CSS block was removed to prevent double-transform conflicts.
+   The inline-block display is still set per-element in JSX where needed. */
 
 html {
   scroll-behavior: smooth;
