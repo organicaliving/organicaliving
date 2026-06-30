@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/server";
+import { CartCountBadge } from "@/components/cart/CartCountBadge";
 
 const NAV = [
   { label: "Shop", href: "/products" },
@@ -26,6 +27,7 @@ export async function Header() {
         <div className="flex items-center gap-5">
           {user ? (
             <>
+              <CartCountBadge />
               <Link href="/account" className="text-sm text-ink">Account</Link>
               <form action="/auth/signout" method="post">
                 <button type="submit" className="text-sm text-ink">Sign out</button>
@@ -33,6 +35,7 @@ export async function Header() {
             </>
           ) : (
             <>
+              <CartCountBadge />
               <Link href="/login" className="text-sm text-ink">Sign In</Link>
               <Button href="/signup">Get Started</Button>
             </>
