@@ -1,6 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
-import { readGuestCart, clearGuestCart } from "@/lib/cart/guest";
+import { readGuestCart, clearGuestCart, MAX_QTY_PER_LINE } from "@/lib/cart/guest";
 
 export async function mergeGuestCartIntoUser(): Promise<void> {
   const supabase = await createClient();
@@ -25,8 +25,8 @@ export async function mergeGuestCartIntoUser(): Promise<void> {
     const { data: row } = await supabase
       .from("cart_items").select("id, quantity")
       .eq("cart_id", cartId).eq("variant_id", item.variantId).eq("purchase_type", item.purchaseType).maybeSingle();
-    if (row) await supabase.from("cart_items").update({ quantity: row.quantity + item.quantity }).eq("id", row.id);
-    else await supabase.from("cart_items").insert({ cart_id: cartId, variant_id: item.variantId, quantity: item.quantity, purchase_type: item.purchaseType });
+    if (row) await supabase.from("cart_items").update({ quantity: Math.min(row.quantity + item.quantity, MAX_QTY_PER_LINE) }).eq("id", row.id);
+    else await supabase.from("cart_items").insert({ cart_id: cartId, variant_id: item.variantId, quantity: Math.min(item.quantity, MAX_QTY_PER_LINE), purchase_type: item.purchaseType });
   }
   await clearGuestCart();
 }

@@ -20,6 +20,7 @@ export async function validatePromoCode(code: string): Promise<Discount | null> 
   const now = new Date();
   if (data.starts_at != null && now < new Date(data.starts_at)) return null;
   if (data.ends_at != null && now > new Date(data.ends_at)) return null;
+  // NOTE: times_redeemed is incremented at order time (Phase 3 checkout); this cap check is advisory until then.
   if (data.max_redemptions != null && data.times_redeemed >= data.max_redemptions) return null;
   return { code: data.code, type: data.type as Discount["type"], value: data.value };
 }
