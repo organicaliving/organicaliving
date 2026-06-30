@@ -167,7 +167,8 @@ export function ProductsSection({ products }: Props) {
                   </span>
                 </div>
 
-                {/* Product image */}
+                {/* Product image — sits directly on the card, no panel/tint
+                    behind it (matches the mockup's jar = image-only background). */}
                 <div
                   data-jar
                   style={{
@@ -179,8 +180,6 @@ export function ProductsSection({ products }: Props) {
                     alignItems: "center",
                     justifyContent: "center",
                     position: "relative",
-                    overflow: "hidden",
-                    background: "rgba(255,255,255,0.04)",
                     transition: "transform 0.3s cubic-bezier(0.75,0,0.25,1)",
                   }}
                 >

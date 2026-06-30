@@ -26,13 +26,15 @@ export function SignInMenu() {
     width: "100%",
     border: "1px solid rgba(0,0,0,0.15)",
     borderRadius: "10px",
-    padding: "13px 14px",
-    fontSize: "14px",
+    padding: "9px 13px",
+    fontSize: "13px",
     fontFamily: "inherit",
     outline: "none",
     background: "rgba(255,255,255,0.7)",
     color: "#1a1a1a",
   };
+  // Match the circular button to the (now shorter) field height.
+  const BTN = 38;
 
   return (
     <>
@@ -96,8 +98,8 @@ export function SignInMenu() {
               aria-label="Log in"
               style={{
                 flex: "none",
-                width: "44px",
-                height: "44px",
+                width: BTN,
+                height: BTN,
                 borderRadius: "50%",
                 background: "#1c3a13",
                 color: "#fcfcf7",
