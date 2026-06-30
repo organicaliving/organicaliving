@@ -91,7 +91,7 @@ export function HeroSection() {
         </p>
         <div style={{ display: "flex", gap: 12, marginTop: 30 }}>
           <Link
-            href="/products"
+            href="/quiz"
             style={{
               lineHeight: 1,
               display: "inline-block",
@@ -104,7 +104,7 @@ export function HeroSection() {
               textDecoration: "none",
             }}
           >
-            Shop Now
+            Take the Quiz
           </Link>
           <Link
             href="/products"
@@ -121,7 +121,7 @@ export function HeroSection() {
               textDecoration: "none",
             }}
           >
-            Take the Quiz &nbsp;→
+            Shop Now &nbsp;→
           </Link>
         </div>
       </div>
