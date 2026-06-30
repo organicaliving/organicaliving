@@ -111,5 +111,7 @@ export async function getCart(): Promise<CartView> {
   const lines = rows
     .map((r) => (r.variant ? lineFrom(r.variant, r.quantity, r.purchase_type) : null))
     .filter((l): l is CartLine => l !== null);
-  return toView(lines, null);
+  const { code } = await readGuestCart();
+  const discount = code ? await validatePromoCode(code) : null;
+  return toView(lines, discount);
 }
