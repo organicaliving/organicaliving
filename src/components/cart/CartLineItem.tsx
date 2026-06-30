@@ -5,8 +5,7 @@ import { QuantityStepper } from "@/components/cart/QuantityStepper";
 import { removeItemAction } from "@/lib/cart/actions";
 import type { CartLine } from "@/lib/cart/types";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const boundRemoveItemAction = removeItemAction.bind(null, null) as any;
+const boundRemoveItemAction = removeItemAction.bind(null, null) as unknown as (formData: FormData) => Promise<void>;
 
 export function CartLineItem({ line }: { line: CartLine }) {
   const img = imageUrl(line.imagePath);

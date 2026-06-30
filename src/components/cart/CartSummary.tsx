@@ -3,8 +3,7 @@ import { formatPrice } from "@/lib/format";
 import { applyPromoAction } from "@/lib/cart/actions";
 import type { CartView } from "@/lib/cart/types";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const boundApplyPromoAction = applyPromoAction.bind(null, null) as any;
+const boundApplyPromoAction = applyPromoAction.bind(null, null) as unknown as (formData: FormData) => Promise<void>;
 
 export function CartSummary({ cart }: { cart: CartView }) {
   return (
