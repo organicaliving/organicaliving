@@ -20,9 +20,8 @@ export function OrderConfirmation({
           <Section>
             {lines.map((l, i) => (
               <Row key={i}>
-                <Column>
-                  <Text>{l.name} × {l.quantity}</Text>
-                </Column>
+                <Column>{l.name} × {l.quantity}</Column>
+                <Column align="right">{formatPrice(l.lineCents)}</Column>
               </Row>
             ))}
           </Section>
