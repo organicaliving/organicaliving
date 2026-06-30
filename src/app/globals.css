@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@keyframes seedMarquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /*
   Organica Living design tokens.
   Source of truth: design-reference/Design System.dc.html
