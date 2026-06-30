@@ -5,7 +5,7 @@ import { getProductBySlug, getProductSlugs } from "@/lib/catalog";
 import { defaultVariant, type FactRow } from "@/lib/products";
 import { imageUrl } from "@/lib/format";
 import { PriceDisplay } from "@/components/catalog/PriceDisplay";
-import { Button } from "@/components/ui/Button";
+import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { Badge } from "@/components/ui/Badge";
 import { Disclaimer } from "@/components/site/Disclaimer";
 
@@ -83,10 +83,7 @@ export default async function ProductPage({
             </div>
           ) : null}
 
-          {/* Add to Cart is wired up in the cart/checkout plan. */}
-          <div className="mt-6">
-            <Button>Add to Cart</Button>
-          </div>
+          {variant ? <div className="mt-6"><AddToCartButton variantId={variant.id} /></div> : null}
 
           {benefits.length > 0 ? (
             <ul className="mt-8 space-y-2">
