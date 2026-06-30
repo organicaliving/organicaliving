@@ -6,6 +6,7 @@ import { loadStripe, type StripeElementsOptions } from "@stripe/stripe-js";
 import {
   Elements,
   PaymentElement,
+  ExpressCheckoutElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
@@ -34,6 +35,17 @@ export type CheckoutSummary = {
   totalSavingsCents: number;
   code: string | null;
   currency: string;
+};
+
+type Payload = {
+  email: string;
+  fullName: string;
+  line1: string;
+  line2: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
 };
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
@@ -92,14 +104,17 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
   const [agree, setAgree] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [expressReady, setExpressReady] = useState(false);
 
-  function buildPayload(): Record<string, string> | null {
+  const hasSubscription = summary.lines.some((l) => l.isSubscription);
+
+  function buildPayload(): Payload | null {
     const form = formRef.current;
     if (!form) return null;
     const fd = new FormData(form);
     const first = String(fd.get("firstName") ?? "").trim();
     const last = String(fd.get("lastName") ?? "").trim();
-    const payload = {
+    const payload: Payload = {
       email: String(fd.get("email") ?? "").trim(),
       fullName: `${first} ${last}`.trim(),
       line1: String(fd.get("line1") ?? "").trim(),
@@ -109,12 +124,55 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
       postalCode: String(fd.get("postalCode") ?? "").trim(),
       country: "US",
     };
-    const required: (keyof typeof payload)[] = ["email", "fullName", "line1", "city", "state", "postalCode"];
+    const required: (keyof Payload)[] = ["email", "fullName", "line1", "city", "state", "postalCode"];
     for (const k of required) if (!payload[k]) return null;
     return payload;
   }
 
-  async function pay() {
+  /** Shared deferred-intent confirm: validate element → create PI → confirm. */
+  async function confirmWithPayload(payload: Payload) {
+    if (!stripe || !elements) return;
+    const { error: submitError } = await elements.submit();
+    if (submitError) {
+      setError(submitError.message ?? "Please check your payment details.");
+      setBusy(false);
+      return;
+    }
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.clientSecret) {
+      setError(data.error ?? "Could not start checkout.");
+      setBusy(false);
+      return;
+    }
+    const address = {
+      line1: payload.line1,
+      line2: payload.line2 || undefined,
+      city: payload.city,
+      state: payload.state,
+      postal_code: payload.postalCode,
+      country: payload.country,
+    };
+    const { error: confirmError } = await stripe.confirmPayment({
+      elements,
+      clientSecret: data.clientSecret,
+      confirmParams: {
+        return_url: `${window.location.origin}/checkout/success`,
+        payment_method_data: { billing_details: { name: payload.fullName, email: payload.email, address } },
+        shipping: { name: payload.fullName, address },
+      },
+    });
+    if (confirmError) {
+      setError(confirmError.message ?? "Payment could not be completed.");
+      setBusy(false);
+    }
+  }
+
+  async function payWithCard() {
     if (!stripe || !elements) return;
     setError(null);
     if (!agree) {
@@ -127,65 +185,7 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
       return;
     }
     setBusy(true);
-
-    // Validate the Payment Element (deferred flow).
-    const { error: submitError } = await elements.submit();
-    if (submitError) {
-      setError(submitError.message ?? "Please check your payment details.");
-      setBusy(false);
-      return;
-    }
-
-    // Create the PaymentIntent + pending order from the real cart (existing wiring).
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    const data = await res.json();
-    if (!res.ok || !data.clientSecret) {
-      setError(data.error ?? "Could not start checkout.");
-      setBusy(false);
-      return;
-    }
-
-    const { error: confirmError } = await stripe.confirmPayment({
-      elements,
-      clientSecret: data.clientSecret,
-      confirmParams: {
-        return_url: `${window.location.origin}/checkout/success`,
-        payment_method_data: {
-          billing_details: {
-            name: payload.fullName,
-            email: payload.email,
-            address: {
-              line1: payload.line1,
-              line2: payload.line2 || undefined,
-              city: payload.city,
-              state: payload.state,
-              postal_code: payload.postalCode,
-              country: payload.country,
-            },
-          },
-        },
-        shipping: {
-          name: payload.fullName,
-          address: {
-            line1: payload.line1,
-            line2: payload.line2 || undefined,
-            city: payload.city,
-            state: payload.state,
-            postal_code: payload.postalCode,
-            country: payload.country,
-          },
-        },
-      },
-    });
-    // On success Stripe redirects to return_url; only errors return here.
-    if (confirmError) {
-      setError(confirmError.message ?? "Payment could not be completed.");
-      setBusy(false);
-    }
+    await confirmWithPayload(payload);
   }
 
   return (
@@ -195,6 +195,38 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
     >
       {/* form column */}
       <div data-co-form style={{ padding: "40px 56px 60px 40px" }}>
+        {/* express checkout (real Stripe wallets — Shop Pay / Apple Pay / Google Pay).
+            Renders only on browsers/domains where a wallet is available. */}
+        <div style={{ display: expressReady ? "block" : "none", marginBottom: 24 }}>
+          <div style={{ textAlign: "center", fontSize: 13, color: "#6d6d6d", marginBottom: 12 }}>Express checkout</div>
+          <ExpressCheckoutElement
+            options={{ buttonHeight: 48, emailRequired: true, billingAddressRequired: true }}
+            onReady={(e) => setExpressReady(Boolean(e.availablePaymentMethods))}
+            onConfirm={async (event) => {
+              setError(null);
+              setBusy(true);
+              const b = event.billingDetails;
+              const addr = b?.address;
+              const payload: Payload = {
+                email: b?.email ?? "",
+                fullName: b?.name ?? "",
+                line1: addr?.line1 ?? "",
+                line2: addr?.line2 ?? "",
+                city: addr?.city ?? "",
+                state: addr?.state ?? "",
+                postalCode: addr?.postal_code ?? "",
+                country: addr?.country ?? "US",
+              };
+              await confirmWithPayload(payload);
+            }}
+          />
+          <div style={{ display: "flex", alignItems: "center", gap: 16, margin: "24px 0", color: "#6d6d6d", fontSize: 12 }}>
+            <div style={{ flex: 1, height: 1, background: "#e4e1d6" }} />
+            OR
+            <div style={{ flex: 1, height: 1, background: "#e4e1d6" }} />
+          </div>
+        </div>
+
         <form ref={formRef} onSubmit={(e) => e.preventDefault()}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <h2 style={{ fontSize: 18, fontWeight: 600 }}>Contact</h2>
@@ -236,7 +268,10 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
           <div style={{ fontSize: 13, color: "#6d6d6d", marginTop: 4 }}>All transactions are secure and encrypted.</div>
           <div style={{ marginTop: 14, border: "1px solid #c9c5b8", borderRadius: 10, overflow: "hidden" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 18px", borderBottom: "1px solid #e4e1d6", background: "#f4f3ec" }}>
-              <span style={{ fontSize: 14, fontWeight: 500 }}>Card &amp; secure payment</span>
+              <span style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, fontWeight: 500 }}>
+                <span style={{ width: 16, height: 16, borderRadius: "50%", border: "5px solid #1c3a13", boxSizing: "border-box" }} />
+                Credit card
+              </span>
               <span style={{ display: "flex", gap: 5, alignItems: "center" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: 22, padding: "0 6px", borderRadius: 4, background: "#1a1f71", color: "#fff", fontSize: 9, fontWeight: 700, letterSpacing: ".5px" }}>VISA</span>
                 <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: 22, padding: "0 6px", borderRadius: 4, background: "#eb001b", color: "#fff", fontSize: 9, fontWeight: 700, letterSpacing: ".5px" }}>MC</span>
@@ -260,7 +295,7 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
 
           <button
             type="button"
-            onClick={pay}
+            onClick={payWithCard}
             disabled={busy || !stripe}
             style={{
               lineHeight: 1,
@@ -373,14 +408,21 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
             TOTAL SAVINGS {formatPrice(summary.totalSavingsCents, summary.currency)}
           </div>
         ) : null}
+        {hasSubscription ? (
+          <p style={{ fontSize: 12, color: "#6d6d6d", marginTop: 18 }}>This order has a recurring charge for subscription items.</p>
+        ) : null}
 
         <div style={{ marginTop: 18, paddingTop: 18, borderTop: "1px solid #e4e1d6" }}>
-          {["30-day money-back guarantee", "Cancel anytime, no strings attached", "Free US shipping included on every order"].map((t) => (
-            <div key={t} style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 14 }}>
-              <span style={{ width: 30, height: 30, borderRadius: "50%", border: "1px solid #d7d3c6", display: "flex", alignItems: "center", justifyContent: "center", color: "#1c3a13" }}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><circle cx="12" cy="12" r="9" /></svg>
+          {[
+            { t: "30-day money-back guarantee", d: "M9 12l2 2 4-4" },
+            { t: "Cancel anytime, no strings attached", d: "M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5 M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5" },
+            { t: "Free US shipping included on every order", d: "M3 7h11v8H3z M14 10h4l3 3v2h-7z M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M18 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" },
+          ].map((m) => (
+            <div key={m.t} style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 14 }}>
+              <span style={{ width: 30, height: 30, borderRadius: "50%", border: "1px solid #d7d3c6", display: "flex", alignItems: "center", justifyContent: "center", color: "#1c3a13", flex: "none" }}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d={m.d} /></svg>
               </span>
-              <span style={{ fontSize: 13, color: "#1a1a1a" }}>{t}</span>
+              <span style={{ fontSize: 13, color: "#1a1a1a" }}>{m.t}</span>
             </div>
           ))}
         </div>
