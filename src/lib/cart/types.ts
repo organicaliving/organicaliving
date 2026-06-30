@@ -1,9 +1,14 @@
 export type PurchaseType = "one_time" | "subscription";
 
+/** Subscription cadence. "quarterly" (3-month delivery) earns an extra discount. */
+export type DeliveryInterval = "monthly" | "quarterly";
+
 export type CartCookieItem = {
   variantId: string;
   quantity: number;
   purchaseType: PurchaseType;
+  /** Only meaningful for subscription lines; defaults to "monthly". */
+  interval?: DeliveryInterval;
 };
 
 export type Discount = {
@@ -23,6 +28,8 @@ export type CartLine = {
   regularUnitCents: number;
   quantity: number;
   purchaseType: PurchaseType;
+  /** Subscription cadence; "monthly" for one-time lines (unused). */
+  interval: DeliveryInterval;
   lineCents: number;
 };
 

@@ -7,6 +7,7 @@ import { formatPrice, imageUrl } from "@/lib/format";
 import { CartQtyStepper } from "@/components/cart/CartQtyStepper";
 import { CartPromo } from "@/components/cart/CartPromo";
 import { CartRecommendationAdd } from "@/components/cart/CartRecommendationAdd";
+import { CartDeliveryUpgrade } from "@/components/cart/CartDeliveryUpgrade";
 
 export const metadata: Metadata = { title: "Cart — Organica Living" };
 export const dynamic = "force-dynamic";
@@ -84,7 +85,11 @@ export default async function CartPage() {
                             {line.productName}
                           </Link>
                           <div style={{ fontSize: 13, color: "#6d6d6d", marginTop: 3 }}>
-                            {isSub ? "Delivered monthly" : line.variantTitle}
+                            {isSub
+                              ? line.interval === "quarterly"
+                                ? "Delivered every 3 months"
+                                : "Delivered monthly"
+                              : line.variantTitle}
                           </div>
                           {isSub && savings > 0 ? (
                             <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, color: "#1c3a13", background: "#e7f0c8", padding: "4px 10px", borderRadius: 30, marginTop: 10 }}>
@@ -94,6 +99,9 @@ export default async function CartPage() {
                               </svg>
                               {formatPrice(savings, currency)} savings
                             </span>
+                          ) : null}
+                          {isSub ? (
+                            <CartDeliveryUpgrade variantId={line.variantId} interval={line.interval} />
                           ) : null}
                         </div>
                       </div>

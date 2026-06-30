@@ -26,7 +26,7 @@ export async function mergeGuestCartIntoUser(): Promise<void> {
       .from("cart_items").select("id, quantity")
       .eq("cart_id", cartId).eq("variant_id", item.variantId).eq("purchase_type", item.purchaseType).maybeSingle();
     if (row) await supabase.from("cart_items").update({ quantity: Math.min(row.quantity + item.quantity, MAX_QTY_PER_LINE) }).eq("id", row.id);
-    else await supabase.from("cart_items").insert({ cart_id: cartId, variant_id: item.variantId, quantity: Math.min(item.quantity, MAX_QTY_PER_LINE), purchase_type: item.purchaseType });
+    else await supabase.from("cart_items").insert({ cart_id: cartId, variant_id: item.variantId, quantity: Math.min(item.quantity, MAX_QTY_PER_LINE), purchase_type: item.purchaseType, delivery_interval: item.interval ?? "monthly" });
   }
   await clearGuestCart();
 }

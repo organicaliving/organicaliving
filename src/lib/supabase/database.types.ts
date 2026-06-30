@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           cart_id: string
           created_at: string
+          delivery_interval: string
           id: string
           purchase_type: string
           quantity: number
@@ -26,6 +27,7 @@ export type Database = {
         Insert: {
           cart_id: string
           created_at?: string
+          delivery_interval?: string
           id?: string
           purchase_type?: string
           quantity?: number
@@ -34,6 +36,7 @@ export type Database = {
         Update: {
           cart_id?: string
           created_at?: string
+          delivery_interval?: string
           id?: string
           purchase_type?: string
           quantity?: number

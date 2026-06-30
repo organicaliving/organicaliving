@@ -12,11 +12,13 @@ function isItem(x: unknown): x is CartCookieItem {
   if (!x || typeof x !== "object") return false;
   const o = x as Record<string, unknown>;
   const pt = o.purchaseType;
+  const iv = o.interval;
   return (
     typeof o.variantId === "string" &&
     typeof o.quantity === "number" &&
     o.quantity > 0 &&
-    (pt === "one_time" || pt === "subscription")
+    (pt === "one_time" || pt === "subscription") &&
+    (iv === undefined || iv === "monthly" || iv === "quarterly")
   );
 }
 

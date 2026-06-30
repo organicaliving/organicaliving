@@ -129,6 +129,52 @@ export async function applyPromoAction(_prev: ActionResult | null, formData: For
   return { ok: true };
 }
 
+const intervalSchema = z.object({
+  variantId: z.string().uuid(),
+  interval: z.enum(["monthly", "quarterly"]),
+});
+
+/** Set the delivery cadence (monthly / quarterly) for a subscription line. */
+export async function setDeliveryIntervalAction(
+  _prev: ActionResult | null,
+  formData: FormData,
+): Promise<ActionResult> {
+  const parsed = intervalSchema.safeParse({
+    variantId: formData.get("variantId"),
+    interval: formData.get("interval"),
+  });
+  if (!parsed.success) return { ok: false, error: "Could not update delivery." };
+  const { variantId, interval } = parsed.data;
+  const userId = await currentUserId();
+
+  if (!userId) {
+    const cart = await readGuestCart();
+    const item = cart.items.find(
+      (i) => i.variantId === variantId && i.purchaseType === "subscription",
+    );
+    if (item) {
+      item.interval = interval;
+      await writeGuestCart(cart);
+    }
+    revalidatePath("/cart");
+    return { ok: true };
+  }
+
+  const supabase = await createClient();
+  const { data: cartRow } = await supabase
+    .from("carts").select("id").eq("user_id", userId).eq("status", "active").maybeSingle();
+  if (cartRow?.id) {
+    await supabase
+      .from("cart_items")
+      .update({ delivery_interval: interval })
+      .eq("cart_id", cartRow.id)
+      .eq("variant_id", variantId)
+      .eq("purchase_type", "subscription");
+  }
+  revalidatePath("/cart");
+  return { ok: true };
+}
+
 export async function removePromoAction(): Promise<ActionResult> {
   const cart = await readGuestCart();
   delete cart.code;

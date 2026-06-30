@@ -2,9 +2,16 @@ import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { readGuestCart } from "@/lib/cart/guest";
 import { computeTotals } from "@/lib/cart/totals";
-import type { CartLine, CartView, Discount, PurchaseType } from "@/lib/cart/types";
+import type { CartLine, CartView, DeliveryInterval, Discount, PurchaseType } from "@/lib/cart/types";
 
 const CURRENCY = "usd";
+
+/** Extra discount off the monthly subscription price for 3-month (quarterly) delivery. */
+export const QUARTERLY_EXTRA_OFF = 0.1;
+
+export function quarterlyUnitCents(subscriptionPriceCents: number): number {
+  return Math.round(subscriptionPriceCents * (1 - QUARTERLY_EXTRA_OFF));
+}
 
 export async function validatePromoCode(code: string): Promise<Discount | null> {
   if (!code) return null;
@@ -34,11 +41,19 @@ type VariantRow = {
   product: { slug: string; name: string; image_path: string | null } | null;
 };
 
-function lineFrom(v: VariantRow, quantity: number, purchaseType: PurchaseType): CartLine {
-  const unitCents =
-    purchaseType === "subscription" && v.subscription_price_cents != null
-      ? v.subscription_price_cents
-      : v.price_cents;
+function lineFrom(
+  v: VariantRow,
+  quantity: number,
+  purchaseType: PurchaseType,
+  interval: DeliveryInterval,
+): CartLine {
+  let unitCents = v.price_cents;
+  if (purchaseType === "subscription" && v.subscription_price_cents != null) {
+    unitCents =
+      interval === "quarterly"
+        ? quarterlyUnitCents(v.subscription_price_cents)
+        : v.subscription_price_cents;
+  }
   return {
     variantId: v.id,
     productSlug: v.product?.slug ?? "",
@@ -49,6 +64,7 @@ function lineFrom(v: VariantRow, quantity: number, purchaseType: PurchaseType): 
     regularUnitCents: v.price_cents,
     quantity,
     purchaseType,
+    interval: purchaseType === "subscription" ? interval : "monthly",
     lineCents: unitCents * quantity,
   };
 }
@@ -89,7 +105,7 @@ export async function getCart(): Promise<CartView> {
     const lines = cart.items
       .map((i) => {
         const v = byId.get(i.variantId);
-        return v ? lineFrom(v, i.quantity, i.purchaseType) : null;
+        return v ? lineFrom(v, i.quantity, i.purchaseType, i.interval ?? "monthly") : null;
       })
       .filter((l): l is CartLine => l !== null);
     const discount = cart.code ? await validatePromoCode(cart.code) : null;
@@ -100,7 +116,7 @@ export async function getCart(): Promise<CartView> {
   const { data: cartRow } = await supabase
     .from("carts")
     .select(
-      "id, items:cart_items(variant_id, quantity, purchase_type, variant:product_variants(id, price_cents, subscription_price_cents, currency, title, product:products(slug, name, image_path)))",
+      "id, items:cart_items(variant_id, quantity, purchase_type, delivery_interval, variant:product_variants(id, price_cents, subscription_price_cents, currency, title, product:products(slug, name, image_path)))",
     )
     .eq("user_id", user.id)
     .eq("status", "active")
@@ -108,10 +124,13 @@ export async function getCart(): Promise<CartView> {
   const rows = (cartRow?.items ?? []) as Array<{
     quantity: number;
     purchase_type: PurchaseType;
+    delivery_interval: DeliveryInterval;
     variant: VariantRow | null;
   }>;
   const lines = rows
-    .map((r) => (r.variant ? lineFrom(r.variant, r.quantity, r.purchase_type) : null))
+    .map((r) =>
+      r.variant ? lineFrom(r.variant, r.quantity, r.purchase_type, r.delivery_interval ?? "monthly") : null,
+    )
     .filter((l): l is CartLine => l !== null);
   const { code } = await readGuestCart();
   const discount = code ? await validatePromoCode(code) : null;
