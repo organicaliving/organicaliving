@@ -4,6 +4,7 @@ export function DailyEssentials() {
   return (
     <section style={{ padding: "96px 0" }}>
       <div
+        data-rcol2
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1.15fr",
@@ -15,7 +16,7 @@ export function DailyEssentials() {
         }}
       >
         {/* Left: copy */}
-        <div>
+        <div data-reveal>
           <span
             style={{
               display: "inline-block",
@@ -77,7 +78,7 @@ export function DailyEssentials() {
         </div>
 
         {/* Right: imagery placeholders */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div data-reveal style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           {/* Main large card */}
           <div
             style={{

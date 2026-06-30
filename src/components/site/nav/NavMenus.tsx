@@ -232,9 +232,9 @@ export function NavMenus() {
       >
         <div style={{ position: "relative" }}>
           {[
-            { title: "Approach", sub: "Microbiome science for human health.", bg: "linear-gradient(135deg,#9ab87f,#4d6b3e)" },
-            { title: "Organica Living [ Labs ]", sub: "Frontier microbial science.", bg: "linear-gradient(135deg,#7a6a55,#3f352d)" },
-            { title: "Scientists", sub: "Leading microbiome experts.", bg: "linear-gradient(135deg,#c8b89e,#9a8568)" },
+            { title: "Approach", sub: "Nutritional science for everyday health.", bg: "linear-gradient(135deg,#9ab87f,#4d6b3e)" },
+            { title: "Organica Living [ Labs ]", sub: "Frontier nutritional research.", bg: "linear-gradient(135deg,#7a6a55,#3f352d)" },
+            { title: "Scientists", sub: "Leading nutrition experts.", bg: "linear-gradient(135deg,#c8b89e,#9a8568)" },
             { title: "Sustainability", sub: "Human impact on planetary health.", bg: "linear-gradient(135deg,#6f9a6a,#3a5a35)" },
           ].map((item) => (
             <NavRow key={item.title}>
@@ -304,8 +304,8 @@ export function NavMenus() {
       >
         <div style={{ position: "relative" }}>
           {[
-            { title: "Microbiome 101", sub: "The hidden ecosystem powering your health.", bg: "linear-gradient(135deg,#a9d6c0,#4d8a72)" },
-            { title: "Probiotics 101", sub: "How these mighty bacteria shape your health.", bg: "linear-gradient(135deg,#7fa56a,#3f5a30)" },
+            { title: "Nutrition 101", sub: "The essential nutrients powering your health.", bg: "linear-gradient(135deg,#a9d6c0,#4d8a72)" },
+            { title: "Vitamins 101", sub: "How key vitamins and minerals shape your health.", bg: "linear-gradient(135deg,#7fa56a,#3f5a30)" },
           ].map((item) => (
             <NavRow key={item.title}>
               <Link
@@ -340,12 +340,12 @@ export function NavMenus() {
           </div>
           {[
             {
-              title: "How Organica Living Is Setting A New Standard For Probiotic Health",
+              title: "How Organica Living Is Setting A New Standard For Supplement Quality",
               read: "7 min read",
               bg: "linear-gradient(135deg,#3a4733,#1d2618)",
             },
             {
-              title: "Seeking Carbon-Capturing Bacteria off a Remote Japanese Island",
+              title: "Inside the Sourcing of Our Clinically-Studied Ingredients",
               read: "8 min read",
               bg: "linear-gradient(135deg,#5a6b7a,#2f3f47)",
             },

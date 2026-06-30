@@ -6,8 +6,28 @@ import { formatPrice } from "@/lib/format";
 
 type Props = { products: ProductWithVariants[] };
 
+type HomeGridItem = {
+  slug: string;
+  badge: string;
+  badgeColor: string;
+  badgeBg: string;
+};
+
+// Home dark-grid is a curated marketing selection (matches the mockup), with
+// home-specific badges that are independent of the catalog `badge` column.
+const HOME_GRID: HomeGridItem[] = [
+  { slug: "multi-pro", badge: "Bestseller", badgeColor: "#1a1a1a", badgeBg: "#62e104" },
+  { slug: "optimus-d3", badge: "New", badgeColor: "#62e104", badgeBg: "transparent" },
+  { slug: "omega-1000", badge: "New", badgeColor: "#62e104", badgeBg: "transparent" },
+  { slug: "sleep-pro", badge: "New", badgeColor: "#62e104", badgeBg: "transparent" },
+];
+
 export function ProductsSection({ products }: Props) {
-  const display = products.slice(0, 4);
+  const bySlug = new Map(products.map((p) => [p.slug, p]));
+  const display = HOME_GRID.map((g) => {
+    const product = bySlug.get(g.slug);
+    return product ? { ...g, product } : null;
+  }).filter((x): x is HomeGridItem & { product: ProductWithVariants } => x !== null);
 
   return (
     <section
@@ -16,6 +36,7 @@ export function ProductsSection({ products }: Props) {
       <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px" }}>
         {/* Header row */}
         <div
+          data-reveal
           style={{
             display: "flex",
             alignItems: "flex-start",
@@ -75,18 +96,23 @@ export function ProductsSection({ products }: Props) {
 
         {/* Product cards grid */}
         <div
+          data-reveal
+          data-rgrid4
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4,1fr)",
             gap: 16,
           }}
         >
-          {display.map((p) => {
+          {display.map(({ product: p, badge, badgeColor, badgeBg }) => {
             const variant = defaultVariant(p);
             const img = imageUrl(p.image_path);
             return (
               <div
                 key={p.id}
+                data-prodcard
+                data-rest-bg="rgba(255,255,255,0.05)"
+                data-hover-bg="rgba(255,255,255,0.09)"
                 style={{
                   background: "rgba(255,255,255,0.05)",
                   borderRadius: 14,
@@ -109,26 +135,22 @@ export function ProductsSection({ products }: Props) {
                     marginBottom: 8,
                   }}
                 >
-                  {p.badge ? (
-                    <span
-                      style={{
-                        display: "inline-block",
-                        lineHeight: 1,
-                        fontSize: 10,
-                        fontWeight: 600,
-                        letterSpacing: ".5px",
-                        textTransform: "uppercase",
-                        color: "#1a1a1a",
-                        background: "#62e104",
-                        padding: "4px 9px",
-                        borderRadius: 30,
-                      }}
-                    >
-                      {p.badge}
-                    </span>
-                  ) : (
-                    <span />
-                  )}
+                  <span
+                    style={{
+                      display: "inline-block",
+                      lineHeight: 1,
+                      fontSize: 10,
+                      fontWeight: 600,
+                      letterSpacing: ".5px",
+                      textTransform: "uppercase",
+                      color: badgeColor,
+                      background: badgeBg,
+                      padding: "4px 9px",
+                      borderRadius: 30,
+                    }}
+                  >
+                    {badge}
+                  </span>
                   <span
                     style={{
                       display: "inline-block",
@@ -147,6 +169,7 @@ export function ProductsSection({ products }: Props) {
 
                 {/* Product image */}
                 <div
+                  data-jar
                   style={{
                     width: "78%",
                     aspectRatio: "3/4",

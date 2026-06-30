@@ -4,6 +4,7 @@ export function MoreThanHuman() {
   return (
     <section style={{ padding: "96px 0" }}>
       <div
+        data-rcol2
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -15,7 +16,7 @@ export function MoreThanHuman() {
         }}
       >
         {/* Left: copy */}
-        <div>
+        <div data-reveal>
           <div
             style={{ fontSize: 15, color: "#1a1a1a", letterSpacing: 1 }}
           >
@@ -96,6 +97,7 @@ export function MoreThanHuman() {
 
         {/* Right: visual placeholder */}
         <div
+          data-reveal
           style={{
             position: "relative",
             aspectRatio: "1/1",

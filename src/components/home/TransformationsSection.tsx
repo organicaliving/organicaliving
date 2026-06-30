@@ -3,6 +3,7 @@ export function TransformationsSection() {
     <section style={{ padding: "60px 0 100px", overflow: "hidden" }}>
       {/* Heading */}
       <div
+        data-reveal
         style={{
           textAlign: "center",
           padding: "0 40px",
@@ -27,6 +28,7 @@ export function TransformationsSection() {
 
       {/* Media cards */}
       <div
+        data-reveal
         style={{
           display: "flex",
           gap: 18,
@@ -111,6 +113,7 @@ export function TransformationsSection() {
 
       {/* Playback controls (decorative) */}
       <div
+        data-reveal
         style={{
           display: "flex",
           alignItems: "center",

@@ -33,7 +33,7 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   title: "Organica Living",
   description:
-    "Clinically formulated supplements, rooted in nature. Microbiome science for human health.",
+    "Clinically formulated vitamins and supplements, rooted in nature. Nutritional science for everyday health.",
 };
 
 export default function RootLayout({

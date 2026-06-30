@@ -185,7 +185,7 @@ export function Footer() {
                   letterSpacing: "-0.01em",
                 }}
               >
-                Pioneering microbiome science{" "}
+                Pioneering nutritional science{" "}
                 <span style={{ color: "#62e104" }}>[R+D]</span> for human and
                 planetary health since 2016.
               </p>

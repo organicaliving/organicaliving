@@ -37,8 +37,10 @@ mkdirSync(dirname(out), { recursive: true });
 const browser = await chromium.launch();
 try {
   const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
-  await page.goto(url, { waitUntil: "networkidle", timeout: 90000 });
-  await page.waitForTimeout(900);
+  // networkidle is unreliable with Next streaming/RSC; domcontentloaded + a
+  // settle wait (past the 1800ms reveal safety) is robust for hydration + JS effects.
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
+  await page.waitForTimeout(Number(process.env.SETTLE || 2200));
 
   if (hoverSel) {
     const el = page.locator(hoverSel).first();
@@ -48,7 +50,10 @@ try {
   }
 
   if (clipSel) {
-    const box = await page.locator(clipSel).first().boundingBox();
+    const clipEl = page.locator(clipSel).first();
+    await clipEl.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(800); // let scroll-reveal finish
+    const box = await clipEl.boundingBox();
     if (box) {
       const pad = 12;
       await page.screenshot({

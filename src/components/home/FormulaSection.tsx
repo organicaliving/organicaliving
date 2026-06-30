@@ -59,6 +59,7 @@ export function FormulaSection() {
 
       {/* Glass card */}
       <div
+        data-reveal
         style={{
           position: "relative",
           maxWidth: 1440,

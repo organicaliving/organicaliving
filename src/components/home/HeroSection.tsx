@@ -54,6 +54,7 @@ export function HeroSection() {
       </span>
       {/* Content */}
       <div
+        data-reveal
         style={{
           position: "relative",
           maxWidth: 1440,
@@ -121,7 +122,16 @@ export function HeroSection() {
               textDecoration: "none",
             }}
           >
-            Shop Now &nbsp;→
+            Shop Now&nbsp;{" "}
+            <span
+              data-arrow
+              style={{
+                display: "inline-block",
+                transition: "transform 0.25s cubic-bezier(0.75,0,0.25,1)",
+              }}
+            >
+              →
+            </span>
           </Link>
         </div>
       </div>

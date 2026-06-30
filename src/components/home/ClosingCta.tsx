@@ -4,6 +4,7 @@ export function ClosingCta() {
   return (
     <section style={{ padding: "0 0 100px" }}>
       <div
+        data-rcol2
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -15,6 +16,7 @@ export function ClosingCta() {
       >
         {/* Organica Living Labs card */}
         <div
+          data-reveal
           style={{
             position: "relative",
             minHeight: 420,
@@ -83,6 +85,7 @@ export function ClosingCta() {
 
         {/* "Change your health" CTA card */}
         <div
+          data-reveal
           style={{
             position: "relative",
             minHeight: 420,

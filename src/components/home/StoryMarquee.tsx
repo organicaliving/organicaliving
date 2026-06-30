@@ -55,6 +55,7 @@ export function StoryMarquee() {
     <section style={{ padding: "88px 0 100px", overflow: "hidden" }}>
       {/* Heading */}
       <div
+        data-reveal
         style={{
           padding: "0 40px",
           maxWidth: 1440,

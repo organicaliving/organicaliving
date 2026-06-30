@@ -206,8 +206,8 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
           {/* SCIENCE pane */}
           <div data-mpane="science" style={{ display: activeTab === "science" ? undefined : "none" }}>
             {[
-              { title: "Approach", sub: "Microbiome science for human health.", bg: "linear-gradient(135deg,#9ab87f,#4d6b3e)" },
-              { title: "Organica Living [ Labs ]", sub: "Frontier microbial science.", bg: "linear-gradient(135deg,#7a6a55,#3f352d)" },
+              { title: "Approach", sub: "Nutritional science for everyday health.", bg: "linear-gradient(135deg,#9ab87f,#4d6b3e)" },
+              { title: "Organica Living [ Labs ]", sub: "Frontier nutritional research.", bg: "linear-gradient(135deg,#7a6a55,#3f352d)" },
               { title: "Sustainability", sub: "Human impact on planetary health.", bg: "linear-gradient(135deg,#6f9a6a,#3a5a35)" },
             ].map((item) => (
               <Link
@@ -236,8 +236,8 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
           {/* LEARN pane */}
           <div data-mpane="learn" style={{ display: activeTab === "learn" ? undefined : "none" }}>
             {[
-              { title: "Microbiome 101", sub: "The hidden ecosystem powering your health.", bg: "linear-gradient(135deg,#a9d6c0,#4d8a72)" },
-              { title: "Probiotics 101", sub: "How these mighty bacteria shape your health.", bg: "linear-gradient(135deg,#7fa56a,#3f5a30)" },
+              { title: "Nutrition 101", sub: "The essential nutrients powering your health.", bg: "linear-gradient(135deg,#a9d6c0,#4d8a72)" },
+              { title: "Vitamins 101", sub: "How key vitamins and minerals shape your health.", bg: "linear-gradient(135deg,#7fa56a,#3f5a30)" },
             ].map((item) => (
               <Link
                 key={item.title}

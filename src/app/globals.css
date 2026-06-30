@@ -66,6 +66,16 @@
   [data-mobile-menu] { display: flex !important; }
 }
 
+/* ---- responsive grid collapse (matches mockup embedded style) ---- */
+@media (max-width: 768px) {
+  [data-rgrid4] { grid-template-columns: repeat(2, 1fr) !important; }
+  [data-rgrid6] { grid-template-columns: repeat(3, 1fr) !important; }
+  [data-rcol2] { grid-template-columns: 1fr !important; gap: 30px !important; }
+}
+@media (max-width: 480px) {
+  [data-rgrid6] { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
 /* NOTE: [data-arrow] hover nudge is now handled by SiteInteractions (JS wiring).
    The CSS block was removed to prevent double-transform conflicts.
    The inline-block display is still set per-element in JSX where needed. */

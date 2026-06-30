@@ -156,8 +156,12 @@ function wireProdCard(card: HTMLElement) {
     card.querySelector<HTMLElement>("[data-prodimg]") ||
     card.querySelector<HTMLElement>("[data-jar]");
 
+  // Optional background swap on hover (the dark home grid brightens its tint).
+  const hoverBg = card.dataset.hoverBg;
+  const restBg = card.dataset.restBg;
+
   card.style.transition =
-    "transform 0.3s cubic-bezier(0.75,0,0.25,1), box-shadow 0.3s ease";
+    "transform 0.3s cubic-bezier(0.75,0,0.25,1), box-shadow 0.3s ease, background 0.3s ease";
   if (img) {
     img.style.transition = "transform 0.3s cubic-bezier(0.75,0,0.25,1)";
   }
@@ -167,11 +171,13 @@ function wireProdCard(card: HTMLElement) {
   const enter = () => {
     card.style.transform = "translateY(-6px)";
     card.style.boxShadow = "0 22px 50px rgba(28,58,19,0.3)";
+    if (hoverBg) card.style.background = hoverBg;
     if (img) img.style.transform = "scale(1.08)";
   };
   const leave = () => {
     card.style.transform = "translateY(0)";
     card.style.boxShadow = "none";
+    if (restBg) card.style.background = restBg;
     if (img) img.style.transform = "scale(1)";
   };
   const press = () => {
@@ -223,13 +229,92 @@ function cleanup() {
   unwireAll("[data-navrow][data-site-nav-wired]", "siteNavWired");
 }
 
+/**
+ * Scroll-reveal: [data-reveal] elements fade up (opacity 0→1, translateY
+ * 24px→0) as they enter the viewport — the mockup's signature section motion.
+ * Content is visible in the initial SSR HTML; we "arm" (hide) on mount then
+ * reveal, so the page degrades gracefully if JS never runs. Respects
+ * prefers-reduced-motion. Returns a teardown for route changes / unmount.
+ */
+function setupReveals(): () => void {
+  const els = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-reveal]")
+  );
+  if (!els.length) return () => {};
+
+  // Accessibility: skip the motion entirely, leave content visible.
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+    return () => {};
+  }
+
+  const reveal = (el: HTMLElement) => {
+    if (el.dataset.shown) return;
+    el.dataset.shown = "1";
+    el.style.transition = "none";
+    const dur = 720;
+    const startY = 24;
+    const start = performance.now();
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / dur);
+      const e = ease(t);
+      el.style.opacity = String(e);
+      el.style.transform = `translateY(${(startY * (1 - e)).toFixed(2)}px)`;
+      if (t < 1) requestAnimationFrame(step);
+      else {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      }
+    };
+    requestAnimationFrame(step);
+  };
+
+  const check = () => {
+    const vh = window.innerHeight;
+    els.forEach((el) => {
+      if (el.dataset.shown) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < vh * 0.9 && r.bottom > 0) reveal(el);
+    });
+  };
+
+  // Arm: hide and offset every reveal element.
+  els.forEach((el) => {
+    el.style.transition = "none";
+    el.style.opacity = "0";
+    el.style.transform = "translateY(24px)";
+  });
+  check();
+  window.addEventListener("scroll", check, { passive: true });
+  window.addEventListener("resize", check, { passive: true });
+
+  // Safety: never leave content hidden if something goes wrong.
+  const safety = window.setTimeout(() => {
+    els.forEach((el) => {
+      if (el.dataset.shown) return;
+      el.dataset.shown = "1";
+      el.style.transition = "none";
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
+  }, 1800);
+
+  return () => {
+    window.removeEventListener("scroll", check);
+    window.removeEventListener("resize", check);
+    window.clearTimeout(safety);
+  };
+}
+
 export function SiteInteractions() {
   const pathname = usePathname();
 
   useEffect(() => {
     wire();
+    const teardownReveals = setupReveals();
     return () => {
       cleanup();
+      teardownReveals();
     };
   // Re-wire on every route change so newly rendered pages get wired
   }, [pathname]);

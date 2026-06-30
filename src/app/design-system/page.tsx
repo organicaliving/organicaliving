@@ -56,7 +56,7 @@ const typeScale = [
     size: "46px",
     weight: "300",
     tracking: "-0.03em",
-    sample: "A health routine for your microbiome",
+    sample: "A daily routine for your wellness",
   },
   {
     spec: "SORA 300 · 40",
@@ -64,7 +64,7 @@ const typeScale = [
     size: "32px",
     weight: "300",
     tracking: "-0.02em",
-    sample: "Whole body health starts in the gut",
+    sample: "Whole body health starts with the right nutrients",
   },
   {
     spec: "SORA 500 · 22",
@@ -80,7 +80,7 @@ const typeScale = [
     size: "16px",
     weight: "400",
     tracking: "-0.01em",
-    sample: "Transform your gut health, energy, and sleep with real results.",
+    sample: "Transform your energy, sleep, and nutrition with real results.",
   },
   {
     spec: "SPARTAN 400 · 14",
