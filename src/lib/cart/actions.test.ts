@@ -7,7 +7,7 @@ const { getUser, readGuestCart, writeGuestCart } = vi.hoisted(() => ({
 }));
 
 vi.mock("@/lib/supabase/server", () => ({ createClient: vi.fn(async () => ({ auth: { getUser }, from: vi.fn() })) }));
-vi.mock("@/lib/cart/guest", () => ({ readGuestCart, writeGuestCart, clearGuestCart: vi.fn(), MAX_ITEMS: 50 }));
+vi.mock("@/lib/cart/guest", () => ({ readGuestCart, writeGuestCart, clearGuestCart: vi.fn(), MAX_ITEMS: 50, MAX_QTY_PER_LINE: 99 }));
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 vi.mock("@/lib/cart/queries", () => ({ validatePromoCode: vi.fn(async (c: string) => (c === "BUNDLE25" ? { code: "BUNDLE25", type: "percent", value: 25 } : null)) }));
 
@@ -35,6 +35,14 @@ describe("addItemAction (guest)", () => {
     readGuestCart.mockResolvedValue({ items: [{ variantId: VALID_UUID, quantity: 1, purchaseType: "one_time" }] });
     await addItemAction(null, fd({ variantId: VALID_UUID, quantity: "2", purchaseType: "one_time" }));
     expect(writeGuestCart).toHaveBeenCalledWith(expect.objectContaining({ items: [expect.objectContaining({ quantity: 3 })] }));
+  });
+  it("clamps quantity to 99 when adding to an existing line would exceed MAX_QTY_PER_LINE", async () => {
+    readGuestCart.mockResolvedValue({ items: [{ variantId: "11111111-1111-4111-8111-111111111111", quantity: 95, purchaseType: "one_time" }] });
+    const r = await addItemAction(null, fd({ variantId: "11111111-1111-4111-8111-111111111111", quantity: "10", purchaseType: "one_time" }));
+    expect(r.ok).toBe(true);
+    expect(writeGuestCart).toHaveBeenCalledWith(
+      expect.objectContaining({ items: [expect.objectContaining({ quantity: 99 })] })
+    );
   });
 });
 

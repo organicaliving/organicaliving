@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import { readGuestCart, writeGuestCart, clearGuestCart, MAX_ITEMS } from "@/lib/cart/guest";
+import { readGuestCart, writeGuestCart, clearGuestCart, MAX_ITEMS, MAX_QTY_PER_LINE } from "@/lib/cart/guest";
 import { validatePromoCode } from "@/lib/cart/queries";
 import type { ActionResult } from "@/lib/forms";
 import type { CartCookieItem, PurchaseType } from "@/lib/cart/types";
@@ -52,10 +52,10 @@ export async function addItemAction(_prev: ActionResult | null, formData: FormDa
   if (!userId) {
     const cart = await readGuestCart();
     const existing = cart.items.find((i) => i.variantId === variantId && i.purchaseType === purchaseType);
-    if (existing) existing.quantity += quantity;
+    if (existing) existing.quantity = Math.min(existing.quantity + quantity, MAX_QTY_PER_LINE);
     else {
       if (cart.items.length >= MAX_ITEMS) return { ok: false, error: "Cart is full." };
-      cart.items.push({ variantId, quantity, purchaseType });
+      cart.items.push({ variantId, quantity: Math.min(quantity, MAX_QTY_PER_LINE), purchaseType });
     }
     await writeGuestCart(cart);
     revalidatePath("/cart");
@@ -67,8 +67,8 @@ export async function addItemAction(_prev: ActionResult | null, formData: FormDa
   const { data: row } = await supabase
     .from("cart_items").select("id, quantity")
     .eq("cart_id", cartId).eq("variant_id", variantId).eq("purchase_type", purchaseType).maybeSingle();
-  if (row) await supabase.from("cart_items").update({ quantity: row.quantity + quantity }).eq("id", row.id);
-  else await supabase.from("cart_items").insert({ cart_id: cartId, variant_id: variantId, quantity, purchase_type: purchaseType });
+  if (row) await supabase.from("cart_items").update({ quantity: Math.min(row.quantity + quantity, MAX_QTY_PER_LINE) }).eq("id", row.id);
+  else await supabase.from("cart_items").insert({ cart_id: cartId, variant_id: variantId, quantity: Math.min(quantity, MAX_QTY_PER_LINE), purchase_type: purchaseType });
   revalidatePath("/cart");
   return { ok: true };
 }
@@ -88,7 +88,7 @@ export async function updateQtyAction(_prev: ActionResult | null, formData: Form
     const idx = cart.items.findIndex((i) => i.variantId === variantId && i.purchaseType === purchaseType);
     if (idx >= 0) {
       if (quantity === 0) cart.items.splice(idx, 1);
-      else cart.items[idx].quantity = quantity;
+      else cart.items[idx].quantity = Math.min(quantity, MAX_QTY_PER_LINE);
       await writeGuestCart(cart);
     }
     revalidatePath("/cart");
@@ -101,7 +101,7 @@ export async function updateQtyAction(_prev: ActionResult | null, formData: Form
     if (quantity === 0) {
       await supabase.from("cart_items").delete().eq("cart_id", cartRow.id).eq("variant_id", variantId).eq("purchase_type", purchaseType);
     } else {
-      await supabase.from("cart_items").update({ quantity }).eq("cart_id", cartRow.id).eq("variant_id", variantId).eq("purchase_type", purchaseType);
+      await supabase.from("cart_items").update({ quantity: Math.min(quantity, MAX_QTY_PER_LINE) }).eq("cart_id", cartRow.id).eq("variant_id", variantId).eq("purchase_type", purchaseType);
     }
   }
   revalidatePath("/cart");

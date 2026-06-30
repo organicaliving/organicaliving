@@ -4,6 +4,7 @@ import type { CartCookieItem, PurchaseType } from "@/lib/cart/types";
 
 export const COOKIE_NAME = "og_cart";
 export const MAX_ITEMS = 50;
+export const MAX_QTY_PER_LINE = 99;
 
 type GuestCart = { items: CartCookieItem[]; code?: string };
 
