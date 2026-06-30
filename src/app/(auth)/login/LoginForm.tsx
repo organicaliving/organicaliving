@@ -1,5 +1,6 @@
 "use client";
 import { useActionState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { signInAction } from "@/lib/auth/actions";
 import { FormField } from "@/components/ui/FormField";
@@ -10,9 +11,11 @@ import { fieldError } from "@/lib/forms";
 
 export function LoginForm() {
   const [state, action] = useActionState(signInAction, null);
+  const next = useSearchParams().get("next");
   return (
     <form action={action} className="flex flex-col gap-4">
       <h1 className="text-2xl font-light text-ink">Sign in</h1>
+      {next ? <input type="hidden" name="next" value={next} /> : null}
       {state && !state.ok ? <p className="text-sm text-[#b3261e]">{state.error}</p> : null}
       <FormField label="Email" htmlFor="email" error={fieldError(state, "email")}>
         <Input id="email" name="email" type="email" autoComplete="email" required />
