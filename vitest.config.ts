@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "server-only": resolve(__dirname, "test/stubs/server-only.ts"),
+      "@/lib/stripe": resolve(__dirname, "test/stubs/stripe.ts"),
     },
   },
   test: {
