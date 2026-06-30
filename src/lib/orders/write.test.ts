@@ -1,15 +1,22 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-const fromMock = vi.fn();
-vi.mock("@/lib/supabase/admin", () => ({ createAdminClient: () => ({ from: fromMock }) }));
-import { createPendingOrder } from "@/lib/orders/write";
 
-function chain(result: { data: unknown; error: unknown }) {
+const fromMock = vi.hoisted(() => vi.fn());
+vi.mock("@/lib/supabase/admin", () => ({ createAdminClient: () => ({ from: fromMock }) }));
+
+import { createPendingOrder, finalizeOrderFromPaymentIntent } from "@/lib/orders/write";
+
+function chain(result: { data: unknown; error?: unknown }) {
   const b: Record<string, unknown> = {};
-  b.insert = () => b; b.select = () => b; b.eq = () => b; b.update = () => b;
-  b.single = () => Promise.resolve(result); b.maybeSingle = () => Promise.resolve(result);
+  b.insert = () => b;
+  b.select = () => b;
+  b.eq = () => b;
+  b.update = () => b;
+  b.single = () => Promise.resolve(result);
+  b.maybeSingle = () => Promise.resolve(result);
   b.then = (r: (v: unknown) => void) => r(result);
   return b;
 }
+
 beforeEach(() => fromMock.mockReset());
 
 describe("createPendingOrder", () => {
@@ -27,5 +34,30 @@ describe("createPendingOrder", () => {
     expect(r.orderId).toBe("ord1");
     expect(fromMock).toHaveBeenCalledWith("orders");
     expect(fromMock).toHaveBeenCalledWith("order_items");
+  });
+});
+
+describe("finalizeOrderFromPaymentIntent", () => {
+  const pi = { id: "pi_test_123", metadata: { order_id: "ord1" } };
+
+  it("returns { finalized: true } when conditional update succeeds", async () => {
+    fromMock.mockImplementation((t: string) =>
+      t === "orders"
+        ? chain({ data: [{ id: "ord1", user_id: null }], error: null })
+        : chain({ data: null, error: null }),
+    );
+    const r = await finalizeOrderFromPaymentIntent(pi);
+    expect(r).toEqual({ finalized: true });
+  });
+
+  it("returns { finalized: false } when conditional update returns empty (already paid)", async () => {
+    fromMock.mockImplementation(() => chain({ data: [], error: null }));
+    const r = await finalizeOrderFromPaymentIntent(pi);
+    expect(r).toEqual({ finalized: false });
+  });
+
+  it("returns { finalized: false } when order_id is missing from metadata", async () => {
+    const r = await finalizeOrderFromPaymentIntent({ id: "pi_x", metadata: {} });
+    expect(r).toEqual({ finalized: false });
   });
 });

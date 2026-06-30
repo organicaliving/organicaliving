@@ -54,13 +54,16 @@ export async function finalizeOrderFromPaymentIntent(pi: {
   if (!orderId) return { finalized: false };
   const admin = createAdminClient();
 
-  const { data: order } = await admin
-    .from("orders").select("id, status, user_id").eq("id", orderId).maybeSingle();
-  if (!order || order.status === "paid") return { finalized: false };
+  const { data: updated } = await admin
+    .from("orders")
+    .update({ status: "paid", stripe_payment_intent_id: pi.id })
+    .eq("id", orderId)
+    .eq("status", "pending")
+    .select("id, user_id");
+  if (!updated || updated.length === 0) return { finalized: false };
 
-  await admin.from("orders").update({ status: "paid", stripe_payment_intent_id: pi.id }).eq("id", orderId);
-  if (order.user_id) {
-    await admin.from("carts").update({ status: "converted" }).eq("user_id", order.user_id).eq("status", "active");
+  if (updated[0].user_id) {
+    await admin.from("carts").update({ status: "converted" }).eq("user_id", updated[0].user_id).eq("status", "active");
   }
   return { finalized: true };
 }

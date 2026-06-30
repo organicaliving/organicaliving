@@ -3,14 +3,30 @@ import Link from "next/link";
 import { getOrderByPaymentIntent } from "@/lib/orders/queries";
 import { clearGuestCart } from "@/lib/cart/guest";
 import { formatPrice } from "@/lib/format";
+import { stripe } from "@/lib/stripe";
 
 export const metadata: Metadata = { title: "Order confirmed — Organica Living" };
 export const dynamic = "force-dynamic";
 
-export default async function SuccessPage({ searchParams }: { searchParams: Promise<{ payment_intent?: string }> }) {
-  const { payment_intent: piId } = await searchParams;
+export default async function SuccessPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ payment_intent?: string; payment_intent_client_secret?: string }>;
+}) {
+  const { payment_intent: piId, payment_intent_client_secret: clientSecret } = await searchParams;
   await clearGuestCart();
-  const order = piId ? await getOrderByPaymentIntent(piId) : null;
+
+  let order = null;
+  if (piId && clientSecret) {
+    try {
+      const pi = await stripe.paymentIntents.retrieve(piId);
+      if (pi.client_secret === clientSecret) {
+        order = await getOrderByPaymentIntent(piId);
+      }
+    } catch {
+      // ignore; show the processing fallback
+    }
+  }
 
   return (
     <main className="mx-auto max-w-xl px-6 py-24 text-center">
