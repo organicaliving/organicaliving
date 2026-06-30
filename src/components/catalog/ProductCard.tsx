@@ -16,7 +16,7 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
     >
       {product.badge ? (
         <span className="absolute right-4 top-4 z-10">
-          <Badge label={product.badge} />
+          <Badge label={product.badge} variant="new" />
         </span>
       ) : null}
 
