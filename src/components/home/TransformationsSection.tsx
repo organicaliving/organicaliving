@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function TransformationsSection() {
   return (
     <section style={{ padding: "60px 0 100px", overflow: "hidden" }}>
@@ -50,6 +52,22 @@ export function TransformationsSection() {
             background: "linear-gradient(120deg,#6b5e52,#3f352d)",
           }}
         >
+          <Image
+            src="/images/home/th-member-wide.webp"
+            alt="Organica Living member enjoying a healthy, active life outdoors"
+            fill
+            sizes="(max-width:768px) 100vw, 760px"
+            style={{ objectFit: "cover" }}
+          />
+          {/* legibility overlay for the white caption */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(180deg, rgba(20,20,16,0) 45%, rgba(20,20,16,.6) 100%)",
+            }}
+          />
           <div
             style={{
               position: "absolute",
@@ -96,6 +114,21 @@ export function TransformationsSection() {
             background: "linear-gradient(120deg,#cdbfae,#9c8a76)",
           }}
         >
+          <Image
+            src="/images/home/th-member-portrait.webp"
+            alt="Organica Living member portrait in natural light"
+            fill
+            sizes="(max-width:768px) 100vw, 300px"
+            style={{ objectFit: "cover" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(180deg, rgba(20,20,16,0) 55%, rgba(20,20,16,.6) 100%)",
+            }}
+          />
           <div
             style={{
               position: "absolute",

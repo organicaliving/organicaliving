@@ -1,13 +1,37 @@
 import Link from "next/link";
+import { ArrowRight } from "@/components/ui/ArrowRight";
 
 export function HeroSection() {
   return (
     <section style={{ position: "relative", minHeight: "76vh", overflow: "hidden" }}>
+      {/* Background video (seamless muted loop). A WebP poster paints instantly
+          while the video streams; faststart lets the MP4 play before it's fully
+          downloaded. WebM (VP9) is served first, MP4 (H.264) as the fallback. */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster="/videos/hero-poster.webp"
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+      >
+        <source src="/videos/hero-loop.webm" type="video/webm" />
+        <source src="/videos/hero-loop.mp4" type="video/mp4" />
+      </video>
       {/* Background gradient */}
       <div
         style={{
           position: "absolute",
           inset: 0,
+          opacity: 0.5,
           background:
             "linear-gradient(115deg,#E7E1D2 0%,#D4D8C4 22%,#AcC196 52%,#8BAA6E 78%,#C7BBA0 100%)",
         }}
@@ -32,26 +56,6 @@ export function HeroSection() {
           background: "linear-gradient(180deg, transparent, rgba(110,90,60,.3))",
         }}
       />
-      {/* Image placeholder label */}
-      <span
-        style={{
-          display: "inline-block",
-          lineHeight: 1,
-          position: "absolute",
-          bottom: 22,
-          left: "50%",
-          transform: "translateX(-50%)",
-          fontSize: 11,
-          color: "#43503a",
-          background: "rgba(243,240,232,.7)",
-          padding: "7px 14px",
-          borderRadius: 30,
-          whiteSpace: "nowrap",
-          fontFamily: "var(--font-mono)",
-        }}
-      >
-        product lifestyle — jars on table
-      </span>
       {/* Content */}
       <div
         data-reveal
@@ -123,15 +127,7 @@ export function HeroSection() {
             }}
           >
             Shop Now&nbsp;{" "}
-            <span
-              data-arrow
-              style={{
-                display: "inline-block",
-                transition: "transform 0.25s cubic-bezier(0.75,0,0.25,1)",
-              }}
-            >
-              →
-            </span>
+            <ArrowRight size={16} />
           </Link>
         </div>
       </div>

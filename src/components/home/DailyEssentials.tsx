@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function DailyEssentials() {
   return (
@@ -79,47 +80,23 @@ export function DailyEssentials() {
 
         {/* Right: imagery placeholders */}
         <div data-reveal style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          {/* Main large card */}
+          {/* Main large card — Multi Pro + Omega 1000 duo */}
           <div
             style={{
               position: "relative",
               height: 300,
               borderRadius: 16,
               background: "linear-gradient(135deg,#E7E1D2,#D5CcB6)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 18,
+              overflow: "hidden",
             }}
           >
-            <div
-              style={{
-                width: 88,
-                height: 150,
-                borderRadius: 8,
-                background: "linear-gradient(160deg,#3A4733,#222b1f)",
-              }}
+            <Image
+              src="/images/home/multi-pro-omega-1000-combo.webp"
+              alt="Multi Pro multivitamin and Omega 1000 duo"
+              fill
+              sizes="(max-width:768px) 100vw, 640px"
+              style={{ objectFit: "contain", padding: 20 }}
             />
-            <div
-              style={{
-                width: 88,
-                height: 150,
-                borderRadius: 8,
-                background: "linear-gradient(160deg,#5d6b4e,#3c4733)",
-              }}
-            />
-            <span
-              style={{
-                position: "absolute",
-                bottom: 14,
-                right: 16,
-                fontSize: 10,
-                color: "#7d7560",
-                fontFamily: "var(--font-mono)",
-              }}
-            >
-              duo jars
-            </span>
           </div>
 
           {/* Three small cards */}
@@ -132,63 +109,54 @@ export function DailyEssentials() {
           >
             <div
               style={{
+                position: "relative",
                 height: 120,
                 borderRadius: 14,
+                overflow: "hidden",
                 background: "linear-gradient(160deg,#D5CcB6,#C2B69b)",
-                display: "flex",
-                alignItems: "flex-end",
-                padding: 10,
               }}
             >
-              <span
-                style={{
-                  fontSize: 9,
-                  color: "#6f6650",
-                  fontFamily: "var(--font-mono)",
-                }}
-              >
-                pill in hand
-              </span>
+              <Image
+                src="/images/home/de-pill-in-hand.webp"
+                alt="Unripe guavas on a tree branch"
+                fill
+                sizes="220px"
+                style={{ objectFit: "cover" }}
+              />
             </div>
             <div
               style={{
+                position: "relative",
                 height: 120,
                 borderRadius: 14,
+                overflow: "hidden",
                 background: "linear-gradient(160deg,#3A4733,#2a3326)",
-                display: "flex",
-                alignItems: "flex-end",
-                padding: 10,
               }}
             >
-              <span
-                style={{
-                  fontSize: 9,
-                  color: "rgba(243,240,232,.5)",
-                  fontFamily: "var(--font-mono)",
-                }}
-              >
-                unboxing
-              </span>
+              <Image
+                src="/images/home/de-unboxing.webp"
+                alt="Tamarillo fruit ripening on a tree branch"
+                fill
+                sizes="220px"
+                style={{ objectFit: "cover" }}
+              />
             </div>
             <div
               style={{
+                position: "relative",
                 height: 120,
                 borderRadius: 14,
+                overflow: "hidden",
                 background: "linear-gradient(160deg,#cdd6c2,#aebd9d)",
-                display: "flex",
-                alignItems: "flex-end",
-                padding: 10,
               }}
             >
-              <span
-                style={{
-                  fontSize: 9,
-                  color: "#566048",
-                  fontFamily: "var(--font-mono)",
-                }}
-              >
-                jars + plant
-              </span>
+              <Image
+                src="/images/home/de-jars-plant.webp"
+                alt="Unripe pomegranate growing on a branch"
+                fill
+                sizes="220px"
+                style={{ objectFit: "cover" }}
+              />
             </div>
           </div>
         </div>

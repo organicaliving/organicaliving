@@ -1,12 +1,15 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 
 type StoryTile = {
   w: string;
   h: string;
   radius: string;
   bg: string;
+  img?: string;
+  alt?: string;
   isQuote?: boolean;
   isVideo?: boolean;
   fg?: string;
@@ -15,9 +18,9 @@ type StoryTile = {
 };
 
 const BASE_TILES: StoryTile[] = [
-  { w: "200px", h: "200px", radius: "50%", bg: "linear-gradient(160deg,#cdc3b0,#b0a48b)" },
-  { w: "260px", h: "320px", radius: "14px", bg: "linear-gradient(160deg,#3a4733,#222b1f)", isVideo: true },
-  { w: "240px", h: "300px", radius: "14px", bg: "linear-gradient(160deg,#d5ccb6,#bcb094)" },
+  { w: "200px", h: "200px", radius: "50%", bg: "linear-gradient(160deg,#cdc3b0,#b0a48b)", img: "/images/home/story-1.webp", alt: "A member enjoying the sunlight outdoors" },
+  { w: "260px", h: "320px", radius: "14px", bg: "linear-gradient(160deg,#3a4733,#222b1f)", isVideo: true, img: "/images/home/story-2.webp", alt: "A member portrait in natural light" },
+  { w: "240px", h: "300px", radius: "14px", bg: "linear-gradient(160deg,#d5ccb6,#bcb094)", img: "/images/home/story-3.webp", alt: "A member holding freshly harvested vegetables" },
   {
     w: "300px",
     h: "300px",
@@ -29,8 +32,8 @@ const BASE_TILES: StoryTile[] = [
       '"Setting a new standard in clinically-backed daily nutrition for real, lasting results."',
     source: "Fast Company",
   },
-  { w: "220px", h: "300px", radius: "14px", bg: "linear-gradient(160deg,#5a6b4e,#3a4733)" },
-  { w: "260px", h: "300px", radius: "14px", bg: "linear-gradient(160deg,#2a3326,#161f14)", isVideo: true },
+  { w: "220px", h: "300px", radius: "14px", bg: "linear-gradient(160deg,#5a6b4e,#3a4733)", img: "/images/home/story-4.webp", alt: "An elderly member smiling in a garden" },
+  { w: "260px", h: "300px", radius: "14px", bg: "linear-gradient(160deg,#2a3326,#161f14)", isVideo: true, img: "/images/home/story-5.webp", alt: "A member meditating peacefully outdoors" },
   {
     w: "300px",
     h: "300px",
@@ -42,7 +45,7 @@ const BASE_TILES: StoryTile[] = [
       '"Organica Living is pioneering premium supplement formulations that help people feel their best every day."',
     source: "Forbes",
   },
-  { w: "200px", h: "200px", radius: "50%", bg: "linear-gradient(160deg,#7fa169,#4d6b3e)" },
+  { w: "200px", h: "200px", radius: "50%", bg: "linear-gradient(160deg,#7fa169,#4d6b3e)", img: "/images/home/story-6.webp", alt: "A member enjoying a sunny day" },
 ];
 
 // Double the tiles for seamless loop
@@ -116,6 +119,15 @@ export function StoryMarquee() {
                 (e.currentTarget as HTMLElement).style.transform = "scale(1)";
               }}
             >
+              {tile.img && (
+                <Image
+                  src={tile.img}
+                  alt={tile.alt || ""}
+                  fill
+                  sizes="300px"
+                  style={{ objectFit: "cover" }}
+                />
+              )}
               {tile.isQuote && (
                 <div
                   style={{

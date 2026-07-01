@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function MoreThanHuman() {
   return (
@@ -95,7 +96,7 @@ export function MoreThanHuman() {
           </div>
         </div>
 
-        {/* Right: visual placeholder */}
+        {/* Right: organic lifestyle imagery */}
         <div
           data-reveal
           style={{
@@ -105,33 +106,15 @@ export function MoreThanHuman() {
             overflow: "hidden",
             background:
               "radial-gradient(70% 80% at 50% 40%,#7fa169,#4d6b3e 60%,#33502b 100%)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
           }}
         >
-          <div
-            style={{
-              width: "46%",
-              height: "80%",
-              borderRadius: "50% 50% 45% 45%",
-              background:
-                "linear-gradient(160deg,rgba(160,190,130,.6),rgba(70,100,55,.7))",
-              filter: "blur(1px)",
-            }}
+          <Image
+            src="/images/home/mth-lifestyle-run.webp"
+            alt="A person on a peaceful forest path surrounded by greenery"
+            fill
+            sizes="(max-width:768px) 100vw, 640px"
+            style={{ objectFit: "cover" }}
           />
-          <span
-            style={{
-              position: "absolute",
-              bottom: 16,
-              left: 16,
-              fontSize: 10,
-              color: "rgba(243,240,232,.6)",
-              fontFamily: "var(--font-mono)",
-            }}
-          >
-            lifestyle photography
-          </span>
         </div>
       </div>
     </section>

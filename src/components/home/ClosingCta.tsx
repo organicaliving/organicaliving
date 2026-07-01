@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function ClosingCta() {
   return (
@@ -31,6 +32,21 @@ export function ClosingCta() {
             padding: 40,
           }}
         >
+          <Image
+            src="/images/home/cta-labs.webp"
+            alt="Aerial view of a lush green forest canopy"
+            fill
+            sizes="(max-width:768px) 100vw, 700px"
+            style={{ objectFit: "cover" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(160deg, rgba(30,36,24,.45), rgba(20,26,16,.68))",
+            }}
+          />
           <div
             style={{
               position: "absolute",
@@ -48,6 +64,8 @@ export function ClosingCta() {
           </div>
           <div
             style={{
+              position: "relative",
+              zIndex: 1,
               fontSize: 22,
               fontWeight: 500,
               color: "#fcfcf7",
@@ -57,6 +75,8 @@ export function ClosingCta() {
           </div>
           <p
             style={{
+              position: "relative",
+              zIndex: 1,
               fontSize: 15,
               color: "rgba(243,240,232,.85)",
               marginTop: 10,
@@ -67,6 +87,8 @@ export function ClosingCta() {
           <Link
             href="/products"
             style={{
+              position: "relative",
+              zIndex: 1,
               lineHeight: 1,
               display: "inline-block",
               marginTop: 24,
@@ -101,8 +123,25 @@ export function ClosingCta() {
             padding: 40,
           }}
         >
+          <Image
+            src="/images/home/cta-transform.webp"
+            alt="Sunlight streaming through a peaceful green forest path"
+            fill
+            sizes="(max-width:768px) 100vw, 700px"
+            style={{ objectFit: "cover" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "radial-gradient(80% 80% at 50% 40%, rgba(40,70,35,.4), rgba(20,40,20,.7) 100%)",
+            }}
+          />
           <h2
             style={{
+              position: "relative",
+              zIndex: 1,
               fontSize: "clamp(24px,2.6vw,36px)",
               fontWeight: 300,
               lineHeight: 1.1,
@@ -115,6 +154,8 @@ export function ClosingCta() {
           </h2>
           <p
             style={{
+              position: "relative",
+              zIndex: 1,
               fontSize: 15,
               color: "rgba(243,240,232,.85)",
               marginTop: 12,
@@ -125,6 +166,8 @@ export function ClosingCta() {
           <Link
             href="/products"
             style={{
+              position: "relative",
+              zIndex: 1,
               lineHeight: 1,
               display: "inline-block",
               marginTop: 24,
