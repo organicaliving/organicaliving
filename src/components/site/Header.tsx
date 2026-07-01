@@ -6,6 +6,7 @@ import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { NavMenus } from "@/components/site/nav/NavMenus";
 import { MobileMenu } from "@/components/site/nav/MobileMenu";
 import { SignInMenu } from "@/components/site/nav/SignInMenu";
+import { AccountMenu } from "@/components/site/nav/AccountMenu";
 
 export async function Header() {
   const supabase = await createClient();
@@ -13,7 +14,7 @@ export async function Header() {
 
   return (
     <>
-      <AnnouncementBar />
+      <AnnouncementBar loggedIn={!!user} />
       <header
         style={{
           position: "sticky",
@@ -72,29 +73,14 @@ export async function Header() {
           >
             {user ? (
               <>
-                <CartCountBadge />
+                <AccountMenu />
                 <Link
-                  href="/account"
+                  href="/refer"
                   style={{ fontSize: "14px", color: "#1a1a1a", fontWeight: 400, textDecoration: "none" }}
                 >
-                  Account
+                  Refer
                 </Link>
-                <form action="/auth/signout" method="post">
-                  <button
-                    type="submit"
-                    style={{
-                      fontSize: "14px",
-                      color: "#1a1a1a",
-                      fontWeight: 400,
-                      background: "transparent",
-                      border: "none",
-                      cursor: "pointer",
-                      padding: 0,
-                    }}
-                  >
-                    Sign out
-                  </button>
-                </form>
+                <CartCountBadge />
               </>
             ) : (
               <>

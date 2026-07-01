@@ -7,6 +7,7 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { ArrowRight } from "@/components/ui/ArrowRight";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { ActionInput } from "@/components/ui/ActionInput";
@@ -770,12 +771,7 @@ export default function DesignSystemPage() {
                   }}
                 >
                   Shop All&nbsp;{" "}
-                  <span
-                    data-arrow
-                    style={{ display: "inline-block" }}
-                  >
-                    →
-                  </span>
+                  <ArrowRight size={14} />
                 </a>
                 {/* Circle ghost button */}
                 <button
@@ -1227,9 +1223,7 @@ export default function DesignSystemPage() {
                     }}
                   >
                     Find the right products for you&nbsp;{" "}
-                    <span data-arrow style={{ display: "inline-block" }}>
-                      →
-                    </span>
+                    <ArrowRight size={14} />
                   </a>
                   <div
                     style={{

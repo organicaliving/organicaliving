@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "@/components/ui/ArrowRight";
 
 /* ------------------------------------------------------------------ */
 /* Shop products list                                                   */
@@ -19,12 +20,19 @@ const SHOP_PRODUCTS = [
   { category: "Kids Vitamin D3",   name: "Optimus D3 Mini",  slug: "optimus-d3-mini",  img: "/images/optimus-d3-mini.webp", bg: "linear-gradient(160deg,#e0a868,#b06e30)" },
 ];
 
-type TabName = "shop" | "science" | "learn";
+type TabName = "shop" | "science" | "learn" | "account";
 
 interface MobileMenuProps {
   /** Whether user is logged in — controls Sign In vs Account links */
   isLoggedIn?: boolean;
 }
+
+/* Logged-in account links — mirrors the desktop AccountMenu dropdown. */
+const ACCOUNT_LINKS = [
+  { label: "Subscriptions", href: "/subscriptions" },
+  { label: "Order History", href: "/orders" },
+  { label: "Settings", href: "/account" },
+];
 
 export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
@@ -69,8 +77,15 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
     zIndex: 150,
   };
 
-  const tabs: TabName[] = ["shop", "science", "learn"];
-  const tabLabels: Record<TabName, string> = { shop: "Shop", science: "Science", learn: "Learn" };
+  const tabs: TabName[] = isLoggedIn
+    ? ["shop", "science", "learn", "account"]
+    : ["shop", "science", "learn"];
+  const tabLabels: Record<TabName, string> = {
+    shop: "Shop",
+    science: "Science",
+    learn: "Learn",
+    account: "Account",
+  };
 
   return (
     <>
@@ -262,103 +277,134 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
             ))}
           </div>
 
-          {/* Auth CTA */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              paddingTop: "22px",
-              marginTop: "12px",
-              borderTop: "1px solid rgba(0,0,0,0.1)",
-            }}
-          >
-            {isLoggedIn ? (
-              <>
+          {/* ACCOUNT pane — logged-in only (mirrors desktop AccountMenu) */}
+          {isLoggedIn ? (
+            <div data-mpane="account" style={{ display: activeTab === "account" ? undefined : "none" }}>
+              {[
+                { title: "Home", sub: "Manage your membership and earn rewards.", href: "/account", bg: "linear-gradient(160deg,#9ab87f,#4d6b3e)" },
+                { title: "Refer", sub: "Give $25 and get $25 for every referral.", href: "/refer", bg: "linear-gradient(160deg,#7a6a55,#3f352d)" },
+              ].map((item) => (
                 <Link
-                  href="/account"
+                  key={item.title}
+                  href={item.href}
                   data-mrow
                   onClick={closeMenu}
                   style={{
-                    lineHeight: 1,
-                    display: "inline-block",
-                    textAlign: "center",
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    color: "#1a1a1a",
-                    border: "1.5px solid #1a1a1a",
-                    padding: "13px",
-                    borderRadius: "40px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "14px",
+                    padding: "10px 6px",
+                    borderRadius: "14px",
                     textDecoration: "none",
                   }}
                 >
-                  Account
+                  <div style={{ width: "54px", height: "54px", borderRadius: "12px", flexShrink: 0, background: item.bg }} />
+                  <div>
+                    <div style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: 500 }}>{item.title}</div>
+                    <div style={{ fontSize: "12px", color: "#5e5e5e", lineHeight: 1.3 }}>{item.sub}</div>
+                  </div>
                 </Link>
-                <form action="/auth/signout" method="post">
-                  <button
-                    type="submit"
-                    style={{
-                      width: "100%",
-                      lineHeight: 1,
-                      display: "inline-block",
-                      textAlign: "center",
-                      fontSize: "14px",
-                      fontWeight: 500,
-                      color: "#1a1a1a",
-                      background: "#62e104",
-                      padding: "13px",
-                      borderRadius: "40px",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Sign Out
-                  </button>
-                </form>
-              </>
-            ) : (
-              <>
+              ))}
+              <div
+                style={{
+                  fontFamily: "var(--font-mono), monospace",
+                  fontSize: "10px",
+                  letterSpacing: "1.2px",
+                  textTransform: "uppercase",
+                  color: "#8a8a80",
+                  padding: "12px 6px 6px",
+                }}
+              >
+                Account
+              </div>
+              {ACCOUNT_LINKS.map((item) => (
                 <Link
-                  href="/login"
+                  key={item.label}
+                  href={item.href}
                   data-mrow
                   onClick={closeMenu}
+                  style={{ display: "block", fontSize: "14px", color: "#1a1a1a", padding: "9px 6px", textDecoration: "none" }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <form action="/auth/signout" method="post">
+                <button
+                  type="submit"
                   style={{
-                    lineHeight: 1,
-                    display: "inline-block",
-                    textAlign: "center",
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    color: "#1a1a1a",
-                    border: "1.5px solid #1a1a1a",
-                    padding: "13px",
-                    borderRadius: "40px",
-                    textDecoration: "none",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    gap: "6px",
+                    fontFamily: "var(--font-mono), monospace",
+                    fontSize: "11px",
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                    color: "#1c3a13",
+                    padding: "14px 6px 4px",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
                   }}
                 >
-                  Sign In
-                </Link>
-                <Link
-                  href="/signup"
-                  data-mrow
-                  onClick={closeMenu}
-                  style={{
-                    lineHeight: 1,
-                    display: "inline-block",
-                    textAlign: "center",
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    color: "#1a1a1a",
-                    background: "#62e104",
-                    padding: "13px",
-                    borderRadius: "40px",
-                    textDecoration: "none",
-                  }}
-                >
-                  Get Started
-                </Link>
-              </>
-            )}
-          </div>
+                  Sign Out <ArrowRight size={13} />
+                </button>
+              </form>
+            </div>
+          ) : null}
+
+          {/* Auth CTA — logged-out only (logged-in actions live in the Account tab) */}
+          {!isLoggedIn ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+                paddingTop: "22px",
+                marginTop: "12px",
+                borderTop: "1px solid rgba(0,0,0,0.1)",
+              }}
+            >
+              <Link
+                href="/login"
+                data-mrow
+                onClick={closeMenu}
+                style={{
+                  lineHeight: 1,
+                  display: "inline-block",
+                  textAlign: "center",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  color: "#1a1a1a",
+                  border: "1.5px solid #1a1a1a",
+                  padding: "13px",
+                  borderRadius: "40px",
+                  textDecoration: "none",
+                }}
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/signup"
+                data-mrow
+                onClick={closeMenu}
+                style={{
+                  lineHeight: 1,
+                  display: "inline-block",
+                  textAlign: "center",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  color: "#1a1a1a",
+                  background: "#62e104",
+                  padding: "13px",
+                  borderRadius: "40px",
+                  textDecoration: "none",
+                }}
+              >
+                Get Started
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
     </>

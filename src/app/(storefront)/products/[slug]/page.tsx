@@ -16,6 +16,7 @@ import { ORGANICA_FACTS } from "@/lib/product-facts-data";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { BuyBox } from "@/components/product/BuyBox";
 import { DoseGlyphs } from "@/components/product/DoseGlyphs";
+import { ArrowRight } from "@/components/ui/ArrowRight";
 
 export async function generateStaticParams() {
   const slugs = await getProductSlugs();
@@ -299,7 +300,7 @@ export default async function ProductPage({
         <div style={{ maxWidth: 1440, margin: "0 auto", padding: "80px 40px" }}>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap", marginBottom: 36 }}>
             <h2 style={{ fontSize: "clamp(24px,2.8vw,38px)", fontWeight: 300, letterSpacing: "-0.02em" }}>Complete your routine.</h2>
-            <Link href="/products" style={{ fontSize: 14, fontWeight: 500, color: "#fcfcf7", textDecoration: "underline" }}>Shop all →</Link>
+            <Link href="/products" style={{ fontSize: 14, fontWeight: 500, color: "#fcfcf7", textDecoration: "underline", display: "inline-flex", alignItems: "center", gap: 6 }}>Shop all <ArrowRight size={14} /></Link>
           </div>
           <div data-rgrid3 style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
             {crossSell.map((x) => (

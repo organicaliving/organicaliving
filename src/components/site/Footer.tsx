@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Disclaimer } from "@/components/site/Disclaimer";
+import { ArrowRight } from "@/components/ui/ArrowRight";
 
 /* ------------------------------------------------------------------ */
 /* Footer column data — wired to real routes where available            */
@@ -110,18 +111,7 @@ function NewsletterForm() {
           justifyContent: "center",
         }}
       >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.1"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M5 12h13M13 6l6 6-6 6" />
-        </svg>
+        <ArrowRight size={16} strokeWidth={2.1} />
       </button>
     </form>
   );

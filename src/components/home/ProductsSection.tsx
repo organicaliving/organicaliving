@@ -3,6 +3,7 @@ import Image from "next/image";
 import { imageUrl } from "@/lib/format";
 import { defaultVariant, type ProductWithVariants } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
+import { ArrowRight } from "@/components/ui/ArrowRight";
 
 type Props = { products: ProductWithVariants[] };
 
@@ -89,7 +90,7 @@ export function ProductsSection({ products }: Props) {
                 paddingBottom: 3,
               }}
             >
-              Shop All &nbsp;→
+              Shop All&nbsp;<ArrowRight size={14} />
             </Link>
           </div>
         </div>
