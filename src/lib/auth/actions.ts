@@ -38,7 +38,7 @@ export async function signUpAction(_prev: ActionResult | null, formData: FormDat
     email: parsed.data.email,
     password: parsed.data.password,
     options: {
-      emailRedirectTo: `${publicEnv.siteUrl}/auth/callback`,
+      emailRedirectTo: `${publicEnv.siteUrl}/auth/callback?next=/auth/confirmed`,
       data: { full_name: parsed.data.fullName, ...(ref ? { referred_by_code: ref } : {}) },
     },
   });
