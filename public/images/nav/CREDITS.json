@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "account-home",
+    "pexelsId": 33575695,
+    "photographer": "Hengga Wang",
+    "photographer_url": "https://www.pexels.com/@hengga-wang-2148790340",
+    "source": "https://www.pexels.com/photo/birds-nesting-in-natural-setting-33575695/",
+    "alt": "Birds perched on a nest with one in flight in a natural setting."
+  },
+  {
+    "slug": "account-refer",
+    "pexelsId": 10386013,
+    "photographer": "Kulbir",
+    "photographer_url": "https://www.pexels.com/@plantsandgraphics",
+    "source": "https://www.pexels.com/photo/a-green-rubber-tree-in-ceramic-pot-10386013/",
+    "alt": "Minimalist style rubber plant in a ceramic pot with a clean white background."
+  },
+  {
+    "slug": "science-labs",
+    "pexelsId": 8857309,
+    "photographer": "Amelia  Cui",
+    "photographer_url": "https://www.pexels.com/@ameliacui",
+    "source": "https://www.pexels.com/photo/green-succulent-plant-8857309/",
+    "alt": "Bright close-up of an Echeveria succulent with soft green leaves in a pot."
+  },
+  {
+    "slug": "science-sustainability",
+    "pexelsId": 33908081,
+    "photographer": "Son Hoa Nguyen",
+    "photographer_url": "https://www.pexels.com/@son-hoa-nguyen-2155579462",
+    "source": "https://www.pexels.com/photo/lush-tea-plantations-in-phu-th-vietnam-33908081/",
+    "alt": "Stunning view of Phú Thọ's vibrant tea plantation hills under soft sunlight."
+  },
+  {
+    "slug": "science-approach",
+    "pexelsId": 37512090,
+    "photographer": "masudar rahman",
+    "photographer_url": "https://www.pexels.com/@masudar",
+    "source": "https://www.pexels.com/photo/elderly-woman-in-colorful-sari-in-lush-green-field-37512090/",
+    "alt": "Elderly woman in traditional colorful sari walking through a lush green field in Rangpur, Bangladesh."
+  },
+  {
+    "slug": "science-scientists",
+    "pexelsId": 8515114,
+    "photographer": "Yaroslav Shuraev",
+    "photographer_url": "https://www.pexels.com/@yaroslav-shuraev",
+    "source": "https://www.pexels.com/photo/two-women-doing-experiment-together-8515114/",
+    "alt": "Two women in lab coats conducting an experiment in a sunlit indoor laboratory setting."
+  },
+  {
+    "slug": "learn-nutrition-101",
+    "pexelsId": 1099680,
+    "photographer": "Jane  T D.",
+    "photographer_url": "https://www.pexels.com/@janetrangdoan",
+    "source": "https://www.pexels.com/photo/top-view-photo-of-food-dessert-1099680/",
+    "alt": "A vibrant, healthy fruit smoothie bowl topped with fresh berries, mango, and almonds."
+  },
+  {
+    "slug": "learn-vitamins-101",
+    "pexelsId": 30850824,
+    "photographer": "Luana  Ribeiro",
+    "photographer_url": "https://www.pexels.com/@luana-ribeiro-44057245",
+    "source": "https://www.pexels.com/photo/fresh-fruits-in-a-coconut-shell-display-30850824/",
+    "alt": "A vibrant mix of strawberries and grapes in a coconut shell, perfect for health and tropical themes."
+  },
+  {
+    "slug": "learn-standard",
+    "pexelsId": 33725873,
+    "photographer": "Ratul Al Muktadi",
+    "photographer_url": "https://www.pexels.com/@ratul-al-muktadi-2003802662",
+    "source": "https://www.pexels.com/photo/lush-tropical-canopy-with-towering-palm-trees-33725873/",
+    "alt": "Looking upwards at a vibrant blue sky framed by towering palm trees. Serene tropical scene."
+  },
+  {
+    "slug": "learn-sourcing",
+    "pexelsId": 38148308,
+    "photographer": "Vietnam  Hidden Light",
+    "photographer_url": "https://www.pexels.com/@vietnamhiddenlight",
+    "source": "https://www.pexels.com/photo/scenic-view-of-tea-farmers-in-mu-cang-chai-38148308/",
+    "alt": "Tea farmers harvest lush green fields in Mu Cang Chai, Vietnam at sunrise."
+  }
+]

@@ -2,6 +2,7 @@
 
 import { useRef, useCallback } from "react";
 import Link from "next/link";
+import { ArrowRight } from "@/components/ui/ArrowRight";
 
 /* ------------------------------------------------------------------ */
 /* Product rows in the Shop dropdown                                    */
@@ -217,7 +218,7 @@ export function NavMenus() {
               textDecoration: "none",
             }}
           >
-            Shop All Products <span style={{ display: "inline-block" }}>→</span>
+            Shop All Products <ArrowRight size={14} />
           </Link>
         </div>
       </div>
@@ -232,10 +233,10 @@ export function NavMenus() {
       >
         <div style={{ position: "relative" }}>
           {[
-            { title: "Approach", sub: "Nutritional science for everyday health.", bg: "linear-gradient(135deg,#9ab87f,#4d6b3e)" },
-            { title: "Organica Living [ Labs ]", sub: "Frontier nutritional research.", bg: "linear-gradient(135deg,#7a6a55,#3f352d)" },
-            { title: "Scientists", sub: "Leading nutrition experts.", bg: "linear-gradient(135deg,#c8b89e,#9a8568)" },
-            { title: "Sustainability", sub: "Human impact on planetary health.", bg: "linear-gradient(135deg,#6f9a6a,#3a5a35)" },
+            { title: "Approach", sub: "Nutritional science for everyday health.", img: "/images/nav/science-approach.webp", bg: "linear-gradient(135deg,#9ab87f,#4d6b3e)" },
+            { title: "Organica Living [ Labs ]", sub: "Frontier nutritional research.", img: "/images/nav/science-labs.webp", bg: "linear-gradient(135deg,#7a6a55,#3f352d)" },
+            { title: "Scientists", sub: "Leading nutrition experts.", img: "/images/nav/science-scientists.webp", bg: "linear-gradient(135deg,#c8b89e,#9a8568)" },
+            { title: "Sustainability", sub: "Human impact on planetary health.", img: "/images/nav/science-sustainability.webp", bg: "linear-gradient(135deg,#6f9a6a,#3a5a35)" },
           ].map((item) => (
             <NavRow key={item.title}>
               <Link
@@ -248,7 +249,7 @@ export function NavMenus() {
                   textDecoration: "none",
                 }}
               >
-                <div style={{ width: "52px", height: "52px", borderRadius: "12px", flexShrink: 0, background: item.bg }} />
+                <div style={{ width: "52px", height: "52px", borderRadius: "12px", flexShrink: 0, background: `url(${item.img}) center / cover no-repeat, ${item.bg}` }} />
                 <div>
                   <div style={{ fontSize: "15px", color: "#1a1a1a", fontWeight: 500 }}>{item.title}</div>
                   <div style={{ fontSize: "12px", color: "#5e5e5e", lineHeight: 1.3 }}>{item.sub}</div>
@@ -304,8 +305,8 @@ export function NavMenus() {
       >
         <div style={{ position: "relative" }}>
           {[
-            { title: "Nutrition 101", sub: "The essential nutrients powering your health.", bg: "linear-gradient(135deg,#a9d6c0,#4d8a72)" },
-            { title: "Vitamins 101", sub: "How key vitamins and minerals shape your health.", bg: "linear-gradient(135deg,#7fa56a,#3f5a30)" },
+            { title: "Nutrition 101", sub: "The essential nutrients powering your health.", img: "/images/nav/learn-nutrition-101.webp", bg: "linear-gradient(135deg,#a9d6c0,#4d8a72)" },
+            { title: "Vitamins 101", sub: "How key vitamins and minerals shape your health.", img: "/images/nav/learn-vitamins-101.webp", bg: "linear-gradient(135deg,#7fa56a,#3f5a30)" },
           ].map((item) => (
             <NavRow key={item.title}>
               <Link
@@ -318,7 +319,7 @@ export function NavMenus() {
                   textDecoration: "none",
                 }}
               >
-                <div style={{ width: "52px", height: "52px", borderRadius: "12px", flexShrink: 0, background: item.bg }} />
+                <div style={{ width: "52px", height: "52px", borderRadius: "12px", flexShrink: 0, background: `url(${item.img}) center / cover no-repeat, ${item.bg}` }} />
                 <div>
                   <div style={{ fontSize: "15px", color: "#1a1a1a", fontWeight: 500 }}>{item.title}</div>
                   <div style={{ fontSize: "12px", color: "#5e5e5e", lineHeight: 1.3 }}>{item.sub}</div>
@@ -342,11 +343,13 @@ export function NavMenus() {
             {
               title: "How Organica Living Is Setting A New Standard For Supplement Quality",
               read: "7 min read",
+              img: "/images/nav/learn-standard.webp",
               bg: "linear-gradient(135deg,#3a4733,#1d2618)",
             },
             {
               title: "Inside the Sourcing of Our Clinically-Studied Ingredients",
               read: "8 min read",
+              img: "/images/nav/learn-sourcing.webp",
               bg: "linear-gradient(135deg,#5a6b7a,#2f3f47)",
             },
           ].map((item) => (
@@ -361,7 +364,7 @@ export function NavMenus() {
                   textDecoration: "none",
                 }}
               >
-                <div style={{ width: "52px", height: "52px", borderRadius: "12px", flexShrink: 0, background: item.bg }} />
+                <div style={{ width: "52px", height: "52px", borderRadius: "12px", flexShrink: 0, background: `url(${item.img}) center / cover no-repeat, ${item.bg}` }} />
                 <div>
                   <div style={{ fontSize: "13px", color: "#1a1a1a", fontWeight: 500, lineHeight: 1.25 }}>{item.title}</div>
                   <div style={{ fontSize: "11px", color: "#8a8a80", marginTop: "2px" }}>{item.read}</div>
@@ -384,7 +387,7 @@ export function NavMenus() {
               textDecoration: "none",
             }}
           >
-            All Cultured Articles <span style={{ display: "inline-block" }}>→</span>
+            All Cultured Articles <ArrowRight size={14} />
           </Link>
         </div>
       </div>
