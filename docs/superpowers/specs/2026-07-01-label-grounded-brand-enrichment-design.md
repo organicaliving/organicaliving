@@ -92,18 +92,34 @@ Files: `src/lib/product-facts-data.ts`, `src/lib/product-content.ts`.
   add a compact trust/certification row (Made in USA · FDA-registered cGMP ·
   Third-party tested · Halal · Vegan · Non-GMO), sourced from `brand-content.ts`.
 
-### D. New page: `src/app/(storefront)/science/page.tsx`
+### D. Three new brand pages (revised per user direction)
 
-One page serving the footer's Science / Sustainability / Labs links, built entirely
-from the canon and in the existing design idiom (cream/forest palette, `data-reveal`,
-`data-rcol2` responsive hooks, inline-style pattern used by home sections):
+Instead of one merged page, build **three separate pages** — `/science`,
+`/sustainability`, `/labs` — whose *layout language* is modeled on
+`https://seed.com/approach` (numbered process steps with alternating text/imagery,
+methodology subsections, card grids, a certifications/quality wall, full-bleed photo
+heroes with overlay text) but whose *voice and content* are 100% Organica Living,
+drawn from the label canon. Built in the existing design idiom (cream/forest palette,
+`data-reveal`/`data-rcol2`/`data-rgrid3` hooks, inline-style pattern used by the home
+sections). Differentiated to avoid overlap:
 
-1. Hero — "nature is our thing" brand promise.
-2. "Our standard" — the `STANDARD_PILLARS`.
-3. Certifications wall — `CERTIFICATIONS` chips.
-4. Format innovation — gummies / enteric softgels / sustained-release granules.
-5. Ethical sourcing — vegan, gelatin-free, Halal scaled-fish.
-6. Honest wellness — the "not a substitute" line + `<Disclaimer />`.
+- **`/science` — "Our Science"** (seed's numbered-process + validation pattern):
+  hero → numbered 01–04 (Clinically-dosed · Precision-blended · Built to absorb ·
+  Tested & verified) → three validation methodologies (purity / potency /
+  label-accuracy testing) → certifications wall → CTA to products.
+- **`/sustainability` — "Nature is our thing"** (seed's "for our Earth" ethos +
+  card grid): hero → human + planetary-health-since-2016 intro → pillar card grid
+  (Plant-based & Vegan · Gelatin-Free · Ethical marine sourcing · Non-GMO ·
+  Responsible US manufacturing · Honest labels) → Omega scaled-fish sourcing
+  deep-dive → nature-band close.
+- **`/labs` — "Organica Living Labs [R+D]"** (seed's R&D/advisory framing): hero →
+  R&D pipeline (Research → Formulate → Prototype → Validate → Scale) →
+  format-engineering innovations (bear gummies, enteric coating, sustained-release
+  granules, no fishy burps, hard-to-flavor nutrients made palatable) →
+  ingredient-science callouts (bioactive folate / phyto-estrogens / GABA·5-HTP·
+  L-theanine) → close.
+
+Update `Footer.tsx` so Science/Sustainability/Labs point at the three routes.
 
 ### E. New page: `src/app/(storefront)/contact/page.tsx`
 
@@ -111,6 +127,17 @@ Minimal, on-brand: short intro, Organica Living / Atlanta, GA / www.organicalivi
 distributor info from the labels, and a simple inquiry blurb. Reuses existing layout
 primitives. No new form backend (YAGNI) — link to a mailto or the existing newsletter
 pattern; a real form is out of scope.
+
+### F. Imagery pipeline (Pexels → WebP)
+
+A build-time helper `scripts/fetch-pexels.mjs` reads a manifest of
+`{ query, orientation, out, width }` entries, fetches the top Pexels result, downloads
+the high-res source, and re-encodes to WebP with **sharp** (resolved from the pnpm
+store at `node_modules/.pnpm/sharp@0.34.5/...`, since it is not hoisted). Outputs land
+in `public/images/{science,sustainability,labs}/`. Photographer credits are written to
+`public/images/pexels-credits.json` (Pexels license does not require attribution, but
+we record it). The **API key is passed via `PEXELS_API_KEY` env var and never
+committed**. Hero images ≈1600w, card/section images ≈900w, quality ~80.
 
 ## Out of scope
 
@@ -131,8 +158,8 @@ pattern; a real form is out of scope.
 
 ## Success criteria
 
-- `/science` and `/contact` resolve (no 404) and render the canon copy — verified by
-  grep of the served HTML.
+- `/science`, `/sustainability`, `/labs`, and `/contact` resolve (no 404) and render
+  the canon copy + Pexels WebP imagery — verified by grep of the served HTML.
 - Home `MoreThanHuman` and `ClosingCta` no longer contain "more than human" /
   "complex ecosystem" / "not just human" — verified by grep returning zero matches.
 - Footer shows the trust/certification row — verified by grep.
