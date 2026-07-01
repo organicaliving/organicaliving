@@ -4,9 +4,20 @@ import { resend } from "@/lib/resend";
 
 const FROM = "Organica Living <orders@organicaliving.com>";
 
-export async function sendEmail(args: { to: string; subject: string; react: ReactElement }): Promise<{ ok: boolean }> {
+export async function sendEmail(args: {
+  to: string;
+  subject: string;
+  react: ReactElement;
+  replyTo?: string;
+}): Promise<{ ok: boolean }> {
   try {
-    const { error } = await resend.emails.send({ from: FROM, to: args.to, subject: args.subject, react: args.react });
+    const { error } = await resend.emails.send({
+      from: FROM,
+      to: args.to,
+      subject: args.subject,
+      react: args.react,
+      ...(args.replyTo ? { replyTo: args.replyTo } : {}),
+    });
     if (error) {
       console.warn("[email] send failed:", error.message);
       return { ok: false };
