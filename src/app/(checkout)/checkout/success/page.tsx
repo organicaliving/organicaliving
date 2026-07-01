@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getOrderByPaymentIntent } from "@/lib/orders/queries";
-import { clearGuestCart } from "@/lib/cart/guest";
 import { formatPrice } from "@/lib/format";
 import { stripe } from "@/lib/stripe";
+import { ClearCartOnMount } from "./ClearCartOnMount";
 
 export const metadata: Metadata = { title: "Order confirmed — Organica Living" };
 export const dynamic = "force-dynamic";
@@ -14,7 +14,6 @@ export default async function SuccessPage({
   searchParams: Promise<{ payment_intent?: string; payment_intent_client_secret?: string }>;
 }) {
   const { payment_intent: piId, payment_intent_client_secret: clientSecret } = await searchParams;
-  await clearGuestCart();
 
   let order = null;
   if (piId && clientSecret) {
@@ -30,6 +29,7 @@ export default async function SuccessPage({
 
   return (
     <main className="mx-auto max-w-xl px-6 py-24 text-center">
+      <ClearCartOnMount />
       <h1 className="text-3xl font-light text-ink">Thank you for your order</h1>
       {order ? (
         <p className="mt-4 text-muted">Order {order.id} — {formatPrice(order.total_cents)}. A confirmation is on its way to your inbox.</p>
