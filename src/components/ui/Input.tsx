@@ -14,7 +14,10 @@ export function Input({ className = "", ...props }: InputHTMLAttributes<HTMLInpu
   return (
     <input
       className={[
-        "w-full rounded-[10px]",
+        // min-w-0 lets the field shrink inside flex rows (e.g. input + circular
+        // action button); without it the input's intrinsic width forces overflow
+        // on narrow viewports.
+        "w-full min-w-0 rounded-[10px]",
         "border border-[rgba(0,0,0,0.15)]",
         "bg-[rgba(255,255,255,0.7)]",
         "px-3.5 py-3",

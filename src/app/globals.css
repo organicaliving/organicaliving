@@ -56,6 +56,10 @@
   color: var(--color-cream);
 }
 
+/* ---- FAQ accordion: hide native <details> disclosure marker ---- */
+[data-faq] summary { list-style: none; }
+[data-faq] summary::-webkit-details-marker { display: none; }
+
 /* ---- sign-in dropdown panel input placeholders (matches mockup) ---- */
 [data-signin-panel] input::placeholder {
   color: #4a4a44;
@@ -64,7 +68,26 @@
   opacity: 1;
 }
 
-/* ---- responsive nav breakpoints (matches mockup embedded style) ---- */
+/* =====================================================================
+   RESPONSIVE — canonical rule set ported from the design-reference
+   mockups' embedded <style> blocks (unified across all pages).
+
+   IMPORTANT: React serializes inline styles with NO space after the
+   colon (e.g. `padding:15px 40px`), whereas the mockups' hand-written
+   HTML uses `padding: 15px 40px`. The [style*="…"] selectors below are
+   therefore written in React's NO-SPACE form so they actually match our
+   rendered output. Verified against the served HTML, per CLAUDE.md.
+   ===================================================================== */
+
+/* NOTE ON ORDER: these max-width blocks are arranged LARGEST breakpoint
+   first (900 → 860 → 768 → 480 → 360). With max-width media queries the
+   later-in-source rule wins ties, so smaller-viewport rules must come last
+   to correctly override wider-viewport ones (e.g. rgrid6: 3-up at 860,
+   2-up at 480). Grid items also get `min-width:0` so 1fr tracks can shrink
+   to the container instead of expanding to content min-width (which caused
+   horizontal overflow on the PDP quality grid and similar). */
+
+/* ---- nav: desktop → burger, and hide desktop hover panels (900) ---- */
 [data-burger] { display: none; }
 [data-mobile-menu] { display: none; }
 @media (max-width: 900px) {
@@ -72,27 +95,54 @@
   [data-desktop-actions] { display: none !important; }
   [data-burger] { display: flex !important; }
   [data-mobile-menu] { display: flex !important; }
+  /* desktop mega-menu + sign-in dropdown panels must not render on mobile
+     (they are absolutely-positioned, fixed-width, and cause overflow) */
+  [data-panel], [data-signin-panel] { display: none !important; }
+  /* tighten header gutter */
+  [style*="padding:15px 40px"] { padding-left: 20px !important; padding-right: 20px !important; }
 }
 
-/* ---- responsive grid collapse (matches mockup embedded style) ---- */
+/* ---- product detail page (Product mockup, 860) ---- */
+@media (max-width: 860px) {
+  [data-pdp-hero] { grid-template-columns: 1fr !important; }
+  [data-pdp-hero] > * { min-width: 0 !important; }
+  [data-rgrid3] { grid-template-columns: 1fr !important; }
+  [style*="padding:0px 40px"] { padding-left: 20px !important; padding-right: 20px !important; }
+}
+
+/* ---- grid collapse + section gutters + checkout (768) ---- */
 @media (max-width: 768px) {
+  /* any inline grid collapses to one column (data-* rules below re-widen
+     the ones that should stay multi-column — equal specificity, later wins) */
+  [style*="grid-template-columns:"] { grid-template-columns: 1fr !important; }
   [data-rgrid4] { grid-template-columns: repeat(2, 1fr) !important; }
   [data-rgrid6] { grid-template-columns: repeat(3, 1fr) !important; }
   [data-rcol2] { grid-template-columns: 1fr !important; gap: 30px !important; }
-}
-@media (max-width: 480px) {
-  [data-rgrid6] { grid-template-columns: repeat(2, 1fr) !important; }
-}
-/* ---- product detail page responsive (matches Product mockup) ---- */
-@media (max-width: 860px) {
-  [data-pdp-hero] { grid-template-columns: 1fr !important; }
-  [data-rgrid3] { grid-template-columns: 1fr !important; }
-}
-/* ---- checkout responsive (matches Checkout mockup) ---- */
-@media (max-width: 768px) {
+  /* allow collapsed-grid items to shrink to the track (their default
+     min-width:auto floor — driven by replaced children like <input> — is
+     what forces horizontal overflow when a grid collapses to one column) */
+  [style*="grid-template-columns:"] > * { min-width: 0 !important; }
+  /* section horizontal / vertical gutter tightening (no-space form) */
+  [style*="padding:0px 40px"] { padding-left: 20px !important; padding-right: 20px !important; }
+  [style*="padding:64px 40px"] { padding-left: 22px !important; padding-right: 22px !important; }
+  [style*="padding:96px 0px"] { padding-top: 60px !important; padding-bottom: 60px !important; }
+  [style*="padding:0px 0px 100px"] { padding-bottom: 64px !important; }
+  /* checkout: stack summary above form */
   [data-co-grid] { display: flex !important; flex-direction: column-reverse !important; }
   [data-co-form] { padding: 32px 20px 48px !important; }
   [data-co-summary] { padding: 28px 20px 36px !important; border-left: none !important; border-bottom: 1px solid #ece9de; }
+}
+
+/* ---- tablet-portrait / large-phone (480) ---- */
+@media (max-width: 480px) {
+  [data-rgrid6] { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* ---- very-narrow phones (<=360px): the mockups never tested this range.
+   The 4-up product grid can't fit 2 cramped cards with wrapping badges, so
+   collapse to a single full-width card. Preserves 2-up at 375px+. ---- */
+@media (max-width: 360px) {
+  [data-rgrid4] { grid-template-columns: 1fr !important; }
 }
 
 /* NOTE: [data-arrow] hover nudge is now handled by SiteInteractions (JS wiring).
