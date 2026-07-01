@@ -221,13 +221,14 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
           {/* SCIENCE pane */}
           <div data-mpane="science" style={{ display: activeTab === "science" ? undefined : "none" }}>
             {[
-              { title: "Approach", sub: "Nutritional science for everyday health.", bg: "linear-gradient(135deg,#9ab87f,#4d6b3e)" },
-              { title: "Organica Living [ Labs ]", sub: "Frontier nutritional research.", bg: "linear-gradient(135deg,#7a6a55,#3f352d)" },
-              { title: "Sustainability", sub: "Human impact on planetary health.", bg: "linear-gradient(135deg,#6f9a6a,#3a5a35)" },
+              { title: "Approach", sub: "Nutritional science for everyday health.", href: "/approach", img: "/images/nav/science-approach.webp", bg: "linear-gradient(135deg,#9ab87f,#4d6b3e)" },
+              { title: "Organica Living [ Labs ]", sub: "Frontier nutritional research.", href: "/labs", img: "/images/nav/science-labs.webp", bg: "linear-gradient(135deg,#7a6a55,#3f352d)" },
+              { title: "Our Science", sub: "The standard behind every batch.", href: "/science", img: "/images/nav/science-scientists.webp", bg: "linear-gradient(135deg,#c8b89e,#9a8568)" },
+              { title: "Sustainability", sub: "Human impact on planetary health.", href: "/sustainability", img: "/images/nav/science-sustainability.webp", bg: "linear-gradient(135deg,#6f9a6a,#3a5a35)" },
             ].map((item) => (
               <Link
                 key={item.title}
-                href="/science"
+                href={item.href}
                 data-mrow
                 onClick={closeMenu}
                 style={{
@@ -239,7 +240,7 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
                   textDecoration: "none",
                 }}
               >
-                <div style={{ width: "54px", height: "54px", borderRadius: "12px", flexShrink: 0, background: item.bg }} />
+                <div style={{ width: "54px", height: "54px", borderRadius: "12px", flexShrink: 0, background: `url(${item.img}) center/cover no-repeat, ${item.bg}` }} />
                 <div>
                   <div style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: 500 }}>{item.title}</div>
                   <div style={{ fontSize: "12px", color: "#5e5e5e", lineHeight: 1.3 }}>{item.sub}</div>
@@ -251,12 +252,12 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
           {/* LEARN pane */}
           <div data-mpane="learn" style={{ display: activeTab === "learn" ? undefined : "none" }}>
             {[
-              { title: "Nutrition 101", sub: "The essential nutrients powering your health.", bg: "linear-gradient(135deg,#a9d6c0,#4d8a72)" },
-              { title: "Vitamins 101", sub: "How key vitamins and minerals shape your health.", bg: "linear-gradient(135deg,#7fa56a,#3f5a30)" },
+              { title: "Nutrition 101", sub: "The essential nutrients powering your health.", href: "/nutrition-101", img: "/images/nav/learn-nutrition-101.webp", bg: "linear-gradient(135deg,#a9d6c0,#4d8a72)" },
+              { title: "Vitamins 101", sub: "How key vitamins and minerals shape your health.", href: "/vitamins-101", img: "/images/nav/learn-vitamins-101.webp", bg: "linear-gradient(135deg,#7fa56a,#3f5a30)" },
             ].map((item) => (
               <Link
                 key={item.title}
-                href="/blog"
+                href={item.href}
                 data-mrow
                 onClick={closeMenu}
                 style={{
@@ -268,7 +269,7 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
                   textDecoration: "none",
                 }}
               >
-                <div style={{ width: "54px", height: "54px", borderRadius: "12px", flexShrink: 0, background: item.bg }} />
+                <div style={{ width: "54px", height: "54px", borderRadius: "12px", flexShrink: 0, background: `url(${item.img}) center/cover no-repeat, ${item.bg}` }} />
                 <div>
                   <div style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: 500 }}>{item.title}</div>
                   <div style={{ fontSize: "12px", color: "#5e5e5e", lineHeight: 1.3 }}>{item.sub}</div>
@@ -281,8 +282,8 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
           {isLoggedIn ? (
             <div data-mpane="account" style={{ display: activeTab === "account" ? undefined : "none" }}>
               {[
-                { title: "Home", sub: "Manage your membership and earn rewards.", href: "/account", bg: "linear-gradient(160deg,#9ab87f,#4d6b3e)" },
-                { title: "Refer", sub: "Give $25 and get $25 for every referral.", href: "/refer", bg: "linear-gradient(160deg,#7a6a55,#3f352d)" },
+                { title: "Home", sub: "Manage your membership and earn rewards.", href: "/account", img: "/images/nav/account-home.webp", bg: "linear-gradient(160deg,#9ab87f,#4d6b3e)" },
+                { title: "Refer", sub: "Give $25 and get $25 for every referral.", href: "/refer", img: "/images/nav/account-refer.webp", bg: "linear-gradient(160deg,#7a6a55,#3f352d)" },
               ].map((item) => (
                 <Link
                   key={item.title}
@@ -298,7 +299,7 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
                     textDecoration: "none",
                   }}
                 >
-                  <div style={{ width: "54px", height: "54px", borderRadius: "12px", flexShrink: 0, background: item.bg }} />
+                  <div style={{ width: "54px", height: "54px", borderRadius: "12px", flexShrink: 0, background: `url(${item.img}) center/cover no-repeat, ${item.bg}` }} />
                   <div>
                     <div style={{ fontSize: "16px", color: "#1a1a1a", fontWeight: 500 }}>{item.title}</div>
                     <div style={{ fontSize: "12px", color: "#5e5e5e", lineHeight: 1.3 }}>{item.sub}</div>

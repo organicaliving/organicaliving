@@ -52,10 +52,11 @@ export async function Header() {
               }}
             >
               <Image
-                src="/organica-living-logo.png"
+                src="/organica-living-logo.webp"
                 alt="Organica Living"
-                width={120}
-                height={42}
+                width={200}
+                height={92}
+                quality={90}
                 style={{ height: "42px", width: "auto", display: "block" }}
                 priority
               />

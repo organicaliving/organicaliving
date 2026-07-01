@@ -69,13 +69,13 @@ const h2Style: React.CSSProperties = {
   color: "#1a1a1a",
 };
 const pStyle: React.CSSProperties = {
-  fontSize: "16px",
+  fontSize: "20px",
   lineHeight: 1.7,
   color: "#3a3a36",
   marginTop: "22px",
 };
 const bulletStyle: React.CSSProperties = {
-  fontSize: "16px",
+  fontSize: "20px",
   lineHeight: 1.6,
   color: "#3a3a36",
   paddingLeft: "18px",
@@ -256,7 +256,7 @@ export default async function BlogArticlePage({
 
         <div style={{ maxWidth: "720px", margin: "0 auto", padding: "0 40px" }}>
           <div data-reveal>
-            <p style={{ fontSize: "19px", lineHeight: 1.55, fontWeight: 400, color: "#1a1a1a" }}>
+            <p style={{ fontSize: "24px", lineHeight: 1.55, fontWeight: 400, color: "#1a1a1a" }}>
               Double-blind, randomized, placebo-controlled trials are the
               culmination of centuries of medical progress. Here&apos;s how
               Organica Living is using them to add legitimacy and rigor to the
@@ -323,7 +323,7 @@ export default async function BlogArticlePage({
               dozen others.
             </p>
             <div style={{ background: "#f1eee2", borderRadius: "14px", padding: "28px 30px", marginTop: "32px" }}>
-              <p style={{ fontSize: "16px", lineHeight: 1.6, color: "#1a1a1a", margin: 0 }}>
+              <p style={{ fontSize: "20px", lineHeight: 1.6, color: "#1a1a1a", margin: 0 }}>
                 An estimated <b>fewer than 1 in 5</b> commercially available
                 supplements has been studied as a complete formulation in a
                 randomized, placebo-controlled human trial.
@@ -436,7 +436,7 @@ export default async function BlogArticlePage({
                 <div style={{ width: "44px", height: "44px", borderRadius: "50%", flexShrink: 0, background: "linear-gradient(160deg,#7a6a55,#3f352d)" }} />
                 <div style={{ fontSize: "15px", fontWeight: 500 }}>Organica Living</div>
               </div>
-              <p style={{ fontSize: "13px", lineHeight: 1.5, color: "#6d6d6d", marginTop: "12px" }}>
+              <p style={{ fontSize: "16px", lineHeight: 1.5, color: "#6d6d6d", marginTop: "12px" }}>
                 The Organica Living editorial team translates nutritional science
                 into clear, rigorously sourced reading.
               </p>
@@ -447,7 +447,7 @@ export default async function BlogArticlePage({
                 <div style={{ width: "44px", height: "44px", borderRadius: "50%", flexShrink: 0, background: "linear-gradient(160deg,#7a6a55,#3f352d)" }} />
                 <div style={{ fontSize: "15px", fontWeight: 500 }}>Jenna O&apos;Brady, PhD</div>
               </div>
-              <p style={{ fontSize: "13px", lineHeight: 1.5, color: "#6d6d6d", marginTop: "12px" }}>
+              <p style={{ fontSize: "16px", lineHeight: 1.5, color: "#6d6d6d", marginTop: "12px" }}>
                 A clinical scientist focused on the design and interpretation of
                 nutrition trials.
               </p>

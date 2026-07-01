@@ -23,7 +23,7 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
     <div
       data-prodcard
       className="relative cursor-pointer rounded-[18px] bg-[#f4f1e6] p-6"
-      style={{ display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: "20px", alignItems: "center" }}
+      style={{ display: "grid", gridTemplateColumns: "1.06fr 1.15fr", gap: "20px", alignItems: "center" }}
     >
       {/* overlay link — full card clickable */}
       <Link
@@ -40,14 +40,15 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
       )}
 
       {/* product image */}
-      <div data-prodimg className="relative aspect-[4/5] w-full overflow-hidden rounded-xl">
+      <div data-prodimg className="relative aspect-[4/5] w-full rounded-xl">
         {img ? (
           <Image
-            src={img}
+            src={img.replace(".webp", "-hd.webp")}
             alt={product.name}
             fill
-            sizes="(max-width: 768px) 40vw, 20vw"
-            className="object-contain p-2"
+            sizes="(max-width: 768px) 90vw, 700px"
+            className="object-contain p-1"
+            style={{ transform: "scale(1.25)" }}
           />
         ) : (
           <div className="absolute inset-0 rounded-xl bg-panel" />
@@ -66,7 +67,7 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
         </h3>
 
         {product.description && (
-          <p className="mt-2.5 text-[13px] leading-[1.5] text-[#3a3a36]">
+          <p className="mt-2.5 text-[16px] leading-[1.5] text-[#3a3a36]">
             {product.description}
           </p>
         )}

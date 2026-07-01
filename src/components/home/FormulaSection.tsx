@@ -149,7 +149,7 @@ export function FormulaSection() {
               </h3>
               <p
                 style={{
-                  fontSize: 13,
+                  fontSize: 16,
                   lineHeight: 1.5,
                   color: "#5e5e5e",
                 }}

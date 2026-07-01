@@ -385,7 +385,7 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
                   borderRadius: 10,
                   border: "1px solid #e4e1d6",
                   background: l.imageUrl
-                    ? `url('${l.imageUrl}') center/contain no-repeat #fff`
+                    ? `url('${l.imageUrl}') center/125% no-repeat #fff`
                     : "linear-gradient(160deg,#2f3f2a,#14201a)",
                 }}
               />

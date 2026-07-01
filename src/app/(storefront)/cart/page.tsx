@@ -49,7 +49,7 @@ export default async function CartPage() {
 
           {cart.lines.length === 0 ? (
             <div style={{ marginTop: 32, background: "#f4f1e6", borderRadius: 18, padding: "60px 40px", textAlign: "center" }}>
-              <p style={{ fontSize: 16, color: "#6d6d6d" }}>Your cart is empty.</p>
+              <p style={{ fontSize: 20, color: "#6d6d6d" }}>Your cart is empty.</p>
               <Link
                 href="/products"
                 style={{ display: "inline-block", marginTop: 18, fontSize: 14, fontWeight: 500, color: "#fcfcf7", background: "#1c3a13", padding: "13px 28px", borderRadius: 40, textDecoration: "none" }}
@@ -78,7 +78,7 @@ export default async function CartPage() {
                         <Link
                           href={`/products/${line.productSlug}`}
                           aria-label={line.productName}
-                          style={{ width: 96, height: 96, flex: "none", borderRadius: 12, background: `url('${lineImg}') center/contain no-repeat`, display: "block" }}
+                          style={{ width: 96, height: 96, flex: "none", borderRadius: 12, background: `url('${lineImg}') center/125% no-repeat`, display: "block" }}
                         />
                         <div style={{ flex: 1 }}>
                           <Link href={`/products/${line.productSlug}`} style={{ fontSize: 16, fontWeight: 600, color: "#1a1a1a", textDecoration: "none" }}>
@@ -125,11 +125,15 @@ export default async function CartPage() {
                   <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 20 }}>You Might Also Like:</div>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
                     {recs.map((r) => (
-                      <div key={r.slug} style={{ background: "#f4f1e6", borderRadius: 16, padding: 20, textAlign: "center" }}>
+                      <div key={r.slug} style={{ position: "relative", background: "#f4f1e6", borderRadius: 16, padding: 20, textAlign: "center" }}>
                         <Link
                           href={`/products/${r.slug}`}
                           aria-label={r.name}
-                          style={{ display: "block", aspectRatio: "1 / 1", borderRadius: 12, background: `url('${r.img}') center/contain no-repeat`, marginBottom: 16 }}
+                          style={{ position: "absolute", inset: 0, zIndex: 1, borderRadius: 16 }}
+                        />
+                        <div
+                          aria-hidden
+                          style={{ aspectRatio: "1 / 1", borderRadius: 12, background: `url('${r.img}') center/125% no-repeat`, marginBottom: 16 }}
                         />
                         <div style={{ fontSize: 12, color: "#6d6d6d", fontFamily: "var(--font-mono)" }}>{r.category}</div>
                         <div style={{ fontSize: 15, color: "#1a1a1a", marginTop: 4 }}>{r.name}</div>
@@ -139,7 +143,9 @@ export default async function CartPage() {
                             <span style={{ fontSize: 12, color: "#9a9a8e", textDecoration: "line-through" }}>{formatPrice(r.oneCents, currency)}</span>
                           ) : null}
                         </div>
-                        <CartRecommendationAdd variantId={r.variantId} />
+                        <div style={{ position: "relative", zIndex: 2 }}>
+                          <CartRecommendationAdd variantId={r.variantId} />
+                        </div>
                       </div>
                     ))}
                   </div>

@@ -32,9 +32,9 @@ export default async function SuccessPage({
       <ClearCartOnMount />
       <h1 className="text-3xl font-light text-ink">Thank you for your order</h1>
       {order ? (
-        <p className="mt-4 text-muted">Order {order.id} — {formatPrice(order.total_cents)}. A confirmation is on its way to your inbox.</p>
+        <p className="mt-4 text-[20px] text-muted">Order {order.id} — {formatPrice(order.total_cents)}. A confirmation is on its way to your inbox.</p>
       ) : (
-        <p className="mt-4 text-muted">Your payment is processing. You&apos;ll receive a confirmation email shortly.</p>
+        <p className="mt-4 text-[20px] text-muted">Your payment is processing. You&apos;ll receive a confirmation email shortly.</p>
       )}
       <Link href="/products" className="mt-9 inline-block rounded-pill bg-lime px-6 py-3 text-sm font-medium text-ink">Continue shopping</Link>
     </main>

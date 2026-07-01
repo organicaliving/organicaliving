@@ -85,10 +85,10 @@ export function HeroSection() {
         <p
           style={{
             marginTop: 22,
-            fontSize: 16,
+            fontSize: 20,
             lineHeight: 1.5,
             color: "#5e5e5e",
-            maxWidth: 360,
+            maxWidth: 420,
           }}
         >
           Transform your energy, immunity, and nutrition with daily vitamins &amp;

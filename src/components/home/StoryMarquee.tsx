@@ -141,7 +141,7 @@ export function StoryMarquee() {
                 >
                   <span
                     style={{
-                      fontSize: 15,
+                      fontSize: 19,
                       lineHeight: 1.35,
                       fontWeight: 500,
                       color: tile.fg,

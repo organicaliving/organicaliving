@@ -130,10 +130,10 @@ export default function BlogPage() {
             <p
               style={{
                 marginTop: "20px",
-                fontSize: "16px",
+                fontSize: "20px",
                 lineHeight: 1.55,
                 color: "#3a3a36",
-                maxWidth: "520px",
+                maxWidth: "560px",
               }}
             >
               Science-backed, rigorously sourced reads on vitamins, nutrition,
@@ -240,11 +240,11 @@ export default function BlogPage() {
               </h2>
               <p
                 style={{
-                  fontSize: "15px",
+                  fontSize: "19px",
                   lineHeight: 1.55,
                   color: "#3a3a36",
                   marginTop: "14px",
-                  maxWidth: "440px",
+                  maxWidth: "480px",
                 }}
               >
                 Double-blind, randomized, placebo-controlled trials are the gold

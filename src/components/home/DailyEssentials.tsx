@@ -49,10 +49,10 @@ export function DailyEssentials() {
           <p
             style={{
               marginTop: 18,
-              fontSize: 15,
+              fontSize: 19,
               lineHeight: 1.55,
               color: "#5e5e5e",
-              maxWidth: 380,
+              maxWidth: 420,
             }}
           >
             Our Multi Pro multivitamin paired with Omega 1000 covers your daily

@@ -23,7 +23,7 @@ export default async function ProductsPage() {
   return (
     <>
       {/* ── Products Hero ──────────────────────────────────── */}
-      <section className="relative flex min-h-[300px] items-center overflow-hidden">
+      <section className="relative flex min-h-[190px] items-center overflow-hidden py-8">
         {/* gradient background */}
         <div
           className="absolute inset-0"
@@ -33,9 +33,6 @@ export default async function ProductsPage() {
           className="absolute inset-0"
           style={{ background: "linear-gradient(180deg, rgba(20,30,15,.25), rgba(20,30,15,.05))" }}
         />
-        <span className="absolute right-6 top-4 font-mono text-[11px] text-white/55">
-          lifestyle field
-        </span>
         <div className="relative mx-auto w-full max-w-[1440px] px-10">
           <span className="mb-3.5 inline-block font-mono text-[11px] uppercase tracking-[1.5px] text-white/70">
             The Collection · 9 Formulas
@@ -66,20 +63,28 @@ export default async function ProductsPage() {
                 alignItems: "center",
               }}
             >
+              {/* Full-card link → product detail */}
+              <Link
+                href={`/products/${featured.slug}`}
+                aria-label={`View ${featured.name}`}
+                className="absolute inset-0 z-[1] rounded-[18px]"
+              />
+
               {/* Bestseller badge */}
-              <span className="absolute left-[18px] top-[18px] inline-block rounded-[30px] bg-lime px-3 py-1 text-[11px] font-semibold leading-none text-ink">
+              <span className="absolute left-[18px] top-[18px] z-[2] inline-block rounded-[30px] bg-lime px-3 py-1 text-[11px] font-semibold leading-none text-ink">
                 Bestseller
               </span>
 
               {/* product image */}
-              <div className="relative aspect-[4/5] w-full rounded-[14px]">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[14px]">
                 {featuredImg ? (
                   <Image
-                    src={featuredImg}
+                    src={featuredImg.replace(".webp", "-hd.webp")}
                     alt={featured.name}
                     fill
-                    sizes="(max-width: 1024px) 40vw, 25vw"
+                    sizes="(max-width: 1024px) 90vw, 700px"
                     className="object-contain p-3"
+                    style={{ transform: "scale(1.25)" }}
                     priority
                   />
                 ) : (
@@ -101,9 +106,9 @@ export default async function ProductsPage() {
                   {featured.name}
                 </h2>
 
-                {featured.subtitle && (
-                  <p className="mt-3 max-w-[400px] text-[14px] leading-[1.55] text-moss">
-                    {featured.subtitle}
+                {featured.description && (
+                  <p className="mt-3 max-w-[440px] text-[16px] font-light leading-[1.55] text-moss">
+                    {featured.description}
                   </p>
                 )}
 
@@ -141,7 +146,7 @@ export default async function ProductsPage() {
             }}
           >
             <div className="text-cream">
-              <p className="max-w-[240px] text-[15px] leading-[1.3]">
+              <p className="max-w-[280px] text-[19px] leading-[1.3]">
                 Not sure where to start? Find your formula in 60 seconds.
               </p>
               <Link

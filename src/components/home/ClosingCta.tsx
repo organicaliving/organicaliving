@@ -77,7 +77,7 @@ export function ClosingCta() {
             style={{
               position: "relative",
               zIndex: 1,
-              fontSize: 15,
+              fontSize: 19,
               color: "rgba(243,240,232,.85)",
               marginTop: 10,
             }}
@@ -85,7 +85,7 @@ export function ClosingCta() {
             Because health is not just human.
           </p>
           <Link
-            href="/products"
+            href="/labs"
             style={{
               position: "relative",
               zIndex: 1,
@@ -156,7 +156,7 @@ export function ClosingCta() {
             style={{
               position: "relative",
               zIndex: 1,
-              fontSize: 15,
+              fontSize: 19,
               color: "rgba(243,240,232,.85)",
               marginTop: 12,
             }}

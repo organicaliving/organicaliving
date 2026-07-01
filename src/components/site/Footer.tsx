@@ -21,8 +21,8 @@ const FOOTER_COLS: Array<{
     title: "About",
     links: [
       { label: "Science", href: "/science" },
-      { label: "Sustainability", href: "/science" },
-      { label: "Organica Living Labs", href: "/science" },
+      { label: "Sustainability", href: "/sustainability" },
+      { label: "Organica Living Labs", href: "/labs" },
     ],
   },
   {
@@ -152,10 +152,11 @@ export function Footer() {
                 }}
               >
                 <Image
-                  src="/organica-living-logo.png"
+                  src="/organica-living-logo.webp"
                   alt="Organica Living"
-                  width={160}
-                  height={48}
+                  width={220}
+                  height={101}
+                  quality={90}
                   style={{
                     height: "48px",
                     width: "auto",
@@ -252,19 +253,20 @@ export function Footer() {
           position: "relative",
           overflow: "hidden",
           background:
-            "radial-gradient(70% 120% at 50% 0%,#4a6b3a,#2e4a25 60%,#1f3219 100%)",
+            "url(/images/nature-band-rice.webp) center/cover no-repeat, radial-gradient(70% 120% at 50% 0%,#4a6b3a,#2e4a25 60%,#1f3219 100%)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           padding: "30px 20px",
         }}
       >
+        {/* dark forest overlay keeps the shimmer text legible over the photo */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(40% 60% at 20% 80%, rgba(150,180,110,.4), transparent 60%), radial-gradient(40% 60% at 80% 30%, rgba(120,160,90,.35), transparent 60%)",
+              "linear-gradient(180deg, rgba(18,36,16,0.55), rgba(12,26,12,0.72))",
           }}
         />
         <svg

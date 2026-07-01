@@ -38,21 +38,21 @@ export function MoreThanHuman() {
               marginTop: 24,
             }}
           >
-            You are more than human.
+            More than a vitamin.
           </h2>
           <p
             style={{
               marginTop: 20,
-              fontSize: 15,
+              fontSize: 19,
               lineHeight: 1.55,
               color: "#5e5e5e",
-              maxWidth: 400,
+              maxWidth: 440,
             }}
           >
-            Your body is a complex ecosystem. Every Organica Living
-            formulation is built to support your whole system — from cellular
-            energy to immune defence — so you can feel and perform your best,
-            every day.
+            Every Organica Living formula is precision-blended and clinically
+            dosed, then made in an FDA-registered facility and third-party
+            tested. Real nutrients, at doses that make a difference, in a form
+            your body can actually absorb.
           </p>
           <Link
             href="/products"

@@ -23,7 +23,7 @@ export function TransformationsSection() {
         >
           Over 1 million health transformations (and counting).
         </h2>
-        <p style={{ marginTop: 16, fontSize: 15, color: "#5e5e5e" }}>
+        <p style={{ marginTop: 16, fontSize: 19, color: "#5e5e5e" }}>
           See how real people are changing their health with Organica Living.
         </p>
       </div>

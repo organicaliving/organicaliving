@@ -159,11 +159,22 @@ function wireArrow(arrow: HTMLElement) {
   cleanupMap.set(host, cleanups);
 }
 
+/**
+ * Product-card hover (unified with the "Complete your routine." effect):
+ * the card itself does NOT lift/move — only the inner product image scales up
+ * (relative to any base transform it carries) and spills outside its tile. The
+ * card is raised in the paint order (z-index only, no movement) so the spill
+ * draws over neighbouring cards while the card's own overlay link stays above
+ * the image for click-through.
+ */
 function wireProdCard(card: HTMLElement) {
   if (card.dataset.siteHovered) return;
   card.dataset.siteHovered = "1";
 
+  // The actual product image to zoom — Next <Image> renders an <img>; fall back
+  // to the framed [data-prodimg]/[data-jar] container for bg-image cards.
   const img =
+    card.querySelector<HTMLElement>("img") ||
     card.querySelector<HTMLElement>("[data-prodimg]") ||
     card.querySelector<HTMLElement>("[data-jar]");
 
@@ -171,34 +182,35 @@ function wireProdCard(card: HTMLElement) {
   const hoverBg = card.dataset.hoverBg;
   const restBg = card.dataset.restBg;
 
-  card.style.transition =
-    "transform 0.3s cubic-bezier(0.75,0,0.25,1), box-shadow 0.3s ease, background 0.3s ease";
+  // Zoom relative to any base scale the image already carries (product photos
+  // sit at scale(1.25) at rest) so the zoom *amount* is uniform everywhere.
+  let baseTransform = "";
+  let hoverTransform = "scale(1.5)";
   if (img) {
-    img.style.transition = "transform 0.3s cubic-bezier(0.75,0,0.25,1)";
+    baseTransform = img.style.transform || "";
+    const m = baseTransform.match(/scale\(([\d.]+)\)/);
+    const baseScale = m ? parseFloat(m[1]) : 1;
+    hoverTransform = `scale(${(baseScale * 1.5).toFixed(3)})`;
+    img.style.transition = "transform 0.4s cubic-bezier(0.75,0,0.25,1)";
   }
+  card.style.transition = "background 0.3s ease";
+  if (getComputedStyle(card).position === "static") card.style.position = "relative";
 
   const cleanups: (() => void)[] = [];
 
   const enter = () => {
-    card.style.transform = "translateY(-6px)";
-    card.style.boxShadow = "0 22px 50px rgba(28,58,19,0.3)";
+    card.style.zIndex = "10";
     if (hoverBg) card.style.background = hoverBg;
-    if (img) img.style.transform = "scale(1.08)";
+    if (img) img.style.transform = hoverTransform;
   };
   const leave = () => {
-    card.style.transform = "translateY(0)";
-    card.style.boxShadow = "none";
+    card.style.zIndex = "";
     if (restBg) card.style.background = restBg;
-    if (img) img.style.transform = "scale(1)";
-  };
-  const press = () => {
-    card.style.transform = "translateY(-2px) scale(0.985)";
+    if (img) img.style.transform = baseTransform;
   };
 
   on(card, "mouseenter", enter, cleanups);
   on(card, "mouseleave", leave, cleanups);
-  on(card, "mousedown", press, cleanups);
-  on(card, "mouseup", enter, cleanups);
   cleanupMap.set(card, cleanups);
 }
 

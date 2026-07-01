@@ -66,7 +66,8 @@ export const ORGANICA_FACTS: Record<string, ProductFacts> = {
     serving: "1 Softgel",
     servings: "30",
     rows: [{ n: "Vitamin D3 (Cholecalciferol)", a: "125 mcg (5000 IU)", dv: "2500%" }],
-    ingredients: "",
+    ingredients:
+      "Vitamin D3 (as Cholecalciferol) in a premium Sunflower Oil base, natural Lemon flavour, vegan enteric-coated softgel.",
     warnings: [
       {
         t: "WARNING",
@@ -111,7 +112,8 @@ export const ORGANICA_FACTS: Record<string, ProductFacts> = {
       { n: "EPA 520 mg", a: "520 mg", dv: "—" },
       { n: "DHA: 330mg", a: "330 mg", dv: "—" },
     ],
-    ingredients: "",
+    ingredients:
+      "Omega-3 Fish Oil Concentrate (from salmon, sardines, anchovies, mackerel, tuna, herring or cod), Vitamin E (as D-alpha tocopherol), natural Lemon flavour, softgel shell.",
     warnings: [
       {
         t: "WARNING",

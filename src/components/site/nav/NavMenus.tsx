@@ -75,16 +75,16 @@ export function NavMenus() {
   const learnRef = useRef<HTMLDivElement>(null);
 
   // Refs for each tab (for background highlight)
-  const shopTabRef = useRef<HTMLSpanElement>(null);
-  const scienceTabRef = useRef<HTMLSpanElement>(null);
-  const learnTabRef = useRef<HTMLSpanElement>(null);
+  const shopTabRef = useRef<HTMLAnchorElement>(null);
+  const scienceTabRef = useRef<HTMLAnchorElement>(null);
+  const learnTabRef = useRef<HTMLAnchorElement>(null);
 
   const panelRefs: Record<string, React.RefObject<HTMLDivElement | null>> = {
     shop: shopRef,
     science: scienceRef,
     learn: learnRef,
   };
-  const tabRefs: Record<string, React.RefObject<HTMLSpanElement | null>> = {
+  const tabRefs: Record<string, React.RefObject<HTMLAnchorElement | null>> = {
     shop: shopTabRef,
     science: scienceTabRef,
     learn: learnTabRef,
@@ -133,39 +133,43 @@ export function NavMenus() {
     borderRadius: "20px",
     transition: "background .2s ease",
     background: "transparent",
+    textDecoration: "none",
   };
 
   return (
     <>
       {/* Desktop nav tabs */}
       <nav data-desktop-nav style={{ display: "flex", gap: "4px" }}>
-        <span
+        <Link
           ref={shopTabRef}
+          href="/products"
           data-menu="shop"
           style={tabStyle}
           onMouseEnter={() => showPanel("shop")}
           onMouseLeave={hideAll}
         >
           Shop
-        </span>
-        <span
+        </Link>
+        <Link
           ref={scienceTabRef}
+          href="/science"
           data-menu="science"
           style={tabStyle}
           onMouseEnter={() => showPanel("science")}
           onMouseLeave={hideAll}
         >
           Science
-        </span>
-        <span
+        </Link>
+        <Link
           ref={learnTabRef}
+          href="/blog"
           data-menu="learn"
           style={tabStyle}
           onMouseEnter={() => showPanel("learn")}
           onMouseLeave={hideAll}
         >
           Learn
-        </span>
+        </Link>
       </nav>
 
       {/* SHOP panel */}
@@ -195,7 +199,7 @@ export function NavMenus() {
                     height: "52px",
                     borderRadius: "12px",
                     flexShrink: 0,
-                    background: `url(${p.img}) center/74% no-repeat, rgba(128,128,128,0.5)`,
+                    background: `url(${p.img}) center/92% no-repeat, rgba(128,128,128,0.5)`,
                   }}
                 />
                 <div>
@@ -233,14 +237,14 @@ export function NavMenus() {
       >
         <div style={{ position: "relative" }}>
           {[
-            { title: "Approach", sub: "Nutritional science for everyday health.", img: "/images/nav/science-approach.webp", bg: "linear-gradient(135deg,#9ab87f,#4d6b3e)" },
-            { title: "Organica Living [ Labs ]", sub: "Frontier nutritional research.", img: "/images/nav/science-labs.webp", bg: "linear-gradient(135deg,#7a6a55,#3f352d)" },
-            { title: "Scientists", sub: "Leading nutrition experts.", img: "/images/nav/science-scientists.webp", bg: "linear-gradient(135deg,#c8b89e,#9a8568)" },
-            { title: "Sustainability", sub: "Human impact on planetary health.", img: "/images/nav/science-sustainability.webp", bg: "linear-gradient(135deg,#6f9a6a,#3a5a35)" },
+            { title: "Approach", sub: "Nutritional science for everyday health.", href: "/approach", img: "/images/nav/science-approach.webp", bg: "linear-gradient(135deg,#9ab87f,#4d6b3e)" },
+            { title: "Organica Living [ Labs ]", sub: "Frontier nutritional research.", href: "/labs", img: "/images/nav/science-labs.webp", bg: "linear-gradient(135deg,#7a6a55,#3f352d)" },
+            { title: "Our Science", sub: "The standard behind every batch.", href: "/science", img: "/images/nav/science-scientists.webp", bg: "linear-gradient(135deg,#c8b89e,#9a8568)" },
+            { title: "Sustainability", sub: "Human impact on planetary health.", href: "/sustainability", img: "/images/nav/science-sustainability.webp", bg: "linear-gradient(135deg,#6f9a6a,#3a5a35)" },
           ].map((item) => (
             <NavRow key={item.title}>
               <Link
-                href="/science"
+                href={item.href}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -305,12 +309,12 @@ export function NavMenus() {
       >
         <div style={{ position: "relative" }}>
           {[
-            { title: "Nutrition 101", sub: "The essential nutrients powering your health.", img: "/images/nav/learn-nutrition-101.webp", bg: "linear-gradient(135deg,#a9d6c0,#4d8a72)" },
-            { title: "Vitamins 101", sub: "How key vitamins and minerals shape your health.", img: "/images/nav/learn-vitamins-101.webp", bg: "linear-gradient(135deg,#7fa56a,#3f5a30)" },
+            { title: "Nutrition 101", sub: "The essential nutrients powering your health.", href: "/nutrition-101", img: "/images/nav/learn-nutrition-101.webp", bg: "linear-gradient(135deg,#a9d6c0,#4d8a72)" },
+            { title: "Vitamins 101", sub: "How key vitamins and minerals shape your health.", href: "/vitamins-101", img: "/images/nav/learn-vitamins-101.webp", bg: "linear-gradient(135deg,#7fa56a,#3f5a30)" },
           ].map((item) => (
             <NavRow key={item.title}>
               <Link
-                href="/blog"
+                href={item.href}
                 style={{
                   display: "flex",
                   alignItems: "center",

@@ -58,7 +58,7 @@ export default async function CheckoutPage() {
       <header style={{ borderBottom: "1px solid #ece9de", padding: "20px 0", background: "#fcfcf7" }}>
         <div style={{ textAlign: "center" }}>
           <Link href="/" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }} aria-label="Organica Living">
-            <Image src="/organica-living-logo.png" alt="Organica Living" width={133} height={40} style={{ height: 40, width: "auto", display: "block" }} priority />
+            <Image src="/organica-living-logo.webp" alt="Organica Living" width={190} height={87} quality={90} style={{ height: 40, width: "auto", display: "block" }} priority />
           </Link>
         </div>
       </header>

@@ -104,7 +104,7 @@ export default async function ProductPage({
               <span style={{ color: "#E3A82B", letterSpacing: 2, fontSize: 15 }}>★★★★★</span>
               <span style={{ fontSize: 13, color: "#6d6d6d" }}>{meta.rating} · {meta.reviewCount} reviews</span>
             </div>
-            <p style={{ fontSize: 16, lineHeight: 1.55, color: "#3a3a36", marginTop: 18, maxWidth: 480 }}>
+            <p style={{ fontSize: 20, lineHeight: 1.55, color: "#3a3a36", marginTop: 18, maxWidth: 520 }}>
               {meta.intro}*
             </p>
 
@@ -152,7 +152,7 @@ export default async function ProductPage({
                   0{i + 1}
                 </div>
                 <h3 style={{ fontSize: 19, fontWeight: 500, color: "#fcfcf7" }}>{b.t}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.55, color: "#b9c7b5", marginTop: 10 }}>{b.d}</p>
+                <p style={{ fontSize: 18, lineHeight: 1.55, color: "#b9c7b5", marginTop: 10 }}>{b.d}</p>
               </div>
             ))}
           </div>
@@ -169,14 +169,14 @@ export default async function ProductPage({
             </h2>
             <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 16 }}>
               {meta.narrative.map((para, i) => (
-                <p key={i} style={{ fontSize: 15, lineHeight: 1.6, color: "#3a3a36", maxWidth: 520 }}>{para}</p>
+                <p key={i} style={{ fontSize: 19, lineHeight: 1.6, color: "#3a3a36", maxWidth: 560 }}>{para}</p>
               ))}
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 16, background: "#f1eee2", borderRadius: 14, padding: "18px 20px", marginTop: 26, maxWidth: 520 }}>
               <DoseGlyphs slug={slug} form={meta.form} servingSize={facts?.serving ?? ""} howToUse={meta.howToUse} />
               <div>
                 <div style={{ fontSize: 14, fontWeight: 600 }}>How to use</div>
-                <div style={{ fontSize: 13, color: "#3a3a36" }}>{meta.howToUse}</div>
+                <div style={{ fontSize: 16, color: "#3a3a36" }}>{meta.howToUse}</div>
               </div>
             </div>
           </div>
@@ -186,7 +186,7 @@ export default async function ProductPage({
               borderRadius: 22,
               position: "relative",
               overflow: "hidden",
-              background: `url('${img}') center 54%/86% no-repeat`,
+              background: `url('${img}') center 54%/108% no-repeat`,
             }}
           />
         </div>
@@ -200,7 +200,7 @@ export default async function ProductPage({
               <h2 style={{ fontSize: "clamp(24px,2.8vw,36px)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
                 Supplement Facts
               </h2>
-              <p style={{ fontSize: 14, color: "#3a3a36", marginTop: 14, lineHeight: 1.55, maxWidth: 360 }}>
+              <p style={{ fontSize: 18, color: "#3a3a36", marginTop: 14, lineHeight: 1.55, maxWidth: 400 }}>
                 Every batch is third-party tested and made in an FDA-registered, cGMP-certified facility.
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 22 }}>
@@ -242,7 +242,7 @@ export default async function ProductPage({
               <div style={{ fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#8a8a80", marginBottom: 8, fontFamily: seedMono }}>
                 Other Ingredients
               </div>
-              <p style={{ fontSize: 13, lineHeight: 1.6, color: "#3a3a36" }}>{facts.ingredients}</p>
+              <p style={{ fontSize: 16, lineHeight: 1.6, color: "#3a3a36" }}>{facts.ingredients}</p>
             </div>
           ) : null}
 
@@ -250,7 +250,7 @@ export default async function ProductPage({
             {(facts?.warnings ?? []).map((w, i) => (
               <div key={i} style={{ background: "#fcfcf7", border: "1px solid #e4e1d6", borderRadius: 12, padding: "16px 18px" }}>
                 <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.2, textTransform: "uppercase", color: "#8a8a80", fontFamily: seedMono }}>{w.t}</span>
-                <p style={{ fontSize: 13, lineHeight: 1.55, color: "#3a3a36", marginTop: 7 }}>{w.d}</p>
+                <p style={{ fontSize: 16, lineHeight: 1.55, color: "#3a3a36", marginTop: 7 }}>{w.d}</p>
               </div>
             ))}
           </div>
@@ -288,7 +288,7 @@ export default async function ProductPage({
                   {f.q}
                   <span style={{ color: "#6d6d6d", fontSize: 20 }}>+</span>
                 </summary>
-                <div style={{ padding: "0 0 22px", fontSize: 14, lineHeight: 1.6, color: "#3a3a36", maxWidth: 600 }}>{f.a}</div>
+                <div style={{ padding: "0 0 22px", fontSize: 18, lineHeight: 1.6, color: "#3a3a36", maxWidth: 640 }}>{f.a}</div>
               </details>
             ))}
           </div>
@@ -304,14 +304,23 @@ export default async function ProductPage({
           </div>
           <div data-rgrid3 style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
             {crossSell.map((x) => (
-              <Link key={x.slug} href={`/products/${x.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <Link key={x.slug} href={`/products/${x.slug}`} data-routine-card style={{ display: "block", textDecoration: "none", color: "inherit", borderRadius: 18 }}>
                 <div
                   style={{
                     aspectRatio: "4 / 3",
                     borderRadius: 18,
-                    background: `url('${x.img}') center 54%/72% no-repeat, linear-gradient(160deg, rgba(46,74,37,0.75), rgba(28,58,19,0.75))`,
+                    background: "linear-gradient(160deg, rgba(46,74,37,0.75), rgba(28,58,19,0.75))",
                   }}
-                />
+                >
+                  <div
+                    data-routine-img
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      background: `url('${x.img}') center 54%/90% no-repeat`,
+                    }}
+                  />
+                </div>
                 <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, marginTop: 14 }}>
                   <div>
                     <div style={{ fontSize: 12, color: "#9db38f" }}>{x.tag}</div>

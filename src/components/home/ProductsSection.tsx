@@ -69,10 +69,10 @@ export function ProductsSection({ products }: Props) {
           >
             <p
               style={{
-                fontSize: 14,
+                fontSize: 18,
                 lineHeight: 1.5,
                 color: "#B9C7B5",
-                maxWidth: 340,
+                maxWidth: 380,
               }}
             >
               Clinically formulated vitamins &amp; supplements with key
@@ -98,7 +98,7 @@ export function ProductsSection({ products }: Props) {
         {/* Product cards grid */}
         <div
           data-reveal
-          data-rgrid4
+          data-rgrid4-1up
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4,1fr)",
@@ -122,10 +122,17 @@ export function ProductsSection({ products }: Props) {
                   flexDirection: "column",
                   alignItems: "center",
                   textAlign: "center",
+                  position: "relative",
                   transition:
                     "transform 0.3s cubic-bezier(0.75,0,0.25,1), background 0.3s ease",
                 }}
               >
+                {/* Full-card link → product detail */}
+                <Link
+                  href={`/products/${p.slug}`}
+                  aria-label={`View ${p.name}`}
+                  style={{ position: "absolute", inset: 0, zIndex: 1, borderRadius: 14 }}
+                />
                 {/* Badge + code row */}
                 <div
                   style={{
@@ -173,7 +180,7 @@ export function ProductsSection({ products }: Props) {
                 <div
                   data-jar
                   style={{
-                    width: "78%",
+                    width: "97%",
                     aspectRatio: "3/4",
                     borderRadius: 8,
                     margin: "6px 0 16px",
@@ -186,11 +193,12 @@ export function ProductsSection({ products }: Props) {
                 >
                   {img ? (
                     <Image
-                      src={img}
+                      src={img.replace(".webp", "-hd.webp")}
                       alt={p.name}
                       fill
-                      sizes="(max-width: 768px) 50vw, 20vw"
-                      className="object-contain p-2"
+                      sizes="(max-width: 768px) 90vw, 700px"
+                      className="object-contain p-1"
+                      style={{ transform: "scale(1.25)" }}
                     />
                   ) : null}
                 </div>
@@ -210,6 +218,8 @@ export function ProductsSection({ products }: Props) {
                 <Link
                   href={`/products/${p.slug}`}
                   style={{
+                    position: "relative",
+                    zIndex: 2,
                     lineHeight: 1,
                     display: "block",
                     width: "100%",
@@ -230,7 +240,7 @@ export function ProductsSection({ products }: Props) {
                 {/* Price */}
                 {variant ? (
                   <div
-                    style={{ fontSize: 12, color: "#92A48E", marginTop: 12 }}
+                    style={{ fontSize: 15, color: "#92A48E", marginTop: 12 }}
                   >
                     Starting at{" "}
                     {formatPrice(variant.price_cents, variant.currency)} per

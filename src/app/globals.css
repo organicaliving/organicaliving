@@ -106,6 +106,10 @@
 @media (max-width: 860px) {
   [data-pdp-hero] { grid-template-columns: 1fr !important; }
   [data-pdp-hero] > * { min-width: 0 !important; }
+  /* Gallery is position:sticky for the desktop two-column layout. Once the
+     hero stacks, the sticky gallery pins while the details section scrolls up
+     over it — make it static so photos and details stack without overlap. */
+  [data-pdp-gallery] { position: static !important; top: auto !important; }
   [data-rgrid3] { grid-template-columns: 1fr !important; }
   [style*="padding:0px 40px"] { padding-left: 20px !important; padding-right: 20px !important; }
 }
@@ -116,8 +120,18 @@
      the ones that should stay multi-column — equal specificity, later wins) */
   [style*="grid-template-columns:"] { grid-template-columns: 1fr !important; }
   [data-rgrid4] { grid-template-columns: repeat(2, 1fr) !important; }
+  [data-rgrid4-1up] { grid-template-columns: 1fr !important; }
   [data-rgrid6] { grid-template-columns: repeat(3, 1fr) !important; }
   [data-rcol2] { grid-template-columns: 1fr !important; gap: 30px !important; }
+  /* PDP gallery: keep the thumbnail strip a horizontal row (carousel-style)
+     under the large main image, instead of collapsing to stacked full-width
+     thumbnails via the generic grid-collapse rule above. */
+  [data-pdp-thumbs] { grid-template-columns: repeat(4, 1fr) !important; }
+  /* Home product cards go 1-up here; the jar image's transform:scale(1.25)
+     then bleeds past the wide card and pushes horizontal overflow at the
+     ~768 boundary. Clip the enlarged jar to the card (empty object-contain
+     margins only — the centred bottle stays fully visible). */
+  [data-prodcard] { overflow: hidden !important; }
   /* allow collapsed-grid items to shrink to the track (their default
      min-width:auto floor — driven by replaced children like <input> — is
      what forces horizontal overflow when a grid collapses to one column) */
@@ -145,6 +159,18 @@
   [data-rgrid4] { grid-template-columns: 1fr !important; }
 }
 
+/* ---- brand-page card grids (/science, /sustainability, /labs, /approach, learn).
+   Text-heavy numbered/pillar cards: N-up on desktop → 2-up on tablet → 1-up on
+   phone. Declared AFTER the generic grid-collapse rule (≤768) so it wins by
+   source order; the generic rule still zeroes child min-width to prevent
+   overflow. ---- */
+@media (max-width: 768px) {
+  [data-brand-cards] { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 520px) {
+  [data-brand-cards] { grid-template-columns: 1fr !important; }
+}
+
 /* NOTE: [data-arrow] hover nudge is now handled by SiteInteractions (JS wiring).
    The CSS block was removed to prevent double-transform conflicts.
    The inline-block display is still set per-element in JSX where needed. */
@@ -168,4 +194,19 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
+}
+
+/* "Complete your routine." cross-sell cards: image-only zoom on hover.
+   The card is left completely untouched — only the inner product image scales
+   to 1.5 and spills outside its tile (no overflow clipping). The image alone is
+   raised in the paint order (z-index) so the spill draws over neighbouring
+   cards instead of being clipped behind them. */
+[data-routine-img] {
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.75, 0, 0.25, 1);
+  will-change: transform;
+}
+[data-routine-card]:hover [data-routine-img] {
+  transform: scale(1.5);
+  z-index: 5;
 }
