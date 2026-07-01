@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { ArrowRight } from "./ArrowRight";
 
 type Variant = "lime" | "forest" | "cream" | "outline" | "ghost-light";
 
@@ -7,7 +8,7 @@ type Variant = "lime" | "forest" | "cream" | "outline" | "ghost-light";
  * DS motion rules (Design System.dc.html §Buttons):
  *   Solid variants (forest, lime, cream) → lift + brighten on hover; scale(.96) on press.
  *   Transparent variants (outline, ghost-light) → fill on hover; scale(.96) on press.
- *   Arrow buttons (arrow=true) → NO lift/fill; [data-arrow] slides via global CSS rule in globals.css.
+ *   Arrow buttons (arrow=true) → NO lift/fill; the [data-arrow] icon slides (nudge) via SiteInteractions.
  *   Transition easing: cubic-bezier(.75,0,.25,1) 250ms.
  */
 
@@ -48,7 +49,7 @@ type Props = {
   children: ReactNode;
   href?: string;
   variant?: Variant;
-  /** When true: renders a trailing → arrow; disables the lift/fill hover — arrow slides via global CSS instead. */
+  /** When true: renders a trailing arrow-right icon; disables the lift/fill hover — the icon nudges instead. */
   arrow?: boolean;
   className?: string;
 };
@@ -69,7 +70,7 @@ export function Button({
   const content = (
     <>
       {children}
-      {arrow && <span data-arrow>→</span>}
+      {arrow && <ArrowRight size={16} />}
     </>
   );
 

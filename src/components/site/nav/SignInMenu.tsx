@@ -2,6 +2,7 @@
 
 import { useActionState, useRef, useState } from "react";
 import { signInAction } from "@/lib/auth/actions";
+import { ArrowRight } from "@/components/ui/ArrowRight";
 
 /**
  * Header "Sign In" hover trigger + glass dropdown panel (matches the mockup's
@@ -110,9 +111,7 @@ export function SignInMenu() {
                 justifyContent: "center",
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h13M13 6l6 6-6 6" />
-              </svg>
+              <ArrowRight size={16} />
             </button>
           </div>
           {state && !state.ok ? (
