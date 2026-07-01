@@ -1,11 +1,16 @@
-# Allow native postinstall build scripts to run during install.
+# Control native postinstall build scripts during install.
 # pnpm 11+ (used by Hostinger) reads `allowBuilds`; pnpm 10 reads
-# `onlyBuiltDependencies`. Both are listed so install works on either version.
+# `onlyBuiltDependencies`. Both are listed so install behaves the same on either.
+#
+# esbuild is intentionally NOT built: it is a dev/test-only dependency (vitest,
+# vite, @vitejs/plugin-react, react-email CLI) and its postinstall runs
+# `esbuild --version`, spawning the esbuild binary — which fails with EACCES on
+# Hostinger's build filesystem and aborts the whole install. Next.js production
+# builds use SWC, not esbuild, so skipping this build script is safe.
 allowBuilds:
-  esbuild: true
+  esbuild: false
   sharp: true
   unrs-resolver: true
 onlyBuiltDependencies:
-  - esbuild
   - sharp
   - unrs-resolver
