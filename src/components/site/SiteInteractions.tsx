@@ -72,6 +72,15 @@ function isLightText(cs: CSSStyleDeclaration): boolean {
   return 0.299 * m[0] + 0.587 * m[1] + 0.114 * m[2] > 140;
 }
 
+// Checked at event time (not wire time) so the guard tracks dynamic disabled
+// state, e.g. a button that toggles between enabled/disabled as a form changes.
+function isDisabled(el: HTMLElement): boolean {
+  return (
+    (el as HTMLButtonElement | HTMLInputElement).disabled === true ||
+    el.getAttribute("aria-disabled") === "true"
+  );
+}
+
 function wirePillButton(btn: HTMLElement) {
   if (btn.dataset.siteHovered) return;
   if (!isPillButton(btn)) return;
@@ -89,6 +98,7 @@ function wirePillButton(btn: HTMLElement) {
     "background 0.25s cubic-bezier(0.75,0,0.25,1), color 0.25s ease, transform 0.22s cubic-bezier(0.75,0,0.25,1), box-shadow 0.25s ease, filter 0.25s ease";
 
   const enter = () => {
+    if (isDisabled(btn)) return;
     if (arrow) {
       // Arrow button: no lift/fill — only arrow moves
       arrow.style.transform = "translateX(5px)";
@@ -122,6 +132,7 @@ function wirePillButton(btn: HTMLElement) {
   };
 
   const press = () => {
+    if (isDisabled(btn)) return;
     btn.style.transform = "translateY(0) scale(0.96)";
   };
 
@@ -191,6 +202,21 @@ function wireProdCard(card: HTMLElement) {
   cleanupMap.set(card, cleanups);
 }
 
+// Bare article cards ([data-zoomcard]): zoom the inner [data-prodimg] only,
+// contained within its rounded frame — no card lift (the mockup's grid hover).
+function wireZoomCard(card: HTMLElement) {
+  if (card.dataset.siteZoomWired) return;
+  card.dataset.siteZoomWired = "1";
+
+  const img = card.querySelector<HTMLElement>("[data-prodimg]");
+  if (img) img.style.transition = "transform 0.35s cubic-bezier(0.75,0,0.25,1)";
+
+  const cleanups: (() => void)[] = [];
+  on(card, "mouseenter", () => { if (img) img.style.transform = "scale(1.05)"; }, cleanups);
+  on(card, "mouseleave", () => { if (img) img.style.transform = "scale(1)"; }, cleanups);
+  cleanupMap.set(card, cleanups);
+}
+
 function wireNavRow(row: HTMLElement) {
   if (row.dataset.siteNavWired) return;
   row.dataset.siteNavWired = "1";
@@ -211,6 +237,9 @@ function wire() {
   // Product cards
   document.querySelectorAll<HTMLElement>("[data-prodcard]").forEach(wireProdCard);
 
+  // Bare article cards (image-only zoom)
+  document.querySelectorAll<HTMLElement>("[data-zoomcard]").forEach(wireZoomCard);
+
   // Nav rows
   document.querySelectorAll<HTMLElement>("[data-navrow]").forEach(wireNavRow);
 }
@@ -226,6 +255,7 @@ function cleanup() {
   unwireAll("a[data-site-hovered],button[data-site-hovered]", "siteHovered");
   unwireAll("[data-site-arrow-wired]", "siteArrowWired");
   unwireAll("[data-prodcard][data-site-hovered]", "siteHovered");
+  unwireAll("[data-zoomcard][data-site-zoom-wired]", "siteZoomWired");
   unwireAll("[data-navrow][data-site-nav-wired]", "siteNavWired");
 }
 
@@ -306,15 +336,64 @@ function setupReveals(): () => void {
   };
 }
 
+/**
+ * Table-of-contents scroll-spy ([data-toc]) — ported from the mockup's
+ * componentDidMount. The floating contents rail fades in while the article
+ * body ([data-articlebody]) is in view and highlights the [data-toclink] whose
+ * target heading is currently focused. Hidden below 1100px (no room for the
+ * rail). No-op on pages without a [data-toc]. Returns a teardown.
+ */
+function setupToc(): () => void {
+  const toc = document.querySelector<HTMLElement>("[data-toc]");
+  const bodySec = document.querySelector<HTMLElement>("[data-articlebody]");
+  if (!toc || !bodySec) return () => {};
+
+  const links = Array.from(toc.querySelectorAll<HTMLAnchorElement>("[data-toclink]"));
+  const secs = links.map((l) =>
+    document.querySelector<HTMLElement>(l.getAttribute("href") || "")
+  );
+
+  const onToc = () => {
+    const vh = window.innerHeight;
+    if (window.innerWidth < 1100) {
+      toc.style.opacity = "0";
+      toc.style.pointerEvents = "none";
+      return;
+    }
+    const b = bodySec.getBoundingClientRect();
+    const show = b.top < vh * 0.55 && b.bottom > vh * 0.35;
+    toc.style.opacity = show ? "1" : "0";
+    toc.style.pointerEvents = show ? "auto" : "none";
+    let active = 0;
+    secs.forEach((s, i) => {
+      if (s && s.getBoundingClientRect().top < vh * 0.32) active = i;
+    });
+    links.forEach((l, i) => {
+      l.style.color = i === active && show ? "#1c3a13" : "#9a9a8e";
+    });
+  };
+
+  window.addEventListener("scroll", onToc, { passive: true });
+  window.addEventListener("resize", onToc, { passive: true });
+  onToc();
+
+  return () => {
+    window.removeEventListener("scroll", onToc);
+    window.removeEventListener("resize", onToc);
+  };
+}
+
 export function SiteInteractions() {
   const pathname = usePathname();
 
   useEffect(() => {
     wire();
     const teardownReveals = setupReveals();
+    const teardownToc = setupToc();
     return () => {
       cleanup();
       teardownReveals();
+      teardownToc();
     };
   // Re-wire on every route change so newly rendered pages get wired
   }, [pathname]);
