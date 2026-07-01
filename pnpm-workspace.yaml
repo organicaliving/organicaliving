@@ -1,3 +1,10 @@
+# Allow native postinstall build scripts to run during install.
+# pnpm 11+ (used by Hostinger) reads `allowBuilds`; pnpm 10 reads
+# `onlyBuiltDependencies`. Both are listed so install works on either version.
+allowBuilds:
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
 onlyBuiltDependencies:
   - esbuild
   - sharp
