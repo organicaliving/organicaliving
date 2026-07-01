@@ -1,0 +1,92 @@
+{
+  "science/science-hero.webp": {
+    "photographer": "Mikhail Nilov",
+    "photographer_url": "https://www.pexels.com/@mikhail-nilov",
+    "pexels_url": "https://www.pexels.com/photo/plants-in-glass-vases-8851079/",
+    "query": "green laboratory plants science research"
+  },
+  "science/science-formulation.webp": {
+    "photographer": "Odin Mcraig",
+    "photographer_url": "https://www.pexels.com/@eimcraig",
+    "pexels_url": "https://www.pexels.com/photo/a-close-up-of-softgel-capsules-13534590/",
+    "query": "vitamin capsules supplements macro"
+  },
+  "science/science-testing.webp": {
+    "photographer": "Ivan S",
+    "photographer_url": "https://www.pexels.com/@ivan-s",
+    "pexels_url": "https://www.pexels.com/photo/close-up-shot-of-test-tubes-9628850/",
+    "query": "laboratory pipette test tube sample"
+  },
+  "sustainability/sustainability-hero.webp": {
+    "photographer": "ALEXANDER IGREVSKY",
+    "photographer_url": "https://www.pexels.com/@igrevsky",
+    "pexels_url": "https://www.pexels.com/photo/background-of-greenery-tree-tops-in-woods-1310757/",
+    "query": "aerial green forest canopy nature"
+  },
+  "sustainability/sustainability-ocean.webp": {
+    "photographer": "Jan van der Wolf",
+    "photographer_url": "https://www.pexels.com/@jan-van-der-wolf-11680885",
+    "pexels_url": "https://www.pexels.com/photo/close-up-of-turquoise-water-20105368/",
+    "query": "clear ocean sea water sunlight"
+  },
+  "sustainability/sustainability-plants.webp": {
+    "photographer": "Wyxina Tresse",
+    "photographer_url": "https://www.pexels.com/@wyxina-tresse-311038210",
+    "pexels_url": "https://www.pexels.com/photo/dark-green-leaves-close-up-in-garden-38359336/",
+    "query": "fresh green botanical leaves plants"
+  },
+  "labs/labs-hero.webp": {
+    "photographer": "Artem Podrez",
+    "photographer_url": "https://www.pexels.com/@artempodrez",
+    "pexels_url": "https://www.pexels.com/photo/a-person-looking-through-the-microscope-8533045/",
+    "query": "scientist microscope laboratory research"
+  },
+  "labs/labs-formulate.webp": {
+    "photographer": "Jonathan Borba",
+    "photographer_url": "https://www.pexels.com/@jonathanborba",
+    "pexels_url": "https://www.pexels.com/photo/multi-colored-capsules-bowl-and-spoon-on-green-surface-17820709/",
+    "query": "natural supplement powder ingredients bowl"
+  },
+  "labs/labs-ingredients.webp": {
+    "photographer": "SHVETS production",
+    "photographer_url": "https://www.pexels.com/@shvets-production",
+    "pexels_url": "https://www.pexels.com/photo/flatlay-photo-of-berries-on-the-table-7525068/",
+    "query": "fresh berries botanical ingredients flatlay"
+  },
+  "approach/approach-hero.webp": {
+    "photographer": "Ravi Kant",
+    "photographer_url": "https://www.pexels.com/@ravikant",
+    "pexels_url": "https://www.pexels.com/photo/person-holding-green-plant-4399499/",
+    "query": "hands holding soil green seedling plant"
+  },
+  "approach/approach-journey.webp": {
+    "photographer": "Viktoria  Slowikowska",
+    "photographer_url": "https://www.pexels.com/@viktoria-slowikowska",
+    "pexels_url": "https://www.pexels.com/photo/photo-of-mushrooms-on-a-person-s-hand-5677624/",
+    "query": "natural whole food ingredients wooden table"
+  },
+  "nutrition-101/nutrition-hero.webp": {
+    "photographer": "Vanessa Loring",
+    "photographer_url": "https://www.pexels.com/@vanessa-loring",
+    "pexels_url": "https://www.pexels.com/photo/slices-of-vegetables-and-fruits-on-yellow-surface-5965670/",
+    "query": "colorful fresh fruits vegetables flatlay"
+  },
+  "nutrition-101/nutrition-plate.webp": {
+    "photographer": "Rasul Yarichev",
+    "photographer_url": "https://www.pexels.com/@rasul70",
+    "pexels_url": "https://www.pexels.com/photo/bowl-of-fresh-chopped-vegetables-and-eggs-17597404/",
+    "query": "healthy balanced meal bowl salmon greens"
+  },
+  "vitamins-101/vitamins-hero.webp": {
+    "photographer": "freestocks.org",
+    "photographer_url": "https://www.pexels.com/@freestocks",
+    "pexels_url": "https://www.pexels.com/photo/orange-slices-370014/",
+    "query": "sliced citrus fruit oranges lemon vitamin"
+  },
+  "vitamins-101/vitamins-foods.webp": {
+    "photographer": "Nadin Sh",
+    "photographer_url": "https://www.pexels.com/@nadin-sh-78971847",
+    "pexels_url": "https://www.pexels.com/photo/woman-eating-groats-with-fruits-in-a-restaurant-18890150/",
+    "query": "leafy greens nuts seeds healthy food"
+  }
+}
