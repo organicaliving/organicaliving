@@ -8,9 +8,7 @@ import { ArrowRight } from "@/components/ui/ArrowRight";
 
 function HelpSearch() {
   return (
-    <form
-      method="get"
-      action="/help/search"
+    <div
       style={{
         display: "flex",
         alignItems: "center",
@@ -24,7 +22,6 @@ function HelpSearch() {
     >
       <input
         type="search"
-        name="q"
         placeholder="Search the help center…"
         style={{
           flex: 1,
@@ -37,7 +34,7 @@ function HelpSearch() {
         }}
       />
       <button
-        type="submit"
+        type="button"
         aria-label="Search"
         style={{
           flexShrink: 0,
@@ -55,7 +52,7 @@ function HelpSearch() {
       >
         <ArrowRight size={16} strokeWidth={2.1} />
       </button>
-    </form>
+    </div>
   );
 }
 
