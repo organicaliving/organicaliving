@@ -39,11 +39,16 @@ the codebase are reused:
   (Non-GMO, Halal, Vegan, Gluten-Free, ISO/HACCP/CE) — from `src/lib/brand-content.ts`
 - Emails: `care@`, `hello@`, `partners@`, `practitioners@`, `press@ organicaliving.com`
 
-Facts still needed from owner (each rendered as `[[PLACEHOLDER: …]]` until supplied):
-shipping timeframe/threshold/international, return window & terms, subscription
-charge timing/discount/cancel rules, governing-law jurisdiction, registered address,
-privacy contact + data-collection list, practitioner program terms, press kit
-availability, open roles.
+**Facts approach:** build now with sensible, clearly-marked industry-standard
+default values (`[[DEFAULT: …]]`). At the **end** of the build, present the owner a
+short table — each fact, the corresponding data point observed on the reference
+site (for calibration only; a plain numeric/term data point, never copied copy),
+and our chosen default — so the owner supplies real values in one pass.
+
+Facts still needed from owner: shipping timeframe/threshold/international, return
+window & terms, subscription charge timing/discount/cancel rules, governing-law
+jurisdiction, registered address, privacy contact + data-collection list,
+practitioner program terms, press kit availability, open roles.
 
 ## Route map
 
@@ -57,6 +62,7 @@ availability, open roles.
 /terms                         Terms & Conditions (legal draft)
 /privacy                       Privacy Policy (legal draft)
 /accessibility                 Accessibility statement
+/consent                       Consent Preferences (cookies/marketing consent)
 ```
 
 All under the `(storefront)` route group so they inherit nav + footer.
@@ -110,6 +116,10 @@ Six categories, ~4–6 articles each (all original copy):
   supplied facts, `[[PLACEHOLDER]]` otherwise, each labeled "draft — pending legal
   review" with a last-updated date. Accessibility states a WCAG 2.1 AA *aim*, not a
   certification.
+- **`/consent`**: original Consent Preferences page — plain-language explanation of
+  the cookie/marketing-consent categories we use (essential, analytics, marketing),
+  how to change preferences, and links to `/privacy`. Also a labeled draft pending
+  legal review.
 
 ## Design system
 
@@ -127,8 +137,7 @@ Six categories, ~4–6 articles each (all original copy):
 
 `src/components/site/Footer.tsx`:
 
-- Legal column → `/terms`, `/privacy`, `/accessibility` (drop or keep `/consent`
-  as `[[PLACEHOLDER]]`).
+- Legal column → `/terms`, `/privacy`, `/accessibility`, `/consent`.
 - Inquire column: Practitioners → `/practitioners`, Press → `/press`,
   Join → `/careers` (Partner stays `/contact`).
 - Help column: Help → `/help`.
@@ -147,14 +156,14 @@ For every new/changed route:
 
 ## Build sequence
 
-1. Footer pages first: `/terms`, `/privacy`, `/accessibility`, `/practitioners`,
-   `/press`, `/careers`.
+1. Footer pages first: `/terms`, `/privacy`, `/accessibility`, `/consent`,
+   `/practitioners`, `/press`, `/careers`.
 2. `src/lib/help/content.ts` + `<HelpArticle>` + help routes.
 3. Footer rewiring.
 4. Verification pass.
+5. Present the facts-confirmation table to the owner for real values.
 
 ## Open questions
 
-- Real values for the `[[PLACEHOLDER]]` facts (owner will supply, or approve
-  sensible defaults).
-- Keep or drop the footer's `/consent` (Consent Preferences) link.
+- Real values for the `[[DEFAULT]]` facts — collected in one pass at the end via
+  the facts-confirmation table (build proceeds on sensible defaults meanwhile).
