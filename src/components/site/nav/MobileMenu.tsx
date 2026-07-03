@@ -9,15 +9,15 @@ import { ArrowRight } from "@/components/ui/ArrowRight";
 /* Shop products list                                                   */
 /* ------------------------------------------------------------------ */
 const SHOP_PRODUCTS = [
-  { category: "Multivitamin",      name: "Multi Pro",        slug: "multi-pro",        img: "/images/multi-pro.webp",        bg: "linear-gradient(160deg,#7d8a52,#3f4f22)" },
-  { category: "Vitamin D3",        name: "Optimus D3",       slug: "optimus-d3",       img: "/images/optimus-d3.webp",       bg: "linear-gradient(160deg,#d8c08a,#9c7d3e)" },
-  { category: "Omega-3",           name: "Omega 1000",       slug: "omega-1000",       img: "/images/omega-1000.webp",       bg: "linear-gradient(160deg,#7d9fa0,#3f5f62)" },
-  { category: "Eye Health",        name: "Vision Pro",       slug: "vision-pro",       img: "/images/vision-pro.webp",       bg: "linear-gradient(160deg,#8a93b6,#3f4a72)" },
-  { category: "Sleep Support",     name: "Sleep Pro+",       slug: "sleep-pro",        img: "/images/sleep-pro.webp",        bg: "linear-gradient(160deg,#6f6a92,#322c4c)" },
-  { category: "Hair, Skin & Nails",name: "Glow Pro",         slug: "glow-pro",         img: "/images/glow-pro.webp",        bg: "linear-gradient(160deg,#c4929f,#7a4f5e)" },
-  { category: "Prenatal",          name: "Bloom",            slug: "bloom",            img: "/images/bloom.webp",            bg: "linear-gradient(160deg,#d2a3a6,#9c636b)" },
-  { category: "Menopause Support", name: "Meno Pro",         slug: "meno-pro",         img: "/images/meno-pro.webp",        bg: "linear-gradient(160deg,#bf8d80,#754940)" },
-  { category: "Kids Vitamin D3",   name: "Optimus D3 Mini",  slug: "optimus-d3-mini",  img: "/images/optimus-d3-mini.webp", bg: "linear-gradient(160deg,#e0a868,#b06e30)" },
+  { category: "Multivitamin",      name: "Multi Pro",        slug: "multi-pro",        img: "/images/multi-pro.webp" },
+  { category: "Vitamin D3",        name: "Optimus D3",       slug: "optimus-d3",       img: "/images/optimus-d3.webp" },
+  { category: "Omega-3",           name: "Omega 1000",       slug: "omega-1000",       img: "/images/omega-1000.webp" },
+  { category: "Eye Health",        name: "Vision Pro",       slug: "vision-pro",       img: "/images/vision-pro.webp" },
+  { category: "Sleep Support",     name: "Sleep Pro+",       slug: "sleep-pro",        img: "/images/sleep-pro.webp" },
+  { category: "Hair, Skin & Nails",name: "Glow Pro",         slug: "glow-pro",         img: "/images/glow-pro.webp" },
+  { category: "Prenatal",          name: "Bloom",            slug: "bloom",            img: "/images/bloom.webp" },
+  { category: "Menopause Support", name: "Meno Pro",         slug: "meno-pro",         img: "/images/meno-pro.webp" },
+  { category: "Kids Vitamin D3",   name: "Optimus D3 Mini",  slug: "optimus-d3-mini",  img: "/images/optimus-d3-mini.webp" },
 ];
 
 type TabName = "shop" | "science" | "learn" | "account";
@@ -207,7 +207,7 @@ export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
                     height: "54px",
                     borderRadius: "12px",
                     flexShrink: 0,
-                    background: `url(${p.img}) center/contain no-repeat, ${p.bg}`,
+                    background: `url(${p.img}) center/92% no-repeat, rgba(128,128,128,0.5)`,
                   }}
                 />
                 <div>
