@@ -92,13 +92,11 @@ export function LegalToc({
                   display: "flex",
                   alignItems: "baseline",
                   gap: 8,
-                  padding: "5px 8px",
-                  borderRadius: 7,
+                  padding: "3px 0",
                   textDecoration: "none",
                   color: isActive ? FOREST : GRAY,
                   fontWeight: isActive ? 600 : 400,
-                  background: isActive ? "rgba(28,58,19,.08)" : "transparent",
-                  transition: "color .18s ease, background .18s ease",
+                  transition: "color .18s ease",
                 }}
               >
                 <span
