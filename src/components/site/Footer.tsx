@@ -35,7 +35,7 @@ const FOOTER_COLS: Array<{
     ],
   },
   {
-    title: "Help",
+    title: "Support",
     links: [
       { label: "Help Center", href: "/help" },
       { label: "Contact", href: "/contact" },
