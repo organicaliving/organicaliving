@@ -46,13 +46,24 @@ const cart: CartView = {
 };
 
 describe("CartDrawerBody", () => {
-  it("renders the free-shipping banner, line item, off-today savings and promo", async () => {
+  it("renders the total-savings banner, line item, off-today savings and promo", async () => {
     render(await CartDrawerBody({ cart }));
-    expect(screen.getByText(/free shipping/i)).toBeInTheDocument();
+    // line fixture: (3999 - 3000) * 1 = $9.99 saved.
+    expect(screen.getByText(/saving \$9\.99 in total/i)).toBeInTheDocument();
     expect(screen.getByText("Multi Pro")).toBeInTheDocument();
     expect(screen.getByText(/off today/i)).toBeInTheDocument();
     expect(screen.getByTestId("stepper")).toBeInTheDocument();
     expect(screen.getByTestId("promo")).toBeInTheDocument();
+  });
+
+  it("shows a subscribe nudge when there are no bundle savings", async () => {
+    const noSavings = {
+      ...cart,
+      lines: [{ ...line, purchaseType: "one_time" as const, unitCents: 3999, lineCents: 3999 }],
+    };
+    render(await CartDrawerBody({ cart: noSavings }));
+    expect(screen.getByText(/subscribe & save on every order/i)).toBeInTheDocument();
+    expect(screen.queryByText(/in total/i)).not.toBeInTheDocument();
   });
 
   it("shows an empty state when the cart has no lines", async () => {

@@ -9,9 +9,25 @@ import { CartPromo } from "@/components/cart/CartPromo";
 import { CartRecommendationAdd } from "@/components/cart/CartRecommendationAdd";
 import type { CartView } from "@/lib/cart/types";
 
+/** Lucide `tags` (lucide.dev, ISC), inline — inherits colour via currentColor. */
+function TagsIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="m15 5 6.3 6.3a2.4 2.4 0 0 1 0 3.4L17 19" />
+      <path d="M9.586 5.586A2 2 0 0 0 8.172 5H3a1 1 0 0 0-1 1v5.172a2 2 0 0 0 .586 1.414L8.29 18.29a2.426 2.426 0 0 0 3.42 0l3.58-3.58a2.426 2.426 0 0 0 0-3.42z" />
+      <circle cx="6.5" cy="9.5" r=".5" fill="currentColor" />
+    </svg>
+  );
+}
+
 /** Scrollable content of the cart mini-panel (everything above the sticky footer). */
 export async function CartDrawerBody({ cart }: { cart: CartView }) {
   const currency = cart.currency;
+  // Total the customer saves by subscribing/bundling vs. regular pricing.
+  const bundleSavings = cart.lines.reduce(
+    (sum, l) => sum + (l.regularUnitCents * l.quantity - l.lineCents),
+    0,
+  );
 
   if (cart.lines.length === 0) {
     return (
@@ -46,31 +62,25 @@ export async function CartDrawerBody({ cart }: { cart: CartView }) {
 
   return (
     <div>
-      {/* Free-shipping banner — truthful (free shipping on every order). */}
+      {/* Savings banner — total saved by subscribing/bundling, else a subscribe nudge. */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: 10,
-          background: "#f4f1e6",
+          gap: 8,
+          background: bundleSavings > 0 ? "#e7f0c8" : "#f4f1e6",
           borderRadius: 12,
           padding: "12px 18px",
           fontSize: 14,
-          color: "#1a1a1a",
+          fontWeight: bundleSavings > 0 ? 600 : 500,
+          color: bundleSavings > 0 ? "#1c3a13" : "#1a1a1a",
         }}
       >
-        <span style={{ color: "#9a9a8e" }}>【</span>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1c3a13" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="m7.5 4.27 9 5.15" />
-            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
-            <path d="M3.3 7 12 12l8.7-5" />
-            <path d="M12 22V12" />
-          </svg>
-          You&rsquo;re getting free shipping
-        </span>
-        <span style={{ color: "#9a9a8e" }}>】</span>
+        <TagsIcon />
+        {bundleSavings > 0
+          ? `You're saving ${formatPrice(bundleSavings, currency)} in total`
+          : "Subscribe & save on every order"}
       </div>
 
       {/* Line items */}

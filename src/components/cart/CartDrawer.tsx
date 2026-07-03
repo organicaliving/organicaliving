@@ -67,7 +67,9 @@ export function CartDrawer({
           zIndex: 201,
           width: "min(420px, 92vw)",
           background: "#fcfcf7",
-          boxShadow: "-30px 0 60px rgba(0,0,0,0.18)",
+          // Only cast the shadow while open — otherwise the off-screen panel's
+          // left-side shadow bleeds a dark strip onto the viewport's right edge.
+          boxShadow: open ? "-30px 0 60px rgba(0,0,0,0.18)" : "none",
           transform: open ? "translateX(0)" : "translateX(100%)",
           pointerEvents: open ? "auto" : "none",
           transition: "transform .34s cubic-bezier(0.75,0,0.25,1)",
