@@ -311,14 +311,14 @@ const returnsRefunds: HelpCategory = {
           items: [
             "Email care@organicaliving.com with subject line 'Return Request — Order #[your order number]'.",
             "Include your reason for returning and whether you would like a refund or an exchange.",
-            "Our team will respond within 1–2 business days with a return authorisation and shipping instructions.",
+            "Our team will respond within 1–2 business days with a return authorization and shipping instructions.",
             "Pack the item securely and attach the return label (or ship to the address provided).",
             "Once we receive and inspect the return, we will process your refund or ship your replacement.",
           ],
         },
         {
           kind: "p",
-          text: "Please do not ship items back before receiving return authorisation — unrequested returns cannot be tracked and may be lost.",
+          text: "Please do not ship items back before receiving return authorization — unrequested returns cannot be tracked and may be lost.",
         },
       ],
     },
@@ -428,7 +428,7 @@ const productsUsage: HelpCategory = {
       blocks: [
         {
           kind: "p",
-          text: "Most Organica Living formulas are best taken with food, which supports absorption and minimises the chance of an unsettled stomach. Fat-soluble vitamins — D3 and Omega-3 — absorb best alongside a meal that contains some dietary fat.",
+          text: "Most Organica Living formulas are best taken with food, which supports absorption and minimizes the chance of an unsettled stomach. Fat-soluble vitamins — D3 and Omega-3 — absorb best alongside a meal that contains some dietary fat.",
         },
         {
           kind: "p",

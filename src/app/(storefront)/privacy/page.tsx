@@ -220,7 +220,7 @@ export default function PrivacyPage() {
                 under the General Data Protection Regulation (GDPR) and UK GDPR, including
                 the right to lodge a complaint with your local supervisory authority.
                 Our legal basis for processing is typically performance of a contract (to
-                fulfil your orders), legitimate interests (to improve our services and
+                fulfill your orders), legitimate interests (to improve our services and
                 prevent fraud), or your consent (for marketing communications).
               </P>
               <P>

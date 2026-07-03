@@ -28,7 +28,7 @@ const PROGRAM_PILLARS = [
   {
     k: "03",
     t: "Clinical education",
-    d: "Access our ingredient-science library, dosing rationale documents and Supplement Facts breakdowns for every SKU — the detail your clients ask for and your protocols demand.",
+    d: "Access our ingredient-science library, dosing rationale documents and Supplement Facts breakdowns for every SKU — the details your clients ask for and your protocols demand.",
   },
   {
     k: "04",
