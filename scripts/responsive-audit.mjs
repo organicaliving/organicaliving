@@ -64,6 +64,16 @@ const STATIC_ROUTES = [
   ["/subscriptions", "subscriptions"],
   ["/refer", "refer"],
   ["/design-system", "design-system"],
+  ["/help", "help"],
+  ["/help/orders-shipping", "help-orders-shipping"],
+  ["/help/orders-shipping/placing-an-order", "help-orders-shipping-article"],
+  ["/practitioners", "practitioners"],
+  ["/press", "press"],
+  ["/careers", "careers"],
+  ["/terms", "terms"],
+  ["/privacy", "privacy"],
+  ["/accessibility", "accessibility"],
+  ["/consent", "consent"],
 ];
 
 const browser = await chromium.launch();

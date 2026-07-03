@@ -29,18 +29,18 @@ const FOOTER_COLS: Array<{
     title: "Inquire",
     links: [
       { label: "Partner", href: "/contact" },
-      { label: "Practitioners", href: "/contact" },
-      { label: "Press", href: "/contact" },
-      { label: "Join", href: "/contact" },
+      { label: "Practitioners", href: "/practitioners" },
+      { label: "Press", href: "/press" },
+      { label: "Join", href: "/careers" },
     ],
   },
   {
     title: "Help",
     links: [
-      { label: "Help", href: "/contact" },
+      { label: "Help", href: "/help" },
       { label: "Contact", href: "/contact" },
       { label: "My Account", href: "/account" },
-      { label: "International", href: "/contact" },
+      { label: "International", href: "/help/orders-shipping" },
     ],
   },
   {
@@ -55,10 +55,10 @@ const FOOTER_COLS: Array<{
   {
     title: "Legal",
     links: [
-      { label: "Terms + Conditions", href: "/legal/terms" },
-      { label: "Privacy Policy", href: "/legal/privacy" },
-      { label: "Accessibility", href: "/legal/accessibility" },
-      { label: "Consent Preferences", href: "/legal/consent" },
+      { label: "Terms + Conditions", href: "/terms" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Accessibility", href: "/accessibility" },
+      { label: "Consent Preferences", href: "/consent" },
     ],
   },
 ];

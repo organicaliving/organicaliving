@@ -35,7 +35,7 @@ export default function PressPage() {
           style={{
             maxWidth: 1440,
             margin: "0 auto",
-            padding: "80px 40px 64px",
+            padding: "80px clamp(20px,5vw,40px) 64px",
           }}
         >
           <SectionIntro
@@ -70,7 +70,7 @@ export default function PressPage() {
             <a
               href="mailto:press@organicaliving.com"
               style={{
-                fontSize: 22,
+                fontSize: "clamp(15px,4vw,22px)",
                 fontWeight: 500,
                 color: FOREST,
                 textDecoration: "none",
