@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const FOREST = "#1c3a13";
 const GRAY = "#8a8a80";
@@ -19,6 +19,10 @@ export function LegalToc({
   sections: { id: string; heading: string }[];
 }) {
   const [activeId, setActiveId] = useState<string>(sections[0]?.id ?? "");
+  // While a click-triggered smooth scroll is animating, the page passes through
+  // intermediate sections and the observer would flicker the highlight through
+  // them. This lock suppresses observer-driven updates until the scroll settles.
+  const clickLock = useRef(false);
 
   useEffect(() => {
     if (sections.length === 0) return;
@@ -30,6 +34,7 @@ export function LegalToc({
     const intersecting = new Map<string, boolean>();
     const observer = new IntersectionObserver(
       (entries) => {
+        if (clickLock.current) return;
         for (const entry of entries) {
           intersecting.set(entry.target.id, entry.isIntersecting);
         }
@@ -46,6 +51,31 @@ export function LegalToc({
 
     return () => observer.disconnect();
   }, [sections]);
+
+  // On click: set the target active immediately and hold the highlight there
+  // until the smooth scroll finishes (scrollend, a debounced scroll-settle, or a
+  // safety timeout), then hand control back to the observer.
+  function handleTocClick(id: string) {
+    setActiveId(id);
+    clickLock.current = true;
+
+    let settleTimer: ReturnType<typeof setTimeout>;
+    const release = () => {
+      clickLock.current = false;
+      clearTimeout(settleTimer);
+      clearTimeout(safetyTimer);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scrollend", release);
+    };
+    const onScroll = () => {
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(release, 120);
+    };
+    const safetyTimer = setTimeout(release, 1500);
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scrollend", release);
+  }
 
   return (
     <nav
@@ -87,7 +117,7 @@ export function LegalToc({
               <a
                 href={`#${section.id}`}
                 aria-current={isActive ? "true" : undefined}
-                onClick={() => setActiveId(section.id)}
+                onClick={() => handleTocClick(section.id)}
                 style={{
                   display: "flex",
                   alignItems: "baseline",
