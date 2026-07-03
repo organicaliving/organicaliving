@@ -192,6 +192,12 @@ function wireProdCard(card: HTMLElement) {
     const baseScale = m ? parseFloat(m[1]) : 1;
     hoverTransform = `scale(${(baseScale * 1.5).toFixed(3)})`;
     img.style.transition = "transform 0.4s cubic-bezier(0.75,0,0.25,1)";
+    // The zoomed image spills outside the card. With default pointer-events it
+    // would intercept the cursor over the spill (it's a card descendant), so the
+    // card stays "hovered" and the zoom lingers after the cursor leaves the card.
+    // It's decorative (the overlay link/buttons own all clicks) — disable pointer
+    // events so hover is governed by the card box and mouseleave fires immediately.
+    img.style.pointerEvents = "none";
   }
   card.style.transition = "background 0.3s ease";
   if (getComputedStyle(card).position === "static") card.style.position = "relative";
