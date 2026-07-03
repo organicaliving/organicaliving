@@ -628,7 +628,7 @@ const accountPayments: HelpCategory = {
       blocks: [
         {
           kind: "p",
-          text: "We accept all major credit and debit cards including Visa, Mastercard, American Express, and Discover. Apple Pay and Google Pay are also supported at checkout on compatible devices and browsers.",
+          text: "We accept all major credit and debit cards and digital wallets [[DEFAULT: confirm enabled payment methods — e.g. Visa, Mastercard, American Express, Discover; Apple Pay and Google Pay]] at checkout on compatible devices and browsers.",
         },
         {
           kind: "p",

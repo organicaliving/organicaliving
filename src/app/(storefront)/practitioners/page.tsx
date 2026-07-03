@@ -104,8 +104,8 @@ export default function PractitionersPage() {
           cultural and lifestyle requirements.
         </p>
         <p>
-          We dose at clinically-relevant levels — 5 000 IU of Vitamin D3, a full
-          1 000mg of Omega-3 — because sub-threshold amounts do not serve your clients
+          We dose at clinically-relevant levels — 5000 IU of Vitamin D3, a full
+          1000mg of Omega-3 — because sub-threshold amounts do not serve your clients
           and they do not serve our reputation either. You will find the same
           transparency on every label that you would want to see in a peer-reviewed
           formulation brief.

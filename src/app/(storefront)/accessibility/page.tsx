@@ -167,14 +167,11 @@ export default function AccessibilityPage() {
                 <a href={`mailto:${LEGAL_META.careEmail}`}>{LEGAL_META.careEmail}</a>{" "}
                 and include:
               </P>
-              <P>
-                &bull; The page or feature where you encountered the issue (a URL is
-                helpful)
-                <br />
-                &bull; A brief description of what happened or what you were trying to do
-                <br />
-                &bull; The assistive technology or browser you were using, if known
-              </P>
+              <ul style={{ margin: 0, paddingLeft: 22, display: "flex", flexDirection: "column", gap: 8 }}>
+                <li>The page or feature where you encountered the issue (a URL is helpful)</li>
+                <li>A brief description of what happened or what you were trying to do</li>
+                <li>The assistive technology or browser you were using, if known</li>
+              </ul>
               <P>
                 We aim to acknowledge accessibility feedback within{" "}
                 [[DEFAULT: 2]] business days and to provide a substantive response

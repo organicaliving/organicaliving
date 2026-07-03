@@ -79,8 +79,9 @@ export default function PrivacyPage() {
               <P>
                 <strong>Cookies and similar technologies.</strong> We use cookies and
                 similar browser storage to keep you signed in, remember your preferences,
-                and understand aggregate usage patterns. See Section&nbsp;5 (Cookies) for
-                details and your opt-out options.
+                and understand aggregate usage patterns. See the{" "}
+                <a href="#cookies" style={{ color: "#1c3a13" }}>Cookies &amp; Tracking section below</a>{" "}
+                for details and your opt-out options.
               </P>
             </>
           ),
