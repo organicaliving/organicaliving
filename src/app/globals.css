@@ -89,11 +89,13 @@
 
 /* ---- nav: desktop → burger, and hide desktop hover panels (900) ---- */
 [data-burger] { display: none; }
+[data-mobile-cart] { display: none; }
 [data-mobile-menu] { display: none; }
 @media (max-width: 900px) {
   [data-desktop-nav] { display: none !important; }
   [data-desktop-actions] { display: none !important; }
   [data-burger] { display: flex !important; }
+  [data-mobile-cart] { display: inline-flex !important; }
   [data-mobile-menu] { display: flex !important; }
   /* desktop mega-menu + sign-in dropdown panels must not render on mobile
      (they are absolutely-positioned, fixed-width, and cause overflow) */
@@ -210,3 +212,16 @@ h6 {
   transform: scale(1.5);
   z-index: 5;
 }
+
+/* --- cart affordance feedback --- */
+@keyframes og-pop-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes og-bump {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+.og-cart-pop  { animation: og-pop-in .28s cubic-bezier(0.34,1.56,0.64,1) both; }
+.og-cart-bump { animation: og-bump .3s ease-out both; }
