@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useCartDrawer } from "@/components/cart/CartDrawerProvider";
 
@@ -13,8 +13,13 @@ export function CartDrawer({
   const { open, closeDrawer } = useCartDrawer();
   const pathname = usePathname();
 
+  const mountedRef = useRef(false);
   // Close on soft navigation so the drawer never lingers over the next page.
   useEffect(() => {
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      return;
+    }
     closeDrawer();
   }, [pathname, closeDrawer]);
 
