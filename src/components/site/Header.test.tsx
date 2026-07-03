@@ -1,3 +1,4 @@
+import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 
@@ -20,7 +21,21 @@ vi.mock("@/lib/cart/queries", () => ({
 }));
 
 vi.mock("@/components/cart/CartCountBadge", () => ({
-  CartCountBadge: () => null,
+  CartCountBadge: ({ itemCount }: { itemCount: number }) =>
+    itemCount > 0 ? <span>Cart</span> : null,
+}));
+vi.mock("@/components/cart/CartDrawer", () => ({
+  CartDrawer: ({ children, footer }: { children: React.ReactNode; footer?: React.ReactNode }) => (
+    <div>{children}{footer}</div>
+  ),
+}));
+vi.mock("@/components/cart/CartDrawerBody", () => ({ CartDrawerBody: () => null }));
+vi.mock("@/components/cart/CartDrawerFooter", () => ({ CartDrawerFooter: () => null }));
+vi.mock("@/components/cart/CartDrawerProvider", () => ({
+  CartDrawerProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
+vi.mock("@/components/cart/CartTrigger", () => ({
+  CartTrigger: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
 
 // NavMenus renders client-side hover menus. In tests we render a simple nav
