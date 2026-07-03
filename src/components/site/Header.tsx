@@ -116,7 +116,6 @@ export async function Header() {
                 </span>
               </CartTrigger>
             ) : null}
-            {/* @ts-expect-error itemCount prop added in Task 9 */}
             <MobileMenu isLoggedIn={!!user} itemCount={itemCount} />
           </div>
         </div>
