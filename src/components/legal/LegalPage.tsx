@@ -95,7 +95,10 @@ export function LegalPage({
 
           {/* Sticky table of contents */}
           {sections.length > 0 ? (
-            <aside style={{ position: "sticky", top: 96, alignSelf: "start" }}>
+            <aside
+              data-legal-toc
+              style={{ position: "sticky", top: 96, alignSelf: "start" }}
+            >
               <LegalToc
                 sections={sections.map((s) => ({ id: s.id, heading: s.heading }))}
               />

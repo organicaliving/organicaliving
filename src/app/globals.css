@@ -132,6 +132,9 @@
   [data-rgrid4-1up] { grid-template-columns: 1fr !important; }
   [data-rgrid6] { grid-template-columns: repeat(3, 1fr) !important; }
   [data-rcol2] { grid-template-columns: 1fr !important; gap: 30px !important; }
+  /* Legal-page Contents TOC: once the layout is single-column, stop it floating
+     (sticky) — otherwise it follows the scroll and covers the body copy. */
+  [data-legal-toc] { position: static !important; top: auto !important; }
   /* PDP gallery: keep the thumbnail strip a horizontal row (carousel-style)
      under the large main image, instead of collapsing to stacked full-width
      thumbnails via the generic grid-collapse rule above. */
