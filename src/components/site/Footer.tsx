@@ -37,7 +37,7 @@ const FOOTER_COLS: Array<{
   {
     title: "Help",
     links: [
-      { label: "Help", href: "/help" },
+      { label: "Help Center", href: "/help" },
       { label: "Contact", href: "/contact" },
       { label: "My Account", href: "/account" },
       { label: "International", href: "/help/orders-shipping" },
