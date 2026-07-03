@@ -15,6 +15,7 @@ import { formatPrice } from "@/lib/format";
 
 export type CheckoutLine = {
   key: string;
+  productSlug: string;
   name: string;
   quantity: number;
   lineCents: number;
@@ -375,26 +376,37 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
 
       {/* summary column */}
       <div data-co-summary style={{ background: "#f6f6f1", padding: "40px 40px 60px 48px", borderLeft: "1px solid #ece9de" }}>
-        {summary.lines.map((l) => (
+        {summary.lines.map((l) => {
+          // Thumbnail + name link to the product page. Open in a new tab so the
+          // shopper's in-progress checkout (address, Stripe state) is preserved.
+          const href = l.productSlug ? `/products/${l.productSlug}` : null;
+          const thumbBg = l.imageUrl
+            ? `url('${l.imageUrl.replace(".webp", "-hd.webp")}') center/125% no-repeat`
+            : "linear-gradient(160deg,#2f3f2a,#14201a)";
+          return (
           <div key={l.key} style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "14px 0" }}>
             <div style={{ position: "relative", width: 56, height: 56, flex: "none" }}>
-              <div
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: 10,
-                  border: "1px solid #e4e1d6",
-                  background: l.imageUrl
-                    ? `url('${l.imageUrl}') center/125% no-repeat #fff`
-                    : "linear-gradient(160deg,#2f3f2a,#14201a)",
-                }}
-              />
+              {href ? (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${l.name}`}
+                  style={{ display: "block", width: 56, height: 56, borderRadius: 10, background: thumbBg }}
+                />
+              ) : (
+                <div style={{ width: 56, height: 56, borderRadius: 10, background: thumbBg }} />
+              )}
               <span style={{ position: "absolute", top: -7, right: -7, width: 20, height: 20, borderRadius: "50%", background: "#3a3a36", color: "#fff", fontSize: 11, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 {l.quantity}
               </span>
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "#1a1a1a" }}>{l.name}</div>
+              {href ? (
+                <a href={href} target="_blank" rel="noopener noreferrer" className="og-co-item-link" style={{ fontSize: 14, fontWeight: 600, color: "#1a1a1a", textDecoration: "none" }}>{l.name}</a>
+              ) : (
+                <div style={{ fontSize: 14, fontWeight: 600, color: "#1a1a1a" }}>{l.name}</div>
+              )}
               {l.intervalLabel ? (
                 <div style={{ fontSize: 12, color: "#6d6d6d", marginTop: 2 }}>{l.intervalLabel}</div>
               ) : null}
@@ -412,7 +424,8 @@ function CheckoutInner({ summary }: { summary: CheckoutSummary }) {
               <div style={{ fontSize: 14, fontWeight: 500 }}>{formatPrice(l.lineCents, summary.currency)}</div>
             </div>
           </div>
-        ))}
+          );
+        })}
 
         {/* discount code */}
         {summary.code ? (

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getActiveProducts } from "@/lib/catalog";
 import { ProductCard } from "@/components/catalog/ProductCard";
+import { ProductCardAddToCart } from "@/components/catalog/ProductCardAddToCart";
 import { defaultVariant } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
 import { imageUrl } from "@/lib/format";
@@ -55,6 +56,7 @@ export default async function ProductsPage() {
           {/* Featured product card */}
           {featured && (
             <div
+              data-prodcard
               className="relative rounded-[18px] bg-[#22401a] p-10"
               style={{
                 display: "grid",
@@ -75,8 +77,9 @@ export default async function ProductsPage() {
                 Bestseller
               </span>
 
-              {/* product image */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[14px]">
+              {/* product image — data-prodimg + no overflow-hidden so the global
+                  wireProdCard hover zoom (scale 1.25→1.875) can spill like the grid cards */}
+              <div data-prodimg className="relative aspect-[4/5] w-full rounded-[14px]">
                 {featuredImg ? (
                   <Image
                     src={featuredImg.replace(".webp", "-hd.webp")}
@@ -125,12 +128,12 @@ export default async function ProductsPage() {
                   >
                     Learn More
                   </Link>
-                  <Link
-                    href={`/products/${featured.slug}`}
-                    className="text-[13px] font-medium text-cream underline"
-                  >
-                    Add To Cart
-                  </Link>
+                  {featuredVariant && (
+                    <ProductCardAddToCart
+                      variantId={featuredVariant.id}
+                      className="text-[13px] font-medium text-cream underline"
+                    />
+                  )}
                 </div>
               </div>
             </div>

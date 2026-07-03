@@ -1,5 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+
+// ProductCard's "Add To Cart" control calls useRouter() — provide a stub.
+vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh: () => {} }) }));
+
 import { ProductCard } from "@/components/catalog/ProductCard";
 import type { ProductWithVariants } from "@/lib/products";
 

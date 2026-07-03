@@ -24,6 +24,7 @@ export default async function CheckoutPage() {
     const isSub = l.purchaseType === "subscription";
     return {
       key: `${l.variantId}-${l.purchaseType}`,
+      productSlug: l.productSlug,
       name: l.productName,
       quantity: l.quantity,
       lineCents: l.lineCents,

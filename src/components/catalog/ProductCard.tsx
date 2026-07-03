@@ -3,6 +3,7 @@ import Image from "next/image";
 import { imageUrl } from "@/lib/format";
 import { formatPrice } from "@/lib/format";
 import { defaultVariant, type ProductWithVariants } from "@/lib/products";
+import { ProductCardAddToCart } from "@/components/catalog/ProductCardAddToCart";
 
 /**
  * ProductCard — horizontal layout matching Products.dc.html.
@@ -92,12 +93,7 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
           >
             Learn More
           </Link>
-          <Link
-            href={href}
-            className="text-[13px] font-medium text-ink underline"
-          >
-            Add To Cart
-          </Link>
+          {variant && <ProductCardAddToCart variantId={variant.id} />}
         </div>
       </div>
     </div>
