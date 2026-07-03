@@ -17,33 +17,14 @@ export function LegalPage({
   intro,
   sections,
   lastUpdated,
-  draftNotice,
 }: {
   title: string;
   intro: ReactNode;
   sections: LegalSection[];
   lastUpdated: string;
-  draftNotice: string;
 }) {
   return (
     <main style={{ background: CREAM, color: INK, minHeight: "100vh" }}>
-      {/* Amber draft banner */}
-      <div
-        role="alert"
-        style={{
-          background: "#fef3c7",
-          borderBottom: "1px solid #f59e0b",
-          padding: "12px 24px",
-          fontSize: 14,
-          lineHeight: 1.5,
-          color: "#78350f",
-          textAlign: "center",
-          fontFamily: MONO,
-        }}
-      >
-        {draftNotice}
-      </div>
-
       {/* Page body — full-width container with a two-column docs layout:
           a sticky table-of-contents sidebar beside a readable prose column,
           centered as a pair so the page fills the width like the brand pages

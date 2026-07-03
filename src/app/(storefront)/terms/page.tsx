@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal/LegalPage";
-import { LEGAL_META, DRAFT_NOTICE } from "@/lib/legal-content";
+import { LEGAL_META } from "@/lib/legal-content";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions — Organica Living",
@@ -18,7 +18,6 @@ export default function TermsPage() {
     <LegalPage
       title="Terms & Conditions"
       lastUpdated={LEGAL_META.lastUpdated}
-      draftNotice={DRAFT_NOTICE}
       intro={
         <>
           <P>

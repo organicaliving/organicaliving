@@ -13,6 +13,3 @@ export const LEGAL_META = {
   careEmail: "care@organicaliving.com",
   lastUpdated: "July 2, 2026",
 } as const;
-
-export const DRAFT_NOTICE =
-  "Draft — pending legal review. This document is a working draft and not yet a binding legal agreement.";
