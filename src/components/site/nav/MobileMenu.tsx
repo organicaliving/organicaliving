@@ -4,7 +4,6 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "@/components/ui/ArrowRight";
-import { useCartDrawer } from "@/components/cart/CartDrawerProvider";
 
 /* ------------------------------------------------------------------ */
 /* Shop products list                                                   */
@@ -26,8 +25,6 @@ type TabName = "shop" | "science" | "learn" | "account";
 interface MobileMenuProps {
   /** Whether user is logged in — controls Sign In vs Account links */
   isLoggedIn?: boolean;
-  /** Current cart item count — drives the "View cart" row */
-  itemCount: number;
 }
 
 /* Logged-in account links — mirrors the desktop AccountMenu dropdown. */
@@ -37,8 +34,7 @@ const ACCOUNT_LINKS = [
   { label: "Settings", href: "/account" },
 ];
 
-export function MobileMenu({ isLoggedIn, itemCount }: MobileMenuProps) {
-  const { openDrawer } = useCartDrawer();
+export function MobileMenu({ isLoggedIn }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabName>("shop");
   const menuRef = useRef<HTMLDivElement>(null);
@@ -188,31 +184,6 @@ export function MobileMenu({ isLoggedIn, itemCount }: MobileMenuProps) {
 
         {/* Scrollable content */}
         <div style={{ overflowY: "auto", padding: "8px 24px 24px" }}>
-          {itemCount > 0 ? (
-            <button
-              type="button"
-              aria-label={`View cart (${itemCount})`}
-              onClick={() => { closeMenu(); openDrawer(); }}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "100%",
-                margin: "4px 0 10px",
-                padding: "13px 16px",
-                borderRadius: 14,
-                background: "#1c3a13",
-                color: "#fcfcf7",
-                border: "none",
-                fontSize: 15,
-                fontWeight: 500,
-                cursor: "pointer",
-              }}
-            >
-              <span>View cart ({itemCount})</span>
-              <ArrowRight size={15} />
-            </button>
-          ) : null}
           {/* SHOP pane */}
           <div data-mpane="shop" style={{ display: activeTab === "shop" ? undefined : "none" }}>
             {SHOP_PRODUCTS.map((p) => (

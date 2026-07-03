@@ -117,7 +117,7 @@ export async function Header() {
                 </span>
               </CartTrigger>
             ) : null}
-            <MobileMenu isLoggedIn={!!user} itemCount={itemCount} />
+            <MobileMenu isLoggedIn={!!user} />
           </div>
         </div>
       </header>
