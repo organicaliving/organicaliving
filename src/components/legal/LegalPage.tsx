@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
+import { LegalToc } from "./LegalToc";
 
-const FOREST = "#1c3a13";
 const CREAM = "#fcfcf7";
 const INK = "#1a1a1a";
 const MONO = "var(--font-mono)";
@@ -95,66 +95,10 @@ export function LegalPage({
 
           {/* Sticky table of contents */}
           {sections.length > 0 ? (
-            <aside style={{ position: "sticky", top: 24, alignSelf: "start" }}>
-              <nav
-                aria-label="Page contents"
-                style={{
-                  background: "#f4f1e6",
-                  border: "1px solid #d5d9c8",
-                  borderRadius: 12,
-                  padding: "22px 24px",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 600,
-                    letterSpacing: 1,
-                    textTransform: "uppercase",
-                    color: "#2c4a35",
-                    fontFamily: MONO,
-                    marginBottom: 14,
-                  }}
-                >
-                  Contents
-                </div>
-                <ol
-                  style={{
-                    margin: 0,
-                    paddingLeft: 20,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 8,
-                  }}
-                >
-                  {sections.map((section, index) => (
-                    <li key={section.id} style={{ fontSize: 14, lineHeight: 1.45 }}>
-                      <a
-                        href={`#${section.id}`}
-                        style={{
-                          color: FOREST,
-                          textDecoration: "none",
-                          display: "inline-flex",
-                          alignItems: "baseline",
-                          gap: 8,
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: MONO,
-                            fontSize: 11,
-                            color: "#8a8a80",
-                            minWidth: 22,
-                          }}
-                        >
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        {section.heading}
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
+            <aside style={{ position: "sticky", top: 96, alignSelf: "start" }}>
+              <LegalToc
+                sections={sections.map((s) => ({ id: s.id, heading: s.heading }))}
+              />
             </aside>
           ) : null}
 
@@ -187,6 +131,7 @@ export function LegalPage({
                   key={section.id}
                   id={section.id}
                   aria-labelledby={`${section.id}-heading`}
+                  style={{ scrollMarginTop: 96 }}
                 >
                   {/* Section number + heading */}
                   <div
