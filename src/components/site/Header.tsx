@@ -96,8 +96,9 @@ export async function Header() {
             )}
           </div>
 
-          {/* Mobile: cart icon (≤900px) + burger */}
-          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          {/* Mobile: cart icon (≤900px) + burger. Hidden on desktop via
+              [data-mobile-actions] so the header keeps two space-between items. */}
+          <div data-mobile-actions style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             {itemCount > 0 ? (
               <CartTrigger
                 data-mobile-cart

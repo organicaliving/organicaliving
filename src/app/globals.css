@@ -91,9 +91,16 @@
 [data-burger] { display: none; }
 [data-mobile-cart] { display: none; }
 [data-mobile-menu] { display: none; }
+/* The mobile actions wrapper (cart icon + burger) is an in-flow flex item in the
+   header row; hide it on desktop so the header keeps exactly two space-between
+   items (logo left, desktop actions right) and the auth cluster stays right-aligned.
+   !important is required to beat the element's inline display:flex, mirroring the
+   [data-desktop-actions] hide rule below. */
+[data-mobile-actions] { display: none !important; }
 @media (max-width: 900px) {
   [data-desktop-nav] { display: none !important; }
   [data-desktop-actions] { display: none !important; }
+  [data-mobile-actions] { display: flex !important; }
   [data-burger] { display: flex !important; }
   [data-mobile-cart] { display: inline-flex !important; }
   [data-mobile-menu] { display: flex !important; }
