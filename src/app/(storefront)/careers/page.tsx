@@ -38,12 +38,12 @@ const CULTURE_PILLARS = [
   {
     k: "05",
     t: "Wellness that includes you",
-    d: "[[DEFAULT: health coverage, parental leave, PTO allowance, and remote/flexible-work stipend terms to be confirmed.]] We believe the people who make wellness products should be well — and our benefits are designed with that in mind.",
+    d: "We believe the people who make wellness products should be well — and our benefits are designed with that in mind: comprehensive health, dental and vision coverage, paid parental leave, generous paid time off, and a remote/flexible-work and wellness stipend.",
   },
   {
     k: "06",
     t: "Room to grow",
-    d: "[[DEFAULT: learning & development budget and promotion criteria to be confirmed.]] Organica Living is still building. The people who join now help shape what it becomes.",
+    d: "Organica Living is still building, and the people who join now help shape what it becomes. We support your growth with an annual learning-and-development budget and clear, merit-based advancement.",
   },
 ];
 

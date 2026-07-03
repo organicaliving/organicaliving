@@ -146,7 +146,7 @@ export default function TermsPage() {
               </P>
               <P>
                 We may change subscription prices with advance notice. If we do, we will
-                email you at least [[DEFAULT: 14]] days before the new price takes effect
+                email you at least 30 days before the new price takes effect
                 and give you the option to cancel before being charged at the new rate.
               </P>
             </>
@@ -171,7 +171,7 @@ export default function TermsPage() {
               </P>
               <P>
                 If a package is marked delivered but you have not received it, please
-                contact us within [[DEFAULT: 5]] business days and we will work with you
+                contact us within 5 business days and we will work with you
                 to investigate. Claims submitted after that window may not be eligible for
                 replacement or refund.
               </P>
@@ -190,7 +190,7 @@ export default function TermsPage() {
               <P>
                 We stand behind the quality of our products. If you are not satisfied with
                 your purchase, you may be eligible for a return or refund within
-                [[DEFAULT: 30]] days of the delivery date, subject to the conditions
+                30 days of the delivery date, subject to the conditions
                 described in our{" "}
                 <Link href="/help/returns-refunds" style={{ color: "#1c3a13" }}>
                   Returns &amp; Refunds policy
@@ -315,7 +315,7 @@ export default function TermsPage() {
               <P>
                 OUR TOTAL LIABILITY TO YOU FOR ANY CLAIM ARISING OUT OF OR RELATING TO
                 THESE TERMS OR YOUR USE OF THE SITE SHALL NOT EXCEED THE GREATER OF (A)
-                THE AMOUNT YOU PAID TO US IN THE [[DEFAULT: 12]] MONTHS PRECEDING THE
+                THE AMOUNT YOU PAID TO US IN THE 12 MONTHS PRECEDING THE
                 CLAIM OR (B) ONE HUNDRED US DOLLARS ($100).
               </P>
               <P>

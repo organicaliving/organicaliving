@@ -90,9 +90,9 @@ export default function ConsentPage() {
               </P>
               <P>
                 <strong>Data shared:</strong> aggregated, non-personally
-                identifying usage data processed by our analytics provider.
-                [[DEFAULT: Confirm analytics provider — e.g. Plausible, Vercel
-                Analytics, or similar privacy-preserving tool.]] We do not share
+                identifying usage data processed by Plausible Analytics. Plausible
+                receives an anonymized page URL, referrer, browser and device type,
+                and country — no cookies, no personal identifiers. We do not share
                 analytics data with advertising networks.
               </P>
               <P>
@@ -125,12 +125,12 @@ export default function ConsentPage() {
                 conversion rates for any paid or social campaigns we run.
               </P>
               <P>
-                <strong>Data shared:</strong> [[DEFAULT: list the specific
-                ad/retargeting platforms used — e.g. Meta Pixel, Google Ads,
-                Pinterest Tag — and link to their respective privacy policies.]]
+                <strong>Data shared:</strong> We do not currently use
+                ad-retargeting or conversion-tracking cookies (such as Meta Pixel
+                or Google Ads tags). If this changes, we will update this page
+                before any such cookies are set.
                 We do not share your name, email address, or order details
-                through these cookies; only the pseudonymous identifier and
-                behavioral event data are transmitted.
+                through these technologies.
               </P>
               <P>
                 Marketing cookies are entirely optional. Declining them will not
@@ -151,14 +151,13 @@ export default function ConsentPage() {
           body: (
             <>
               <P>
-                <strong>Consent management tool.</strong> We are building an
-                in-browser preference center that will let you toggle each
-                non-essential category on or off with a single click and have
-                your choice remembered for future visits.{" "}
-                <em>
-                  [[DEFAULT: consent management tool integration pending — this
-                  section will be updated once the tool is live.]]
-                </em>
+                <strong>Cookie defaults and browser controls.</strong> Only
+                essential cookies are set by default — no analytics or marketing
+                cookies are placed without your knowledge. You can manage or
+                remove cookies at any time through your browser settings. A
+                full in-browser preference center is in development and will be
+                available here once it launches; until then, please use the
+                email option below or your browser controls.
               </P>
               <P>
                 <strong>Request by email (available now).</strong> Until the
@@ -170,7 +169,7 @@ export default function ConsentPage() {
                 with the subject line &ldquo;Consent Preferences.&rdquo; Please
                 tell us which categories you want to enable or disable, and we
                 will action your request and confirm by reply within{" "}
-                [[DEFAULT: 5 business days]].
+                5 business days.
               </P>
               <P>
                 <strong>Browser-level controls.</strong> Every major browser

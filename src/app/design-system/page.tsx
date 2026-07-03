@@ -1363,7 +1363,7 @@ export default function DesignSystemPage() {
             ORGANICA LIVING — DESIGN SYSTEM v1.0
           </div>
           <div style={{ fontSize: 12, color: "#8a8a80" }}>
-            © 2026 Organica Living, Inc.
+            © 2026 Organica Living Ltd. Co.
           </div>
         </div>
       </footer>

@@ -18,12 +18,12 @@ const PROGRAM_PILLARS = [
   {
     k: "01",
     t: "Professional pricing",
-    d: "[[DEFAULT: wholesale/pro discount percentage and minimum order terms to be confirmed.]] Qualified practitioners receive preferred pricing on the full Organica Living range.",
+    d: "Qualified practitioners receive a 20% professional discount on both personal and dispensing orders, with no minimum order, across the full Organica Living range.",
   },
   {
     k: "02",
     t: "Referral support",
-    d: "[[DEFAULT: referral tracking and client-link terms to be confirmed.]] Share a personal practitioner link with clients so they always find the right formula — and we handle fulfillment.",
+    d: "Share a unique practitioner code your clients enter at checkout, with redemptions visible in your practitioner dashboard. We handle fulfillment — you get the credit.",
   },
   {
     k: "03",
@@ -43,7 +43,7 @@ const PROGRAM_PILLARS = [
   {
     k: "06",
     t: "Simple application",
-    d: "[[DEFAULT: application review timeline and credential requirements to be confirmed.]] Email practitioners@organicaliving.com with your credentials to get started.",
+    d: "Apply with a valid professional license or credential — for example MD, DO, ND, RD, RN, DC, LAc, or equivalent. Email practitioners@organicaliving.com with your credentials and we will review your application within 2 business days.",
   },
 ];
 
@@ -66,7 +66,7 @@ const PRACTITIONER_FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: "How long does the application review take?",
-    a: "[[DEFAULT: application review timeline to be confirmed.]] Once we receive your email with credentials, our practitioner team will respond with next steps.",
+    a: "We review applications within 2 business days. Once we receive your email with credentials, our practitioner team will respond with next steps.",
   },
 ];
 

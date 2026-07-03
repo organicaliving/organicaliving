@@ -134,11 +134,9 @@ export default function AccessibilityPage() {
                 and advocate for improvements when gaps are identified.
               </P>
               <P>
-                <strong>Rich media.</strong> Video content, if present, may lack
-                closed captions or audio descriptions. We are assessing the scope of
-                this gap and will prioritize captioning for any educational or
-                product-related videos going forward. [[DEFAULT: confirm whether any video
-                content is currently published]]
+                <strong>Rich media.</strong> We provide captions on all video content
+                we publish. If you encounter a video without captions, please report it
+                using the contact details below and we will prioritize a fix.
               </P>
               <P>
                 <strong>Legacy content.</strong> Older blog posts and educational articles
@@ -174,8 +172,8 @@ export default function AccessibilityPage() {
               </ul>
               <P>
                 We aim to acknowledge accessibility feedback within{" "}
-                [[DEFAULT: 2]] business days and to provide a substantive response
-                or interim workaround within [[DEFAULT: 5]] business days. If the
+                2 business days and to provide a substantive response
+                or interim workaround within 5 business days. If the
                 issue requires a longer fix, we will keep you informed of our progress.
               </P>
             </>

@@ -73,8 +73,8 @@ export default function PrivacyPage() {
                 about how visitors interact with the Site — pages visited, time spent,
                 referral source, and general device/browser type. This data is
                 aggregated and used to improve our products and website experience.
-                [[DEFAULT: Confirm analytics provider — e.g. Plausible, Vercel Analytics,
-                or similar privacy-preserving tool.]]
+                We use Plausible Analytics (a privacy-first, cookieless analytics service)
+                that collects no personally identifiable information.
               </P>
               <P>
                 <strong>Cookies and similar technologies.</strong> We use cookies and
@@ -130,7 +130,7 @@ export default function PrivacyPage() {
                 <li><strong>Order fulfillment and shipping.</strong> We share your name and shipping address with our fulfillment partners and carriers so they can deliver your order.</li>
                 <li><strong>Email delivery.</strong> Transactional and marketing emails are sent through our email provider (Resend). They receive your email address and the content of messages we send you.</li>
                 <li><strong>Authentication and database.</strong> Account credentials and order data are stored with our infrastructure provider (Supabase), which operates under its own privacy and security commitments.</li>
-                <li><strong>Analytics.</strong> Aggregated, non-personally-identifying usage data may be processed by our analytics provider. [[DEFAULT: Specify provider.]]</li>
+                <li><strong>Analytics.</strong> Aggregated, non-personally-identifying usage data is processed by Plausible Analytics (a privacy-first, cookieless analytics service) — no personal data is shared with them.</li>
               </ul>
               <P>
                 We may also disclose information when required to do so by law, court order,
@@ -236,7 +236,7 @@ export default function PrivacyPage() {
               <P>
                 To submit a privacy rights request, email us at{" "}
                 <a href={`mailto:${LEGAL_META.privacyEmail}`}>{LEGAL_META.privacyEmail}</a>.
-                We will respond within [[DEFAULT: 30]] days. We may ask you to verify
+                We will respond within 30 days. We may ask you to verify
                 your identity before fulfilling a request.
               </P>
             </>
@@ -255,9 +255,9 @@ export default function PrivacyPage() {
               <P>
                 Account information is retained for as long as your account is active.
                 If you close your account, we will delete or anonymize your personal
-                information within [[DEFAULT: 90]] days, except where we are required to
+                information within 30 days, except where we are required to
                 retain it — for example, order records that we must keep for tax or
-                accounting purposes for [[DEFAULT: 7]] years.
+                accounting purposes for 7 years.
               </P>
               <P>
                 Marketing email preferences and suppression lists are kept until you
@@ -325,10 +325,10 @@ export default function PrivacyPage() {
               </P>
               <P>
                 Where required by applicable law, we rely on appropriate transfer mechanisms
-                to ensure your personal information receives adequate protection — for
-                example, Standard Contractual Clauses approved by the European Commission
-                for transfers from the EEA. [[DEFAULT: Confirm transfer mechanisms with
-                legal counsel before shipping to EU/UK customers.]]
+                to ensure your personal information receives adequate protection. For
+                transfers of personal data from the EEA or the UK to the United States,
+                we rely on Standard Contractual Clauses (SCCs) approved by the European
+                Commission.
               </P>
               <P>
                 By using the Site you acknowledge that your information may be transferred

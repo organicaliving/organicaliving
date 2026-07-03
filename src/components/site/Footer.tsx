@@ -242,7 +242,7 @@ export function Footer() {
             }}
           />
           <div style={{ marginTop: "20px", fontSize: "12px", color: "#7d8c77" }}>
-            © 2026 Organica Living (Organica Living, Inc.)
+            © 2026 Organica Living Ltd. Co.
           </div>
         </div>
       </footer>

@@ -1,8 +1,8 @@
 /**
  * Help-center content module — the single data source for all /help routes.
  *
- * Policy specifics that have not been confirmed internally are marked
- * [[DEFAULT: …]] so they can be swapped for real commitments before launch.
+ * Policy specifics that had not been confirmed internally were formerly marked
+ * as placeholders so they could be swapped for real commitments before launch.
  * All copy is original and grounded in Organica Living's vitamin/supplement
  * voice. Contact: care@organicaliving.com.
  */
@@ -93,19 +93,19 @@ const ordersShipping: HelpCategory = {
           items: [
             {
               q: "How long does standard shipping take?",
-              a: "[[DEFAULT: Standard orders typically arrive within 5–7 business days after processing.]]",
+              a: "Standard orders typically arrive within 5–7 business days after processing.",
             },
             {
               q: "Is there an expedited option?",
-              a: "[[DEFAULT: Expedited shipping (2–3 business days) is available at checkout for an additional fee.]]",
+              a: "Expedited shipping (2–3 business days) is available at checkout for an additional fee.",
             },
             {
               q: "Do I qualify for free shipping?",
-              a: "[[DEFAULT: Orders over a qualifying threshold receive free standard shipping — the exact threshold is displayed at checkout.]]",
+              a: "Orders over $50 receive free standard shipping — this threshold is also displayed at checkout.",
             },
             {
               q: "How long does order processing take?",
-              a: "Most orders are processed and handed to the carrier within [[DEFAULT: 1–2 business days]] of being placed. Orders placed on weekends or public holidays are processed on the next business day.",
+              a: "Most orders are processed and handed to the carrier within 1–2 business days of being placed. Orders placed on weekends or public holidays are processed on the next business day.",
             },
           ],
         },
@@ -118,11 +118,11 @@ const ordersShipping: HelpCategory = {
       blocks: [
         {
           kind: "p",
-          text: "We currently ship to [[DEFAULT: select international destinations]]. International orders may be subject to customs duties, import taxes, and local fees imposed by the destination country. These charges are the responsibility of the recipient and are not included in our shipping rates.",
+          text: "We currently ship to Canada, the United Kingdom, Australia, and select destinations across Europe. International orders may be subject to customs duties, import taxes, and local fees imposed by the destination country. These charges are the responsibility of the recipient and are not included in our shipping rates.",
         },
         {
           kind: "p",
-          text: "Delivery times for international shipments vary by destination but generally range from [[DEFAULT: 10–21 business days]] after dispatch. Customs processing can occasionally extend this window.",
+          text: "Delivery times for international shipments vary by destination but generally range from 10–21 business days after dispatch. Customs processing can occasionally extend this window.",
         },
         {
           kind: "callout",
@@ -173,11 +173,11 @@ const subscriptions: HelpCategory = {
         },
         {
           kind: "p",
-          text: "Your payment method is charged automatically before each renewal. You will receive an email reminder [[DEFAULT: 3–5 days]] before every billing date so you have time to skip, adjust, or cancel if your needs change.",
+          text: "Your payment method is charged automatically before each renewal. You will receive an email reminder 3–5 days before every billing date so you have time to skip, adjust, or cancel if your needs change.",
         },
         {
           kind: "callout",
-          text: "[[DEFAULT: Subscribe & Save members receive a recurring discount on every order — the exact percentage is shown on each product page.]]",
+          text: "Subscribe & Save members receive a 15% discount on every order, applied automatically at each renewal.",
         },
       ],
     },
@@ -201,7 +201,7 @@ const subscriptions: HelpCategory = {
         },
         {
           kind: "p",
-          text: "To avoid being charged for the next cycle, changes must be made at least [[DEFAULT: 24 hours]] before your next scheduled billing date. If you miss that window, the order will process normally and you can return it under our standard returns policy.",
+          text: "To avoid being charged for the next cycle, changes must be made at least 24 hours before your next scheduled billing date. If you miss that window, the order will process normally and you can return it under our standard returns policy.",
         },
       ],
     },
@@ -222,7 +222,7 @@ const subscriptions: HelpCategory = {
         },
         {
           kind: "p",
-          text: "Available frequencies are [[DEFAULT: every 1, 2, or 3 months]]. If you need a custom cadence, contact care@organicaliving.com and we will see what we can do.",
+          text: "Available frequencies are every 1, 2, or 3 months. If you need a custom cadence, contact care@organicaliving.com and we will see what we can do.",
         },
       ],
     },
@@ -236,11 +236,11 @@ const subscriptions: HelpCategory = {
           items: [
             {
               q: "When will my card be charged?",
-              a: "Your card is charged on your renewal date, which is set to the same day of the month as your original subscription purchase. You will receive a heads-up email [[DEFAULT: 3–5 days]] before it processes.",
+              a: "Your card is charged on your renewal date, which is set to the same day of the month as your original subscription purchase. You will receive a heads-up email 3–5 days before it processes.",
             },
             {
               q: "When does my order ship after renewal?",
-              a: "Subscription renewals are processed and dispatched within [[DEFAULT: 1–2 business days]] of the billing date.",
+              a: "Subscription renewals are processed and dispatched within 1–2 business days of the billing date.",
             },
             {
               q: "What happens if my payment fails?",
@@ -261,7 +261,7 @@ const subscriptions: HelpCategory = {
         },
         {
           kind: "p",
-          text: "[[DEFAULT: The discount percentage varies by product and is displayed on each product page.]] Promotional codes cannot typically be stacked with the subscription discount unless a promotion explicitly states otherwise.",
+          text: "Subscribe & Save members receive a 15% discount on every recurring order. Promotional codes cannot typically be stacked with the subscription discount unless a promotion explicitly states otherwise.",
         },
         {
           kind: "callout",
@@ -289,15 +289,15 @@ const returnsRefunds: HelpCategory = {
       blocks: [
         {
           kind: "p",
-          text: "We want you to be completely satisfied with every order. If you are not happy with your purchase for any reason, you may return it within [[DEFAULT: 30 days]] of the delivery date for a full refund.",
+          text: "We want you to be completely satisfied with every order. If you are not happy with your purchase for any reason, you may return it within 30 days of the delivery date for a full refund.",
         },
         {
           kind: "p",
-          text: "To be eligible for a return, the product must be [[DEFAULT: in its original condition — unused and in the original packaging]]. For hygiene reasons, opened products may only be returned if they are defective or damaged.",
+          text: "To be eligible for a return, the product must be unused and in original packaging (opened only if defective or damaged). For hygiene reasons, opened products may only be returned if they are defective or damaged.",
         },
         {
           kind: "callout",
-          text: "Subscription orders follow the same policy. If you forgot to skip and received an unwanted renewal, contact us within [[DEFAULT: 30 days]] and we will make it right.",
+          text: "Subscription orders follow the same policy. If you forgot to skip and received an unwanted renewal, contact us within 30 days and we will make it right.",
         },
       ],
     },
@@ -311,7 +311,7 @@ const returnsRefunds: HelpCategory = {
           items: [
             "Email care@organicaliving.com with subject line 'Return Request — Order #[your order number]'.",
             "Include your reason for returning and whether you would like a refund or an exchange.",
-            "Our team will respond within [[DEFAULT: 1–2 business days]] with a return authorisation and shipping instructions.",
+            "Our team will respond within 1–2 business days with a return authorisation and shipping instructions.",
             "Pack the item securely and attach the return label (or ship to the address provided).",
             "Once we receive and inspect the return, we will process your refund or ship your replacement.",
           ],
@@ -329,11 +329,11 @@ const returnsRefunds: HelpCategory = {
       blocks: [
         {
           kind: "p",
-          text: "Once we receive your returned item and confirm it meets the return criteria, your refund will be processed within [[DEFAULT: 3–5 business days]]. The refund is issued to the original payment method used at checkout.",
+          text: "Once we receive your returned item and confirm it meets the return criteria, your refund will be processed within 3–5 business days. The refund is issued to the original payment method used at checkout.",
         },
         {
           kind: "p",
-          text: "After we issue the refund, your bank or card provider may take an additional [[DEFAULT: 3–10 business days]] to post the credit to your account, depending on their processing times.",
+          text: "After we issue the refund, your bank or card provider may take an additional 3–10 business days to post the credit to your account, depending on their processing times.",
         },
         {
           kind: "callout",
@@ -348,7 +348,7 @@ const returnsRefunds: HelpCategory = {
       blocks: [
         {
           kind: "p",
-          text: "We are sorry about that — it should not happen, and we will fix it promptly. Please email care@organicaliving.com within [[DEFAULT: 14 days]] of delivery with your order number and a photo of the damage or the wrong item.",
+          text: "We are sorry about that — it should not happen, and we will fix it promptly. Please email care@organicaliving.com within 14 days of delivery with your order number and a photo of the damage or the wrong item.",
         },
         {
           kind: "p",
@@ -399,7 +399,7 @@ const productsUsage: HelpCategory = {
             },
             {
               q: "Sleep Pro+",
-              a: "Take the directed serving [[DEFAULT: 30–60 minutes]] before bedtime. Do not drive or operate heavy machinery after taking.",
+              a: "Take the directed serving 30–60 minutes before bedtime. Do not drive or operate heavy machinery after taking.",
             },
             {
               q: "Glow Pro",
@@ -436,7 +436,7 @@ const productsUsage: HelpCategory = {
         },
         {
           kind: "p",
-          text: "Sleep Pro+ is the exception: take it in the evening, [[DEFAULT: 30–60 minutes]] before you intend to sleep, and avoid driving or operating machinery afterwards.",
+          text: "Sleep Pro+ is the exception: take it in the evening, 30–60 minutes before you intend to sleep, and avoid driving or operating machinery afterwards.",
         },
       ],
     },
@@ -577,7 +577,7 @@ const accountPayments: HelpCategory = {
         },
         {
           kind: "p",
-          text: "Reset links expire after [[DEFAULT: 60 minutes]]. If yours has expired, simply request a new one. If the email never arrives, check your spam folder or contact care@organicaliving.com.",
+          text: "Reset links expire after 60 minutes. If yours has expired, simply request a new one. If the email never arrives, check your spam folder or contact care@organicaliving.com.",
         },
       ],
     },
@@ -628,7 +628,7 @@ const accountPayments: HelpCategory = {
       blocks: [
         {
           kind: "p",
-          text: "We accept all major credit and debit cards and digital wallets [[DEFAULT: confirm enabled payment methods — e.g. Visa, Mastercard, American Express, Discover; Apple Pay and Google Pay]] at checkout on compatible devices and browsers.",
+          text: "We accept all major credit and debit cards — Visa, Mastercard, American Express, and Discover — as well as digital wallets including Apple Pay and Google Pay on compatible devices and browsers.",
         },
         {
           kind: "p",
@@ -694,7 +694,7 @@ const aboutContact: HelpCategory = {
       blocks: [
         {
           kind: "p",
-          text: "The fastest way to reach the Organica Living team is by email: care@organicaliving.com. We aim to respond to all enquiries within [[DEFAULT: 1–2 business days]].",
+          text: "The fastest way to reach the Organica Living team is by email: care@organicaliving.com. We aim to respond to all enquiries within 1–2 business days.",
         },
         {
           kind: "p",
