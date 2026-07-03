@@ -43,8 +43,9 @@ export default function TermsPage() {
           body: (
             <>
               <P>
-                {LEGAL_META.entity} operates this website and related digital properties
-                (collectively, the &ldquo;Site&rdquo;). By accessing any part of the Site,
+                {LEGAL_META.entity}{" "}operates this website and related digital
+                properties (collectively, the &ldquo;Site&rdquo;). By accessing any part
+                of the Site,
                 clicking &ldquo;I agree,&rdquo; completing a purchase, or creating an
                 account, you enter into a binding agreement with us under these Terms.
               </P>
@@ -233,7 +234,7 @@ export default function TermsPage() {
               </P>
               <P>
                 The Organica Living name, logo, and product names are trademarks of{" "}
-                {LEGAL_META.entity}. Nothing in these Terms grants you a license to use
+                {LEGAL_META.entity}{" "}Nothing in these Terms grants you a license to use
                 our trademarks. Any unauthorized use may violate trademark law and is
                 strictly prohibited.
               </P>
