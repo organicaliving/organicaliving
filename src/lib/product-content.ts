@@ -23,6 +23,12 @@ export type ProductMeta = {
   narrative: string[];
   benefits: Benefit[];
   howToUse: string;
+  /**
+   * Extra gallery photos shown after the main product image, in order. Each is
+   * a `/images/<base>` path; the gallery derives its thumbnail from
+   * `<base>-thumb.webp`. Omit to fall back to a single-photo (repeated) gallery.
+   */
+  gallery?: string[];
 };
 
 /** Display order used for nav, cross-sell, and listings. */
@@ -63,6 +69,12 @@ export const PRODUCT_META: Record<string, ProductMeta> = {
       { t: "Sustained Release", d: "Granules dissolve gradually for steady absorption, not a single spike." },
     ],
     howToUse: "Take 2 capsules daily, with food.",
+    gallery: [
+      "/images/multi-pro-2.webp",
+      "/images/multi-pro-3.webp",
+      "/images/multi-pro-4.webp",
+      "/images/multi-pro-5.webp",
+    ],
   },
   "optimus-d3": {
     name: "Optimus D3",

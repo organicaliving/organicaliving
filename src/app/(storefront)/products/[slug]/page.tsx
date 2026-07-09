@@ -87,7 +87,7 @@ export default async function ProductPage({
       <section style={{ maxWidth: 1440, margin: "0 auto", padding: "24px 40px 60px" }}>
         <div data-pdp-hero style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "start" }}>
           {/* gallery */}
-          <ProductGallery img={img} thumb={thumb} name={meta.name} form={meta.form} badge={meta.badge || undefined} />
+          <ProductGallery img={img} thumb={thumb} name={meta.name} form={meta.form} badge={meta.badge || undefined} gallery={meta.gallery} />
 
           {/* info */}
           <div>

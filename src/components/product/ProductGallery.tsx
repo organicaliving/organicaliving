@@ -3,24 +3,42 @@
 import { useCallback, useEffect, useState, type CSSProperties } from "react";
 
 type Props = {
-  img: string; // /images/<slug>.webp
+  img: string; // /images/<slug>.webp — main product photo
   thumb: string; // /images/<slug>-thumb.webp
   name: string;
   form: string;
   badge?: string;
+  /** Extra photos shown after the main image; each derives its thumb from `<base>-thumb.webp`. */
+  gallery?: string[];
 };
 
-// The catalog currently ships a single photo per product; the gallery presents
-// it as a 4-shot set (main + thumbnail strip). `photos`/`thumbs` are arrays so
-// this becomes a true multi-image carousel the moment distinct files are added.
-const SHOT_COUNT = 4;
+// Products with a single photo present it as a 4-shot set (main + repeated
+// thumbnail strip). When `gallery` provides distinct extra photos, the main
+// image plus those photos become a true multi-image carousel.
+const FALLBACK_SHOT_COUNT = 4;
 
-export function ProductGallery({ img, thumb, name, form, badge }: Props) {
+// The page thumbnail strip stays on a single row. When a product has more
+// photos than this, the last tile becomes a "+N" overlay that opens the
+// lightbox (which shows the full set).
+const MAX_VISIBLE_THUMBS = 4;
+
+const thumbFor = (src: string) => src.replace(/\.webp$/, "-thumb.webp");
+
+export function ProductGallery({ img, thumb, name, form, badge, gallery }: Props) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
 
-  const photos = Array.from({ length: SHOT_COUNT }, () => img);
-  const thumbs = Array.from({ length: SHOT_COUNT }, () => thumb);
+  const photos =
+    gallery && gallery.length > 0
+      ? [img, ...gallery]
+      : Array.from({ length: FALLBACK_SHOT_COUNT }, () => img);
+  const thumbs =
+    gallery && gallery.length > 0
+      ? [thumb, ...gallery.map(thumbFor)]
+      : Array.from({ length: FALLBACK_SHOT_COUNT }, () => thumb);
+  const SHOT_COUNT = photos.length;
+  const visibleThumbCount = Math.min(SHOT_COUNT, MAX_VISIBLE_THUMBS);
+  const hiddenThumbCount = SHOT_COUNT - visibleThumbCount;
 
   const close = useCallback(() => setOpen(false), []);
   const openAt = useCallback((i: number) => {
@@ -29,7 +47,7 @@ export function ProductGallery({ img, thumb, name, form, badge }: Props) {
   }, []);
   const go = useCallback(
     (dir: number) => setActive((i) => (i + dir + SHOT_COUNT) % SHOT_COUNT),
-    []
+    [SHOT_COUNT]
   );
 
   useEffect(() => {
@@ -47,8 +65,15 @@ export function ProductGallery({ img, thumb, name, form, badge }: Props) {
     };
   }, [open, go]);
 
-  const mainBg = `url('${img}') center 52%/125% no-repeat`;
-  const thumbBg = `url('${thumb}') center/125% no-repeat`;
+  // Shot 0 is the main product photo (jar on whitespace) — tuned to a slight
+  // bottom-anchored zoom. The extra gallery photos are full-bleed marketing
+  // shots. In the large preview they're sized `contain` so the whole photo
+  // shows; in the small thumbnail tiles they're `cover` so they fill the box
+  // (the tiles aren't perfectly square, and letterboxing looked unfinished).
+  const bgFor = (src: string, i: number, fill: boolean) =>
+    i === 0
+      ? `url('${src}') center 52%/125% no-repeat`
+      : `#fcfcf7 url('${src}') center/${fill ? "cover" : "contain"} no-repeat`;
 
   return (
     <>
@@ -57,7 +82,7 @@ export function ProductGallery({ img, thumb, name, form, badge }: Props) {
           type="button"
           data-zoomable
           aria-label={`Zoom ${name}`}
-          onClick={() => openAt(0)}
+          onClick={() => openAt(active)}
           style={{
             position: "relative",
             aspectRatio: "1 / 1",
@@ -70,7 +95,7 @@ export function ProductGallery({ img, thumb, name, form, badge }: Props) {
             padding: 22,
             cursor: "zoom-in",
             border: "none",
-            background: mainBg,
+            background: bgFor(photos[active], active, false),
           }}
         >
           {badge ? (
@@ -94,23 +119,49 @@ export function ProductGallery({ img, thumb, name, form, badge }: Props) {
             </span>
           ) : null}
         </button>
-        <div data-pdp-thumbs style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginTop: 12 }}>
-          {thumbs.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              data-zoomable
-              aria-label={`Zoom ${name} photo ${i + 1}`}
-              onClick={() => openAt(i)}
-              style={{
-                aspectRatio: "1 / 1",
-                borderRadius: 13,
-                cursor: "zoom-in",
-                border: "none",
-                background: thumbBg,
-              }}
-            />
-          ))}
+        <div data-pdp-thumbs style={{ display: "grid", gridTemplateColumns: `repeat(${visibleThumbCount},1fr)`, gap: 12, marginTop: 12 }}>
+          {thumbs.slice(0, visibleThumbCount).map((t, i) => {
+            const isOverflow = hiddenThumbCount > 0 && i === visibleThumbCount - 1;
+            return (
+              <button
+                key={i}
+                type="button"
+                aria-label={isOverflow ? `View all ${SHOT_COUNT} photos` : `View ${name} photo ${i + 1}`}
+                aria-current={!isOverflow && i === active}
+                onClick={() => (isOverflow ? openAt(i) : setActive(i))}
+                style={{
+                  position: "relative",
+                  aspectRatio: "1 / 1",
+                  borderRadius: 13,
+                  overflow: "hidden",
+                  cursor: "pointer",
+                  border: !isOverflow && i === active ? "2px solid #1c3a13" : "2px solid #e4e1d6",
+                  background: bgFor(t, i, true),
+                }}
+              >
+                {isOverflow ? (
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "rgba(26,26,26,0.58)",
+                      color: "#fcfcf7",
+                      fontSize: 19,
+                      fontWeight: 600,
+                      fontFamily: "var(--font-display)",
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    +{hiddenThumbCount}
+                  </span>
+                ) : null}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -239,10 +290,10 @@ export function ProductGallery({ img, thumb, name, form, badge }: Props) {
                   width: 66,
                   height: 66,
                   borderRadius: 12,
+                  overflow: "hidden",
                   cursor: "pointer",
-                  background: `url('${t}') center/125% no-repeat`,
-                  border: i === active ? "2px solid #1c3a13" : "2px solid transparent",
-                  outline: i === active ? "none" : "1px solid #e4e1d6",
+                  background: bgFor(t, i, true),
+                  border: i === active ? "2px solid #1c3a13" : "2px solid #e4e1d6",
                   opacity: i === active ? 1 : 0.72,
                   transition: "opacity .2s ease, border-color .2s ease",
                 }}
